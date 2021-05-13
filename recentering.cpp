@@ -1,16 +1,8 @@
-#include <stdlib.h>
-#include <fstream>
-#include <vector>
-#include <cmath>
-
-using namespace std;
-
-//--------------- recentering coordinates---------------
-
+#include "recentering.h"
 
 void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> x, vector <float> y, vector <float> z, float xc_rc, float yc_rc, float zc_rc, float r_max){
 
-    int np = xc_fof.size();
+    int np = x.size();
     
     int ncentermin = 10; //min np for recentering
     int ncentertmp = np; //+1 for passing the first while loop below
@@ -21,10 +13,15 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
     
     double drc_crit = 0.1; //r_max/float(nbin_rc);
     
+    float xc, yc, zc;
+    
     //double drc[nbin_rc];
     //for(j = 0; j < nbin_rc; j++){drc[j] = 0.;}
     
-    j = 0;
+    int j = 0;
+    float ri;
+    float r_samp;
+    int ncenter;
     
     ncenter = np;
 
@@ -32,7 +29,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
 
     // Compute the max distance from the fof centre
 
-    for (k = 0; k < np; k++) {//loop over particles in halo
+    for (int k = 0; k < np; k++) {//loop over particles in halo
     
         ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
     
@@ -59,7 +56,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
             ncentertmp = ncenter;
             ncenter = 0; 
         
-            for (k = 0; k < np; k++) {//loop over particles in halo
+            for (int k = 0; k < np; k++) {//loop over particles in halo
             
                 ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
             
@@ -80,7 +77,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
         
         
             if(ncentermin <=  ncenter){
-                for(k = 0; k < np; k++){
+                for(int k = 0; k < np; k++){
     
                     x[k] = x[k] - xc;
                     y[k] = y[k] - yc;

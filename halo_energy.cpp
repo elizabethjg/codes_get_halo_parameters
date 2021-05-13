@@ -1,13 +1,5 @@
-#include <stdlib.h>
-#include <fstream>
-#include <vector>
-#include <cmath>
+#include "halo_energy.h"
 
-using namespace std;
-
- //calculate potential an kinetic energy of every particle
- 
-      
 void halo_energy(const vector <float> x, const vector <float> y, const vector <float> z, const vector <float> vx, const vector <float> vy, const vector <float> vz, float Epot_halo, float Ekin_halo){
 
         double mp = 2.927e10; //particle mass [M_sun/h]
@@ -17,10 +9,15 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
         double Mpc = 3.08567758e22; // [m/Mpc]
         double fEkin = 0.5*h*Msun*1.e-40; //for energy unit conversion
         double fEpot = ((Msun*Msun*h*G)/Mpc)*1.e-40;
+        
+        float xi, yi, zi;
+        float dxi, dyi, dzi;
+        double Ekin_part, Epot_part;
+
+       int np = x.size();
 
 
-
-       for (j = 0; j < np; j++) {
+       for (int j = 0; j < np; j++) {
           
            xi=x[j]; yi=y[j]; zi=z[j];
           
@@ -28,7 +25,7 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
           
            Epot_part = 0;
           
-           for (k = 0; k < np; k++) {
+           for (int k = 0; k < np; k++) {
           
                if(k != j){
 

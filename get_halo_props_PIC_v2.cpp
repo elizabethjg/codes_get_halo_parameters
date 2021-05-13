@@ -10,8 +10,8 @@
 #include <string>
 #include <cmath>
 #include <gsl/gsl_eigen.h>
-#include <halo_energy.h>
-#include <recentering.h>
+#include "halo_energy.h"
+#include "recentering.h"
 
 
 using namespace std;
