@@ -1,7 +1,14 @@
- //--------------- recentering coordinates---------------
+#include <stdlib.h>
+#include <fstream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+//--------------- recentering coordinates---------------
 
 
-void recenter(const vector <float> xc_fof, const vector <float> yc_fof, const vector <float> zc_fof, const vector <float> x, const vector <float> y, const vector <float> z, vector <float> xc_rc, vector <float> yc_rc, vector <float> zc_rc, float r_max){
+void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> x, vector <float> y, vector <float> z, float xc_rc, float yc_rc, float zc_rc, float r_max){
 
     int np = xc_fof.size();
     
@@ -21,6 +28,7 @@ void recenter(const vector <float> xc_fof, const vector <float> yc_fof, const ve
     
     ncenter = np;
 
+    xc = 0; yc = 0; zc = 0;
 
     // Compute the max distance from the fof centre
 
@@ -28,7 +36,7 @@ void recenter(const vector <float> xc_fof, const vector <float> yc_fof, const ve
     
         ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
     
-        if(ri < r_max){
+        if(ri > r_max){
         
         r_max = ri;
         
@@ -47,13 +55,7 @@ void recenter(const vector <float> xc_fof, const vector <float> yc_fof, const ve
             // Maximum radius rescaled up to which particles are consider
             // to compute the centre of mass
             r_samp =r_max*(1 - float(j)/float(nbin_rc)); // EJG: Como defino r_max
-        
-            xc_rc = xc_rc + xc;
-            yc_rc = yc_rc + yc;
-            zc_rc = zc_rc + zc;
-        
-            xc = 0; yc = 0; zc = 0; // EJG: Esto no deberia estar definido mas arriba
-    
+            
             ncentertmp = ncenter;
             ncenter = 0; 
         
@@ -91,8 +93,16 @@ void recenter(const vector <float> xc_fof, const vector <float> yc_fof, const ve
                 if(drcmax <= drcbin){
                     drcmax = drcbin;
                     r_samp_drcmax = r_samp;
+                    
                 }
             }
+            
+            xc_rc = xc_rc + xc;
+            yc_rc = yc_rc + yc;
+            zc_rc = zc_rc + zc;
+        
+            xc = 0; yc = 0; zc = 0; // EJG: Esto no deberia estar definido mas arriba
+
         
             j++;
         }

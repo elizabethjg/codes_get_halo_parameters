@@ -10,6 +10,8 @@
 #include <string>
 #include <cmath>
 #include <gsl/gsl_eigen.h>
+#include <halo_energy.h>
+#include <recentering.h>
 
 
 using namespace std;
@@ -271,18 +273,18 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         
         // RECENTER THE HALO
         float r_max = 0;
-        xc_rc[Npart] = {0};
-        yc_rc[Npart] = {0};
-        zc_rc[Npart] = {0};
+        float xc_rc = xc;
+        float yc_rc = yc;
+        float zc_rc = zc;
         recenter(xc, yc, zc, x_part, y_part, z_part, xc_rc, yc_rc, zc_rc, r_max);      
         xc = xc_rc;
         yc = yc_rc;
         zc = zc_rc;
         
         // COMPUTE DENSITY PROFILE
-        int NRINGS = 10;
-        ro[NRINGS] = {0};
-        ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
+        //int NRINGS = 10;
+        //float ro[NRINGS] = {0};
+        //ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
         
         //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
         //get ra & dec of center
@@ -473,14 +475,14 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         //------------------ print output -----------------------
 
         //axis ratios
-        double q2D = b2D_abs / a2D_abs;
-        double q2Dr = b2Dr_abs / a2Dr_abs;
-
-        double q3D = b3D_abs / a3D_abs;
-        double q3Dr = b3Dr_abs / a3Dr_abs;
-
-        double s3D = c3D_abs / a3D_abs;
-        double s3Dr = c3Dr_abs / a3Dr_abs;
+        //double q2D = b2D_abs / a2D_abs;
+        //double q2Dr = b2Dr_abs / a2Dr_abs;
+        //
+        //double q3D = b3D_abs / a3D_abs;
+        //double q3Dr = b3Dr_abs / a3Dr_abs;
+        //
+        //double s3D = c3D_abs / a3D_abs;
+        //double s3Dr = c3Dr_abs / a3Dr_abs;
         
         
         //cout <<

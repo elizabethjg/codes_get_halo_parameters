@@ -1,11 +1,7 @@
 #include <stdlib.h>
-#include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
 #include <cmath>
-#include <gsl/gsl_eigen.h>
-
 
 using namespace std;
 
