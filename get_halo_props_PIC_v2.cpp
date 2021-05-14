@@ -273,9 +273,9 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         
         // RECENTER THE HALO
         float r_max = 0;
-        float xc_rc = xc;
-        float yc_rc = yc;
-        float zc_rc = zc;
+        float xc_rc = 0;
+        float yc_rc = 0;
+        float zc_rc = 0;
         recenter(xc, yc, zc, x_part, y_part, z_part, xc_rc, yc_rc, zc_rc, r_max);      
         xc = xc_rc;
         yc = yc_rc;
