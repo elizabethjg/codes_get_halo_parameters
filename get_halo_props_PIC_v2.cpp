@@ -311,17 +311,18 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         printf("Halo %d: %d haloID\n", ihalo, haloID);
         printf("%d particles\n", Npart);
         printf("log(M_fof) = %.1f\n", lm);
+        printf("%d particles", x_part.size());
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
-        float EKin;
-        float EPot;
+        double EKin = 0;
+        double EPot = 0;
         halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, EPot, EKin);
         
         // RECENTER THE HALO
-        float r_max;
-        float xc;
-        float yc;
-        float zc;
+        float r_max = 0;
+        float xc = 0;
+        float yc = 0;
+        float zc = 0;
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, xc, yc, zc, r_max);
         r_max = r_max/1000.; // Radius that enclose all particles in Mpc      
         

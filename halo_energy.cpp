@@ -12,9 +12,10 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
         
         float xi, yi, zi;
         float dxi, dyi, dzi;
-        double Ekin_part, Epot_part;
+
 
        int np = x.size();
+       
 
 
        for (int j = 0; j < np; j++) {
