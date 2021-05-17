@@ -363,7 +363,9 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         //project halo particles on plain via scalar product
         vector <float> x_part_proj, y_part_proj;
         for(int i = 0; i < Npart; i++){
-                
+        
+            printf("x0 = %.1f", x_part0[i]);
+            printf("xrc = %.1f\n", x_part[i]);
                 
             outdata_ind <<
         
