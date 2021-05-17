@@ -17,9 +17,6 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
        int np = x.size();
 
       
-       printf("Ekin_halo = %.1f\n", *Ekin_halo);
-       printf("Epot_halo = %.1f\n", *Epot_halo);
-
        for (int j = 0; j < np; j++) {
           
            xi=x[j]; yi=y[j]; zi=z[j];
@@ -47,9 +44,6 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
           
        }
        
-       printf("Ekin_halo = %.1f\n", *Ekin_halo);
-       printf("Epot_halo = %.1f\n", *Epot_halo);
-
        
    }
             //-----------------------------------------------------------------------------------------

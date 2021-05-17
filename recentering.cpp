@@ -1,6 +1,6 @@
 #include "recentering.h"
 
-void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> &x, vector <float> &y, vector <float> &z, float *xc_rc, float *yc_rc, float *zc_rc, float r_max){
+void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> &x, vector <float> &y, vector <float> &z, float *xc_rc, float *yc_rc, float *zc_rc, float *r_max){
 
     int np = x.size();
 
@@ -12,7 +12,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
         ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
     
         if(ri > r_max){ 
-        r_max = ri;
+        *r_max = ri;
         }
     }
 
@@ -34,7 +34,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
             
             // Maximum radius rescaled up to which particles are consider
             // to compute the centre of mass
-            r_samp = r_max*(1 - float(j)/float(nbin_rc)); 
+            r_samp =  *r_max * (1 - float(j)/float(nbin_rc)); 
             
             ncenter = 0; 
             xc = 0; yc = 0; zc = 0; 

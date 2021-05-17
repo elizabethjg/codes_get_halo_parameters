@@ -252,15 +252,6 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
 
     float lm = log10(mass);
     
-    //printf("xc = %.1f\n", xc_fof);
-    //printf("yc = %.1f\n", yc_fof);
-    //printf("zc = %.1f\n", zc_fof);
-    //printf("vxc = %.1f\n", vxc);
-    //printf("vyc = %.1f\n", vyc);
-    //printf("vzc = %.1f\n", vzc);
-
-
-
     //read particle coordinates
     vector <float> x_part, y_part, z_part;
     for (int i = 0; i < Npart; i++) {
@@ -317,17 +308,20 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         double EPot = 0;
         halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, &EPot, &EKin);
         
-       printf("Ekin = %.1f\n", EKin);
-       printf("Epot = %.1f\n", EPot);
-
-        
         // RECENTER THE HALO
         float r_max = 0;
         float xc = 0;
         float yc = 0;
         float zc = 0;
+        printf("x = %.1f \n", x_part[0]);
+        printf("y = %.1f \n", y_part[0]);
+        printf("z = %.1f \n", z_part[0]);
+
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, r_max);
-        r_max = r_max/1000.; // Radius that enclose all particles in Mpc      
+        printf("rmax = %.1f \n", rmax);
+        printf("x = %.1f \n", x_part[0]);
+        printf("y = %.1f \n", y_part[0]);
+        printf("z = %.1f \n", z_part[0]);
         
         // COMPUTE DENSITY PROFILE
         //int NRINGS = 10;
