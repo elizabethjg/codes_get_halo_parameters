@@ -167,9 +167,9 @@ outdata <<
 "# (3) xc_fof \n" 
 "# (4) yc_fof \n" 
 "# (5) zc_fof \n" 
-"# (6) xc \n" 
-"# (7) yc \n" 
-"# (8) zc \n" 
+"# (6) xc_rc \n" 
+"# (7) yc_rc \n" 
+"# (8) zc_rc \n" 
 //max radius
 "# (9) r_max \n" 
 //velocity                                                
@@ -319,10 +319,10 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         
         // RECENTER THE HALO
         float r_max = 0;
-        float xc = 0;
-        float yc = 0;
-        float zc = 0;
-        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, xc, yc, zc, r_max);
+        float x_rc = 0;
+        float y_rc = 0;
+        float z_rc = 0;
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, x_rc, y_rc, z_rc, r_max);
         r_max = r_max/1000.; // Radius that enclose all particles in Mpc      
         
         // COMPUTE DENSITY PROFILE
@@ -536,7 +536,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
                                                                   
         //position                                                
         xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
-        xc <<delim<< yc <<delim<< zc <<delim<<                    //6,7,8
+        xc_rc <<delim<< yc_rc <<delim<< zc_rc <<delim<<                    //6,7,8
         
         //max radius
         r_max <<delim<<                                           //9
