@@ -229,9 +229,9 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     printf("Halo %d: %d haloID\n", ihalo, haloID);
     printf("%d particles\n", Npart);
     printf("log(M_fof) = %.1f\n", lm);
-    printf("xc = %.1f\n", xc_fof);
-    printf("yc = %.1f\n", yc_fof);
-    printf("zc = %.1f\n", zc_fof);
+    printf("xc = %.1f\n", xc);
+    printf("yc = %.1f\n", yc);
+    printf("zc = %.1f\n", zc);
     printf("vxc = %.1f\n", vxc);
     printf("vyc = %.1f\n", vyc);
     printf("vzc = %.1f\n", vzc);
