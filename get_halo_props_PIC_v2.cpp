@@ -231,6 +231,7 @@ endl;
 //for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
+
     
     //--------------------- read data ---------------------
     //read halo properties
@@ -254,6 +255,7 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
     //read particle coordinates
     vector <float> x_part, y_part, z_part;
+    vector <float> x_part0, y_part0, z_part0;
     for (int i = 0; i < Npart; i++) {
         float xi=0, yi=0, zi=0;
 
@@ -268,6 +270,10 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         x_part.push_back(xi);
         y_part.push_back(yi);
         z_part.push_back(zi);
+
+        x_part0.push_back(xi);
+        y_part0.push_back(yi);
+        z_part0.push_back(zi);
         
     }
 
@@ -297,6 +303,15 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
 
 
     if(Npart>3000 && Npart < 30000){
+            
+        //open output file for catalog
+        ofstream outdata_ind;
+        string out_file_ind = "../catalog/particles_halo" + to_string(ihalo);
+        outdata_ind.open(out_file_ind);
+        //set format for output
+        outdata_ind.setf(ios::fixed);
+        outdata_ind.precision(3);
+
 
         printf("Computing properties\n");    
         printf("Halo %d: %d haloID\n", ihalo, haloID);
@@ -348,6 +363,16 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         //project halo particles on plain via scalar product
         vector <float> x_part_proj, y_part_proj;
         for(int i = 0; i < Npart; i++){
+                
+                
+            outdata_ind <<
+        
+            x_part0[i] << delim<< y_part0[i] <<delim<< z_part0[i] <<delim<<
+            x_part[i] << delim<< y_part[i] <<delim<< z_part[i] <<
+            endl;
+            
+                
+            
             
             float xi = e1x*x_part[i] + e1y*y_part[i]; // + e1z*z_part[i]
             float yi = e2x*x_part[i] + e2y*y_part[i] + e2z*z_part[i];
@@ -355,6 +380,7 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
             x_part_proj.push_back(xi);
             y_part_proj.push_back(yi);
         }
+        outdata_ind.close();      
         //-------------------------------------------------------------------------------------------------------
 
         
@@ -572,8 +598,11 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         
         endl;
         //-------------------------------------------------------
+    
         
-    }    
+    }  
+    
+    
     
     
 }//--------------- end loop over halos --------------------
