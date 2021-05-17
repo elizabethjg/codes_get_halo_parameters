@@ -253,7 +253,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     printf("Halo %d: %.1f logM\n", ihalo, lm);
 
 
-    if(Npart>3000 && Npart> 40000){
+    if(Npart>3000 && Npart < 40000){
             
         printf("Computing properties\n");
 
