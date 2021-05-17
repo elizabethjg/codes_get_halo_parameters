@@ -304,9 +304,9 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
 
     if(Npart>3000 && Npart < 30000){
             
-        //open output file for catalog
+        //open output file to save particles
         ofstream outdata_ind;
-        string out_file_ind = "../catalogs/particles_halo" + to_string(ihalo);
+        string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
         outdata_ind.open(out_file_ind);
         //set format for output
         outdata_ind.setf(ios::fixed);
@@ -328,15 +328,8 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         float xc = 0;
         float yc = 0;
         float zc = 0;
-        printf("x = %.1f \n", x_part[0]);
-        printf("y = %.1f \n", y_part[0]);
-        printf("z = %.1f \n", z_part[0]);
 
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
-        printf("rmax = %.1f \n", r_max);
-        printf("x = %.1f \n", x_part[0]);
-        printf("y = %.1f \n", y_part[0]);
-        printf("z = %.1f \n", z_part[0]);
         
         // COMPUTE DENSITY PROFILE
         //int NRINGS = 10;
@@ -363,12 +356,8 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         //project halo particles on plain via scalar product
         vector <float> x_part_proj, y_part_proj;
         for(int i = 0; i < Npart; i++){
-        
-            printf("x0 = %.1f", x_part0[i]);
-            printf("xrc = %.1f\n", x_part[i]);
-                
+                        
             outdata_ind <<
-        
             x_part0[i] << delim<< y_part0[i] <<delim<< z_part0[i] <<delim<<
             x_part[i] << delim<< y_part[i] <<delim<< z_part[i] <<
             endl;
