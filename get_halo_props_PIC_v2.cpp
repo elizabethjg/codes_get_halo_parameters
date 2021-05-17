@@ -228,8 +228,8 @@ endl;
         
 
 //--------------- begin loop over halos --------------------
-for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-//for (int ihalo = 0; ihalo < 10; ihalo++) {
+//for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
     
     //--------------------- read data ---------------------
@@ -311,12 +311,15 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         printf("Halo %d: %d haloID\n", ihalo, haloID);
         printf("%d particles\n", Npart);
         printf("log(M_fof) = %.1f\n", lm);
-        printf("%d particles", x_part.size());
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         double EKin = 0;
         double EPot = 0;
         halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, EPot, EKin);
+        
+       printf("Ekin = %.1f\n", Ekin);
+       printf("Epot = %.1f\n", Epot);
+
         
         // RECENTER THE HALO
         float r_max = 0;
