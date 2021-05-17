@@ -205,7 +205,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //read halo properties
     int Npart = 0;
     unsigned int haloID=0;
-    float xc=0, yc=0, zc=0, vxc=0, vyc=0, vzc=0;
+    float xc_fof=0, yc_fof=0, zc_fof=0, vxc=0, vyc=0, vzc=0;
 
     //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
     indata.read(reinterpret_cast<char*>(&Npart),   length); //number of fof particles
@@ -281,7 +281,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         float yc = 0;
         float zc = 0;
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, xc, yc, zc, r_max);
-        r_max = r_max/1000. // Radius that enclose all particles in Mpc      
+        r_max = r_max/1000.; // Radius that enclose all particles in Mpc      
         
         // COMPUTE DENSITY PROFILE
         //int NRINGS = 10;
@@ -497,7 +497,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         xc <<delim<< yc <<delim<< zc <<delim<<                    //6,7,8
         
         //max radius
-        r_max                                                     //9
+        r_max <<delim<<                                           //9
                                                                   
         //velocity                                                
         vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
