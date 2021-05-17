@@ -154,43 +154,71 @@ indata.read(buffer, 2*length);
 
 //------------------ print header -----------------------
 
-
 outdata <<
 
-//"#" <<
-
-"Npart" <<delim<< "lgM" <<delim<<
-
-//position
-"xc" <<delim<< "yc" <<delim<< "zc" <<delim<<
-
-//velocity
-"vxc" <<delim<< "vyc" <<delim<< "vzc" <<delim<<
-
-//angular momentum
-"Jx" <<delim<< "Jy" <<delim<< "Jz" <<delim<<
-
-//axis ratios, major, semi-major, minor axes
-
-//2D
-"q2D" <<delim<<
-"a2Dx" <<delim<< "a2Dy" <<delim<<
-"b2Dx" <<delim<< "b2Dy" <<delim<<
-
-//2D (reduced)
-"q2Dr" <<delim<<
-"a2Drx" <<delim<< "a2Dry" <<delim<<
-"b2Drx" <<delim<< "b2Dry" <<delim<<
-
-//3D
-"q3D" <<delim<< "s3D" <<delim<<
-"a3Dx" <<delim<< "a3Dy" <<delim<< "a3Dz" <<delim<<
-"c3Dx" <<delim<< "c3Dy" <<delim<< "c3Dz" <<delim<<
-
+"# OUTPUT FROM get_halo_props_PIC_v2"
+"# (1) Npart \n" <<delim<< 
+"# (2) log10(mass) \n" <<delim<<      
+//position                                                
+"# (3) xc_fof \n" <<delim<< 
+"# (4) yc_fof \n" <<delim<< 
+"# (5) zc_fof \n" <<delim<<  
+"# (6) xc \n" <<delim<< 
+"# (7) yc \n" <<delim<< 
+"# (8) zc \n" <<delim<<  
+//max radius
+"# (9) r_max \n" <<delim<<
+//velocity                                                
+"# (10) vxc \n" <<delim<< 
+"# (11) vyc \n" <<delim<< 
+"# (12) vzc \n" <<delim<<
+//angular momentum                                        
+"# (13) J0 \n" <<delim<< 
+"# (14) J1 \n" <<delim<< 
+"# (15) J2 \n" <<delim<<  
+//Energies                                                
+"# (16) EKin \n" <<delim<< 
+"# (17) EPot \n" <<delim<<          
+//2D                                                      
+"# (18) a2D_mod \n" <<delim<< 
+"# (19) b2D_mod \n" <<delim<< 
+"# (20) a2D_0   \n" <<delim<< 
+"# (21) a2D_1   \n" <<delim<<       
+"# (22) b2D_0   \n" <<delim<< 
+"# (23) b2D_1   \n" <<delim<<                                                         
+//2D (reduced)                                            
+"# (24) a2Dr_mod \n" <<delim<< 
+"# (25) b2Dr_mod \n" <<delim<< 
+"# (26) a2Dr_0   \n" <<delim<< 
+"# (27) a2Dr_1   \n" <<delim<<       
+"# (28) b2Dr_0   \n" <<delim<< 
+"# (29) b2Dr_1   \n" <<delim<<                                                         
+//3D                                                      
+"# (30) a3D_mod \n" <<delim<< 
+"# (31) b3D_mod \n" <<delim<< 
+"# (32) c3D_mod \n" <<delim<< 
+"# (33) a3D_0   \n" <<delim<< 
+"# (34) a3D_1   \n" <<delim<<       
+"# (35) a3D_2   \n" <<delim<<       
+"# (36) b3D_0   \n" <<delim<< 
+"# (37) b3D_1   \n" <<delim<<                                                         
+"# (38) b3D_2   \n" <<delim<<                                                         
+"# (39) c3D_0   \n" <<delim<< 
+"# (40) c3D_1   \n" <<delim<<                                                         
+"# (41) c3D_2   \n" <<delim<<                                                         
 //3D (reduced)
-"q3Dr" <<delim<< "s3Dr" <<delim<<
-"a3Drx" <<delim<< "a3Dry" <<delim<< "a3Drz" <<delim<<
-"c3Drx" <<delim<< "c3Dry" <<delim<< "c3Drz" <<
+"# (42) a3D_mod \n" <<delim<< 
+"# (43) b3D_mod \n" <<delim<< 
+"# (44) c3D_mod \n" <<delim<< 
+"# (45) a3D_0   \n" <<delim<< 
+"# (46) a3D_1   \n" <<delim<<       
+"# (47) a3D_2   \n" <<delim<<       
+"# (48) b3D_0   \n" <<delim<< 
+"# (49) b3D_1   \n" <<delim<<                                                         
+"# (50) b3D_2   \n" <<delim<<                                                         
+"# (51) c3D_0   \n" <<delim<< 
+"# (52) c3D_1   \n" <<delim<<                                                         
+"# (53) c3D_2   \n" <<
 
 endl;
 //-------------------------------------------------------
@@ -219,9 +247,13 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     
     indata.read(buffer, 2*length);
     
-    printf("Ring %d: %d particles\n", ihalo, Npart);
+    float lm = log10(mass);
+    
+    printf("Halo %d: %d particles\n", ihalo, Npart);
+    printf("Halo %d: %.1f logM\n", ihalo, lm);
 
-    if(Npart>3000){
+
+    if(Npart>3000 && Npart> 40000){
             
         printf("Computing properties\n");
 
@@ -519,13 +551,13 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
                                                                   
         //3D                                                      
-        a3D_abs <<delim<< b3D_abs <<delim<< b3D_abs <<delim<<     //30,31,32
+        a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
         a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
         b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
         c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
         
         //3D (reduced)
-        a3Dr_abs <<delim<< b3Dr_abs <<delim<< b3Dr_abs <<delim<<  //42,43,44
+        a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
         a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
         b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
         c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
