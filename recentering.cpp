@@ -1,6 +1,6 @@
 #include "recentering.h"
 
-void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> x, vector <float> y, vector <float> z, float xc_rc, float yc_rc, float zc_rc, float r_max){
+void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> x, vector <float> y, vector <float> z, float *xc_rc, float *yc_rc, float *zc_rc, float r_max){
 
     int np = x.size();
 
@@ -26,9 +26,9 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
     float r_samp; // Rescaled radius
     int ncenter; // number of particles within each radius
 
-    xc_rc = xc_fof;
-    yc_rc = yc_fof;
-    zc_rc = zc_fof;
+    *xc_rc = xc_fof;
+    *yc_rc = yc_fof;
+    *zc_rc = zc_fof;
     
     while(ncentermin < ncentertmp && j < nbin_rc ){  // Here iterates until the max distance includes more than necentertmp particles or up to nbin_rc
             
@@ -71,9 +71,9 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
                 }
 
                 
-                xc_rc = xc_rc + xc;
-                yc_rc = yc_rc + yc;
-                zc_rc = zc_rc + zc;
+                *xc_rc = *xc_rc + xc;
+                *yc_rc = *yc_rc + yc;
+                *zc_rc = *zc_rc + zc;
 
             }
 

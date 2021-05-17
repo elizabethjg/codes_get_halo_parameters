@@ -326,7 +326,7 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         float xc = 0;
         float yc = 0;
         float zc = 0;
-        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, xc, yc, zc, r_max);
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, r_max);
         r_max = r_max/1000.; // Radius that enclose all particles in Mpc      
         
         // COMPUTE DENSITY PROFILE
