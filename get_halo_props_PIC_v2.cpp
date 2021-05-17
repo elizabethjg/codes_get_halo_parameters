@@ -147,6 +147,7 @@ indata.read(reinterpret_cast<char*>(&nhalos), length);// total number of halos i
 indata.read(reinterpret_cast<char*>(&limitmass), length);// only halos larger that limitmass were stored
 indata.read(reinterpret_cast<char*>(&Nparttot), length);//total number of particles in all halos
 
+indata.read(buffer, 2*length);
 
 printf("########################### \n");
 printf("TOTAL NUMBER OF HALOS = %d \n", nhalos);
@@ -154,13 +155,7 @@ printf("Limit mass = %.1f \n", limitmass);
 printf("Total number of particles = %d \n", Nparttot);
 printf("--------------------------- \n");
 
-
-
-indata.read(buffer, 2*length);
 //--------------------------------------------------
-
-
-
 //------------------ print header -----------------------
 
 outdata <<
@@ -242,34 +237,79 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     //read halo properties
     int Npart = 0;
     unsigned int haloID=0;
-    float xc_fof=0, yc_fof=0, zc_fof=0, vxc=0, vyc=0, vzc=0;
+    float xc=0, yc=0, zc=0, vxc=0, vyc=0, vzc=0;
 
     //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
     indata.read(reinterpret_cast<char*>(&Npart),   length); //number of fof particles
     indata.read(reinterpret_cast<char*>(&mass), length); //fof mass = particle mass * sNpart
-    indata.read(reinterpret_cast<char*>(&xc_fof),   length); //x,y,z coordinates of fof center of mass in kpc/h
-    indata.read(reinterpret_cast<char*>(&yc_fof),   length);
-    indata.read(reinterpret_cast<char*>(&zc_fof),   length);
+    indata.read(reinterpret_cast<char*>(&xc),   length); //x,y,z coordinates of fof center of mass in kpc/h
+    indata.read(reinterpret_cast<char*>(&yc),   length);
+    indata.read(reinterpret_cast<char*>(&zc),   length);
     indata.read(reinterpret_cast<char*>(&vxc),  length); //x,y,z velocity components of fof center of mass in km/s
     indata.read(reinterpret_cast<char*>(&vyc),  length);
     indata.read(reinterpret_cast<char*>(&vzc),  length);
     
     indata.read(buffer, 2*length);
-    
+
     float lm = log10(mass);
     
     printf("Halo %d: %d haloID\n", ihalo, haloID);
     printf("%d particles\n", Npart);
     printf("log(M_fof) = %.1f\n", lm);
-    printf("xc = %.1f\n", xc_fof);
-    printf("yc = %.1f\n", yc_fof);
-    printf("zc = %.1f\n", zc_fof);
+    printf("xc = %.1f\n", xc);
+    printf("yc = %.1f\n", yc);
+    printf("zc = %.1f\n", zc);
     printf("vxc = %.1f\n", vxc);
     printf("vyc = %.1f\n", vyc);
     printf("vzc = %.1f\n", vzc);
 
 
-    if(Npart>3000 && Npart < 40000){
+
+    //read particle coordinates
+    vector <float> x_part, y_part, z_part;
+    for (int i = 0; i < Npart; i++) {
+        float xi=0, yi=0, zi=0;
+
+        indata.read(reinterpret_cast<char*>(&xi), length);
+        indata.read(reinterpret_cast<char*>(&yi), length);
+        indata.read(reinterpret_cast<char*>(&zi), length);
+    
+        xi = xi - xc;
+        yi = yi - yc;
+        zi = zi - zc;
+        
+        x_part.push_back(xi);
+        y_part.push_back(yi);
+        z_part.push_back(zi);
+        
+    }
+
+
+    indata.read(buffer, 2*length);
+    
+    //read particle velocities
+    vector <float>  vx_part, vy_part, vz_part;
+    for (int i = 0; i < Npart; i++) {
+        float vxi=0, vyi=0, vzi=0;
+
+        indata.read(reinterpret_cast<char*>(&vxi), length);
+        indata.read(reinterpret_cast<char*>(&vyi), length);
+        indata.read(reinterpret_cast<char*>(&vzi), length);
+
+        vxi = vxi - vxc;
+        vyi = vyi - vyc;
+        vzi = vzi - vzc;
+
+        vx_part.push_back(vxi);
+        vy_part.push_back(vyi);
+        vz_part.push_back(vzi);
+    }
+
+    indata.read(buffer, 2*length);
+    //-----------------------------------------------------
+
+    
+    if(Npart>3000){
             
         printf("Computing properties\n");
 
