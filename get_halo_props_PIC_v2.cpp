@@ -228,8 +228,8 @@ endl;
         
 
 //--------------- begin loop over halos --------------------
-//for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-for (int ihalo = 0; ihalo < 30000; ihalo++) {
+for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+//for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
 
     
