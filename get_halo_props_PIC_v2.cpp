@@ -85,7 +85,7 @@ string filename_input = argv[1];
 string filename_output = argv[2];
 
 //delimiter for output
-string delim = ",";
+string delim = "    ";
 
 
 //----- gsl variables for eigenvalue computation ------
@@ -222,8 +222,7 @@ outdata <<
 "# (50) b3Dr_2   \n"                                                         
 "# (51) c3Dr_0   \n" 
 "# (52) c3Dr_1   \n"                                                         
-"# (53) c3Dr_2   \n" <<
-
+"# (53) c3Dr_2   " <<
 endl;
 //-------------------------------------------------------
         
