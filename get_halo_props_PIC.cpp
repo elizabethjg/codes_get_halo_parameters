@@ -146,6 +146,13 @@ indata.read(reinterpret_cast<char*>(&limitmass), length);// only halos larger th
 indata.read(reinterpret_cast<char*>(&Nparttot), length);//total number of particles in all halos
 
 indata.read(buffer, 2*length);
+
+printf("########################### \n");
+printf("TOTAL NUMBER OF HALOS = %d \n", nhalos);
+printf("Limit mass = %.1f \n", limitmass);
+printf("Total number of particles = %d \n", Nparttot);
+printf("--------------------------- \n");
+
 //--------------------------------------------------
 
 
@@ -216,6 +223,19 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     indata.read(reinterpret_cast<char*>(&vzc),  length);
     
     indata.read(buffer, 2*length);
+
+    float lm = log10(mass);
+    
+    printf("Halo %d: %d haloID\n", ihalo, haloID);
+    printf("%d particles\n", Npart);
+    printf("log(M_fof) = %.1f\n", lm);
+    printf("xc = %.1f\n", xc_fof);
+    printf("yc = %.1f\n", yc_fof);
+    printf("zc = %.1f\n", zc_fof);
+    printf("vxc = %.1f\n", vxc);
+    printf("vyc = %.1f\n", vyc);
+    printf("vzc = %.1f\n", vzc);
+
 
 
     //read particle coordinates
