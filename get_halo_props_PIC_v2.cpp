@@ -229,8 +229,8 @@ endl;
         
 
 //--------------- begin loop over halos --------------------
-//for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-for (int ihalo = 0; ihalo < 10; ihalo++) {
+for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+//for (int ihalo = 0; ihalo < 10; ihalo++) {
     
     
     //--------------------- read data ---------------------
