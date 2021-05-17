@@ -304,18 +304,18 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
     indata.read(buffer, 2*length);
     //-----------------------------------------------------
 
-    
+
     if(Npart>3000 && Npart < 30000){
-            
+
         printf("Computing properties\n");    
         printf("Halo %d: %d haloID\n", ihalo, haloID);
         printf("%d particles\n", Npart);
         printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
-        double EKin;
-        double EPot;
-        halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, EPot, EKin);
+        double EKin = 0;
+        double EPot = 0;
+        halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, &EPot, &EKin);
         
        printf("Ekin = %.1f\n", EKin);
        printf("Epot = %.1f\n", EPot);

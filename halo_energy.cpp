@@ -1,6 +1,6 @@
 #include "halo_energy.h"
 
-void halo_energy(const vector <float> x, const vector <float> y, const vector <float> z, const vector <float> vx, const vector <float> vy, const vector <float> vz, double Epot_halo, double Ekin_halo){
+void halo_energy(const vector <float> x, const vector <float> y, const vector <float> z, const vector <float> vx, const vector <float> vy, const vector <float> vz, double *Epot_halo, double *Ekin_halo){
 
         double mp = 2.927e10; //particle mass [M_sun/h]
         double G = 6.67384e-11; // [m3 kg-1 s-2]
@@ -17,8 +17,8 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
        int np = x.size();
 
       
-       printf("Ekin_halo = %.1f\n", Ekin_halo);
-       printf("Epot_halo = %.1f\n", Epot_halo);
+       printf("Ekin_halo = %.1f\n", *Ekin_halo);
+       printf("Epot_halo = %.1f\n", *Epot_halo);
 
        for (int j = 0; j < np; j++) {
           
@@ -42,13 +42,13 @@ void halo_energy(const vector <float> x, const vector <float> y, const vector <f
           
            }
           
-           Epot_halo=Epot_halo + Epot_part;
-           Ekin_halo=Ekin_halo + Ekin_part;
+           *Epot_halo=*Epot_halo + Epot_part;
+           *Ekin_halo=*Ekin_halo + Ekin_part;
           
        }
        
-       printf("Ekin_halo = %.1f\n", Ekin_halo);
-       printf("Epot_halo = %.1f\n", Epot_halo);
+       printf("Ekin_halo = %.1f\n", *Ekin_halo);
+       printf("Epot_halo = %.1f\n", *Epot_halo);
 
        
    }
