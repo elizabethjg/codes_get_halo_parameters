@@ -313,8 +313,8 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
-        double EKin = 0;
-        double EPot = 0;
+        double EKin;
+        double EPot;
         halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, EPot, EKin);
         
        printf("Ekin = %.1f\n", EKin);
