@@ -259,7 +259,7 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     float lm = log10(mass);
     
     printf("Halo %d: %d haloID\n", ihalo, haloID);
-    printf("%d particles\n", ihalo, Npart);
+    printf("%d particles\n", Npart);
     printf("log(M_fof) = %.1f\n", lm);
     printf("xc = %.1f\n", xc_fof);
     printf("yc = %.1f\n", yc_fof);
