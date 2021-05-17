@@ -10,11 +10,141 @@
 #include <string>
 #include <cmath>
 #include <gsl/gsl_eigen.h>
-#include "halo_energy.h"
-#include "recentering.h"
+//#include "halo_energy.h"
+//#include "recentering.h"
 
 
 using namespace std;
+
+void halo_energy(const vector <float> x, const vector <float> y, const vector <float> z, const vector <float> vx, const vector <float> vy, const vector <float> vz, float Epot_halo, float Ekin_halo){
+
+        double mp = 2.927e10; //particle mass [M_sun/h]
+        double G = 6.67384e-11; // [m3 kg-1 s-2]
+        double Msun = 1.9891e30; // [kg/M_sun]
+        double h = 0.7;
+        double Mpc = 3.08567758e22; // [m/Mpc]
+        double fEkin = 0.5*h*Msun*1.e-40; //for energy unit conversion
+        double fEpot = ((Msun*Msun*h*G)/Mpc)*1.e-40;
+        
+        float xi, yi, zi;
+        float dxi, dyi, dzi;
+        double Ekin_part, Epot_part;
+
+       int np = x.size();
+
+
+       for (int j = 0; j < np; j++) {
+          
+           xi=x[j]; yi=y[j]; zi=z[j];
+          
+           Ekin_part = fEkin*mp*(vx[j]*vx[j] + vy[j]*vy[j] + vz[j]*vz[j]); // in units of (kg*m^2/s^2)*10^40
+          
+           Epot_part = 0;
+          
+           for (int k = 0; k < np; k++) {
+          
+               if(k != j){
+
+                   dxi = xi -x[k]; dxi = dxi/1000.; // conversion from kpc/h to mpc/h
+                   dyi = yi -y[k]; dyi = dyi/1000.;
+                   dzi = zi -z[k]; dzi = dzi/1000.;
+
+                   Epot_part = Epot_part + fEpot*mp*mp/sqrt(dxi*dxi + dyi*dyi + dzi*dzi);// in units of (kg*m^2/s^2)*10^40
+                                                    
+               }
+          
+           }
+          
+           Epot_halo=Epot_halo + Epot_part;
+           Ekin_halo=Ekin_halo + Ekin_part;
+          
+       }
+   }
+            //-----------------------------------------------------------------------------------------
+
+void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector <float> x, vector <float> y, vector <float> z, float xc_rc, float yc_rc, float zc_rc, float r_max){
+
+    int np = x.size();
+
+    // Compute the max distance from the fof centre
+    float ri;
+
+    for (int k = 0; k < np; k++) {//loop over particles in halo
+    
+        ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
+    
+        if(ri > r_max){ 
+        r_max = ri;
+        }
+    }
+
+    int ncentermin = 10; //min np for recentering
+    int ncentertmp = np; //+1 for passing the first while loop below
+    int nbin_rc = 10; //log(np);
+
+    float xc, yc, zc; // coordinates of the center of mass
+        
+    int j = 0;
+    float r_samp; // Rescaled radius
+    int ncenter; // number of particles within each radius
+
+    xc_rc = xc_fof;
+    yc_rc = yc_fof;
+    zc_rc = zc_fof;
+    
+    while(ncentermin < ncentertmp && j < nbin_rc ){  // Here iterates until the max distance includes more than necentertmp particles or up to nbin_rc
+            
+            // Maximum radius rescaled up to which particles are consider
+            // to compute the centre of mass
+            r_samp =r_max*(1 - float(j)/float(nbin_rc)); 
+            
+            ncenter = 0; 
+            xc = 0; yc = 0; zc = 0; 
+        
+            for (int k = 0; k < np; k++) {//loop over particles in halo
+            
+                ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
+            
+                if(ri < r_samp){
+                
+                    xc = xc + x[k];
+                    yc = yc + y[k];
+                    zc = zc + z[k];
+                
+                    ncenter = ncenter + 1;
+                
+                }
+            }
+    
+            ncentertmp = ncenter;
+    
+            xc = xc / double(ncenter);//center of all particles that lie within rbin
+            yc = yc / double(ncenter);
+            zc = zc / double(ncenter);
+        
+            if(ncentermin  < ncentertmp){
+                
+                for(int k = 0; k < np; k++){
+    
+                    x[k] = x[k] - xc;
+                    y[k] = y[k] - yc;
+                    z[k] = z[k] - zc;
+                
+                }
+
+                
+                xc_rc = xc_rc + xc;
+                yc_rc = yc_rc + yc;
+                zc_rc = zc_rc + zc;
+
+            }
+
+        
+            j++;
+        }
+    
+    //------------------------------------------------------
+}
 
 
 //=================== 2D moment of interia ===================
