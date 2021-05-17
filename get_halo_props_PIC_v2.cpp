@@ -197,8 +197,8 @@ endl;
         
 
 //--------------- begin loop over halos --------------------
-//for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-for (int ihalo = 0; ihalo < 10; ihalo++) {
+for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+//for (int ihalo = 0; ihalo < 10; ihalo++) {
     
     
     //--------------------- read data ---------------------
@@ -218,53 +218,57 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     indata.read(reinterpret_cast<char*>(&vzc),  length);
     
     indata.read(buffer, 2*length);
-
-
-    //read particle coordinates
-    vector <float> x_part, y_part, z_part;
-    for (int i = 0; i < Npart; i++) {
-        float xi=0, yi=0, zi=0;
-
-        indata.read(reinterpret_cast<char*>(&xi), length);
-        indata.read(reinterpret_cast<char*>(&yi), length);
-        indata.read(reinterpret_cast<char*>(&zi), length);
     
-        xi = xi - xc_fof;
-        yi = yi - yc_fof;
-        zi = zi - zc_fof;
+    printf("Ring %d: %d particles\n", ihalo, Npart);
+
+    if(Npart>3000){
+            
+        printf("Computing properties\n");
+
+        //read particle coordinates
+        vector <float> x_part, y_part, z_part;
+        for (int i = 0; i < Npart; i++) {
+                float xi=0, yi=0, zi=0;
         
-        x_part.push_back(xi);
-        y_part.push_back(yi);
-        z_part.push_back(zi);
+                indata.read(reinterpret_cast<char*>(&xi), length);
+                indata.read(reinterpret_cast<char*>(&yi), length);
+                indata.read(reinterpret_cast<char*>(&zi), length);
         
-    }
+                xi = xi - xc_fof;
+                yi = yi - yc_fof;
+                zi = zi - zc_fof;
+                
+                x_part.push_back(xi);
+                y_part.push_back(yi);
+                z_part.push_back(zi);
+                
+        }
+        
+        
+        indata.read(buffer, 2*length);
+        
+        //read particle velocities
+        vector <float>  vx_part, vy_part, vz_part;
+        for (int i = 0; i < Npart; i++) {
+                float vxi=0, vyi=0, vzi=0;
+        
+                indata.read(reinterpret_cast<char*>(&vxi), length);
+                indata.read(reinterpret_cast<char*>(&vyi), length);
+                indata.read(reinterpret_cast<char*>(&vzi), length);
+        
+                vxi = vxi - vxc;
+                vyi = vyi - vyc;
+                vzi = vzi - vzc;
+        
+                vx_part.push_back(vxi);
+                vy_part.push_back(vyi);
+                vz_part.push_back(vzi);
+        }
+        
+        indata.read(buffer, 2*length);
+        //-----------------------------------------------------
 
-
-    indata.read(buffer, 2*length);
     
-    //read particle velocities
-    vector <float>  vx_part, vy_part, vz_part;
-    for (int i = 0; i < Npart; i++) {
-        float vxi=0, vyi=0, vzi=0;
-
-        indata.read(reinterpret_cast<char*>(&vxi), length);
-        indata.read(reinterpret_cast<char*>(&vyi), length);
-        indata.read(reinterpret_cast<char*>(&vzi), length);
-
-        vxi = vxi - vxc;
-        vyi = vyi - vyc;
-        vzi = vzi - vzc;
-
-        vx_part.push_back(vxi);
-        vy_part.push_back(vyi);
-        vz_part.push_back(vzi);
-    }
-
-    indata.read(buffer, 2*length);
-    //-----------------------------------------------------
-
-    
-    if(Npart>0){
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         float EKin = 0;
@@ -490,41 +494,41 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
                                                                   
         //position                                                
         xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
-        xc <<delim<< yc <<delim<< zc <<delim<<                    //3,4,5
+        xc <<delim<< yc <<delim<< zc <<delim<<                    //6,7,8
         
         //max radius
-        r_max
+        r_max                                                     //9
                                                                   
         //velocity                                                
-        vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //6,7,8
+        vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
                                                                   
         //angular momentum                                        
-        J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //9,10,11
+        J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
                                                                   
         //Energies                                                
-        EKin <<delim<< EPot <<delim<<                             //12,13
+        EKin <<delim<< EPot <<delim<<                             //16,17
                                                                   
         //2D                                                      
-        a2D_abs <<delim<< b2D_abs <<delim<<                       //14,15
-        a2D[0] <<delim<< a2D[1] <<delim<<                         //16,17
-        b2D[0] <<delim<< b2D[1] <<delim<<                         //18,19
+        a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
+        a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
+        b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
                                                                   
         //2D (reduced)                                            
-        a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //20,21
-        a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //22,23
-        b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //24,25
+        a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
+        a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
+        b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
                                                                   
         //3D                                                      
-        a3D_abs <<delim<< b3D_abs <<delim<< b3D_abs <<delim<<     //26,27,28
-        a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //29,30,31
-        b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //29,30,31
-        c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //32,33,34
+        a3D_abs <<delim<< b3D_abs <<delim<< b3D_abs <<delim<<     //30,31,32
+        a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
+        b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
+        c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
         
         //3D (reduced)
-        a3Dr_abs <<delim<< b3Dr_abs <<delim<< b3Dr_abs <<delim<<  //35,36,37
-        a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //38,39,40
-        b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //38,39,40
-        c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //41,42,43
+        a3Dr_abs <<delim<< b3Dr_abs <<delim<< b3Dr_abs <<delim<<  //42,43,44
+        a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
+        b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
+        c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
         
         endl;
         //-------------------------------------------------------
