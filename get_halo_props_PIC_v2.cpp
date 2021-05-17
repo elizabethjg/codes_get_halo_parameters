@@ -242,12 +242,12 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
     indata.read(reinterpret_cast<char*>(&Npart),   length); //number of fof particles
     indata.read(reinterpret_cast<char*>(&mass), length); //fof mass = particle mass * sNpart
-    indata.read(reinterpret_cast<char*>(&xc),   length); //x,y,z coordinates of fof center of mass in kpc/h
-    indata.read(reinterpret_cast<char*>(&yc),   length);
-    indata.read(reinterpret_cast<char*>(&zc),   length);
-    indata.read(reinterpret_cast<char*>(&vxc),  length); //x,y,z velocity components of fof center of mass in km/s
-    indata.read(reinterpret_cast<char*>(&vyc),  length);
-    indata.read(reinterpret_cast<char*>(&vzc),  length);
+    //indata.read(reinterpret_cast<char*>(&xc),   length); //x,y,z coordinates of fof center of mass in kpc/h
+    //indata.read(reinterpret_cast<char*>(&yc),   length);
+    //indata.read(reinterpret_cast<char*>(&zc),   length);
+    //indata.read(reinterpret_cast<char*>(&vxc),  length); //x,y,z velocity components of fof center of mass in km/s
+    //indata.read(reinterpret_cast<char*>(&vyc),  length);
+    //indata.read(reinterpret_cast<char*>(&vzc),  length);
     
     indata.read(buffer, 2*length);
 
@@ -309,7 +309,7 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     //-----------------------------------------------------
 
     
-    if(Npart>3000){
+    if(Npart>3000 && Npart < 30000){
             
         printf("Computing properties\n");
 
