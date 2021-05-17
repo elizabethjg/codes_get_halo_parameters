@@ -317,8 +317,8 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         double EPot = 0;
         halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, EPot, EKin);
         
-       printf("Ekin = %.1f\n", Ekin);
-       printf("Epot = %.1f\n", Epot);
+       printf("Ekin = %.1f\n", EKin);
+       printf("Epot = %.1f\n", EPot);
 
         
         // RECENTER THE HALO
