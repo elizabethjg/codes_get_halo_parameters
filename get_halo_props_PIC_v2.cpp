@@ -161,6 +161,7 @@ printf("--------------------------- \n");
 outdata <<
 
 "# OUTPUT FROM get_halo_props_PIC_v2 \n"
+"# (0) Halo number \n" 
 "# (1) Npart \n" 
 "# (2) log10(mass) \n" 
 //position                                                
@@ -547,7 +548,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         //cout <<
         outdata <<
         
-        Npart <<delim<< log10(mass) <<delim<<                     //1,2
+        ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
                                                                   
         //position                                                
         xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
