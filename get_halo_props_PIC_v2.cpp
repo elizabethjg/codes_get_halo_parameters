@@ -225,8 +225,8 @@ endl;
         
 
 //--------------- begin loop over halos --------------------
-for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-//for (int ihalo = 0; ihalo < 10; ihalo++) {
+//for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+for (int ihalo = 0; ihalo < 10; ihalo++) {
     
     
     //--------------------- read data ---------------------
@@ -250,7 +250,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     float lm = log10(mass);
     
     printf("Halo %d: %d particles\n", ihalo, Npart);
-    printf("Halo %d: %.1f logM\n", ihalo, lm);
+    printf("log(M_fof) = %.1f\n", lm);
 
 
     if(Npart>3000 && Npart < 40000){
