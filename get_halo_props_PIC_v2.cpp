@@ -210,9 +210,9 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
     indata.read(reinterpret_cast<char*>(&Npart),   length); //number of fof particles
     indata.read(reinterpret_cast<char*>(&mass), length); //fof mass = particle mass * sNpart
-    indata.read(reinterpret_cast<char*>(&xc),   length); //x,y,z coordinates of fof center of mass in kpc/h
-    indata.read(reinterpret_cast<char*>(&yc),   length);
-    indata.read(reinterpret_cast<char*>(&zc),   length);
+    indata.read(reinterpret_cast<char*>(&xc_fof),   length); //x,y,z coordinates of fof center of mass in kpc/h
+    indata.read(reinterpret_cast<char*>(&yc_fof),   length);
+    indata.read(reinterpret_cast<char*>(&zc_fof),   length);
     indata.read(reinterpret_cast<char*>(&vxc),  length); //x,y,z velocity components of fof center of mass in km/s
     indata.read(reinterpret_cast<char*>(&vyc),  length);
     indata.read(reinterpret_cast<char*>(&vzc),  length);
@@ -229,9 +229,9 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         indata.read(reinterpret_cast<char*>(&yi), length);
         indata.read(reinterpret_cast<char*>(&zi), length);
     
-        xi = xi - xc;
-        yi = yi - yc;
-        zi = zi - zc;
+        xi = xi - xc_fof;
+        yi = yi - yc_fof;
+        zi = zi - zc_fof;
         
         x_part.push_back(xi);
         y_part.push_back(yi);
@@ -273,13 +273,11 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         
         // RECENTER THE HALO
         float r_max = 0;
-        float xc_rc = 0;
-        float yc_rc = 0;
-        float zc_rc = 0;
-        recenter(xc, yc, zc, x_part, y_part, z_part, xc_rc, yc_rc, zc_rc, r_max);      
-        xc = xc_rc;
-        yc = yc_rc;
-        zc = zc_rc;
+        float xc = 0;
+        float yc = 0;
+        float zc = 0;
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, xc, yc, zc, r_max);
+        r_max = r_max/1000. // Radius that enclose all particles in Mpc      
         
         // COMPUTE DENSITY PROFILE
         //int NRINGS = 10;
@@ -491,7 +489,11 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         Npart <<delim<< log10(mass) <<delim<<                     //1,2
                                                                   
         //position                                                
+        xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
         xc <<delim<< yc <<delim<< zc <<delim<<                    //3,4,5
+        
+        //max radius
+        r_max
                                                                   
         //velocity                                                
         vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //6,7,8
@@ -515,11 +517,13 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
         //3D                                                      
         a3D_abs <<delim<< b3D_abs <<delim<< b3D_abs <<delim<<     //26,27,28
         a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //29,30,31
+        b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //29,30,31
         c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //32,33,34
         
         //3D (reduced)
         a3Dr_abs <<delim<< b3Dr_abs <<delim<< b3Dr_abs <<delim<<  //35,36,37
         a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //38,39,40
+        b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //38,39,40
         c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //41,42,43
         
         endl;
