@@ -252,9 +252,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
     float lm = log10(mass);
     
-    printf("Halo %d: %d haloID\n", ihalo, haloID);
-    printf("%d particles\n", Npart);
-    printf("log(M_fof) = %.1f\n", lm);
     //printf("xc = %.1f\n", xc_fof);
     //printf("yc = %.1f\n", yc_fof);
     //printf("zc = %.1f\n", zc_fof);
@@ -311,6 +308,9 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     if(Npart>3000 && Npart < 30000){
             
         printf("Computing properties\n");    
+        printf("Halo %d: %d haloID\n", ihalo, haloID);
+        printf("%d particles\n", Npart);
+        printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         float EKin = 0;
