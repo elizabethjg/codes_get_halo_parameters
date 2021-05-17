@@ -147,6 +147,15 @@ indata.read(reinterpret_cast<char*>(&nhalos), length);// total number of halos i
 indata.read(reinterpret_cast<char*>(&limitmass), length);// only halos larger that limitmass were stored
 indata.read(reinterpret_cast<char*>(&Nparttot), length);//total number of particles in all halos
 
+
+printf("########################### \n");
+printf("TOTAL NUMBER OF HALOS = %d \n", nhalos);
+printf("Limit mass = %.1f \n", limitmass);
+printf("Total number of particles = %d \n", Nparttot);
+printf("--------------------------- \n");
+
+
+
 indata.read(buffer, 2*length);
 //--------------------------------------------------
 
@@ -156,7 +165,7 @@ indata.read(buffer, 2*length);
 
 outdata <<
 
-"# OUTPUT FROM get_halo_props_PIC_v2"
+"# OUTPUT FROM get_halo_props_PIC_v2 \n"
 "# (1) Npart \n" <<delim<< 
 "# (2) log10(mass) \n" <<delim<<      
 //position                                                
@@ -207,18 +216,18 @@ outdata <<
 "# (40) c3D_1   \n" <<delim<<                                                         
 "# (41) c3D_2   \n" <<delim<<                                                         
 //3D (reduced)
-"# (42) a3D_mod \n" <<delim<< 
-"# (43) b3D_mod \n" <<delim<< 
-"# (44) c3D_mod \n" <<delim<< 
-"# (45) a3D_0   \n" <<delim<< 
-"# (46) a3D_1   \n" <<delim<<       
-"# (47) a3D_2   \n" <<delim<<       
-"# (48) b3D_0   \n" <<delim<< 
-"# (49) b3D_1   \n" <<delim<<                                                         
-"# (50) b3D_2   \n" <<delim<<                                                         
-"# (51) c3D_0   \n" <<delim<< 
-"# (52) c3D_1   \n" <<delim<<                                                         
-"# (53) c3D_2   \n" <<
+"# (42) a3Dr_mod \n" <<delim<< 
+"# (43) b3Dr_mod \n" <<delim<< 
+"# (44) c3Dr_mod \n" <<delim<< 
+"# (45) a3Dr_0   \n" <<delim<< 
+"# (46) a3Dr_1   \n" <<delim<<       
+"# (47) a3Dr_2   \n" <<delim<<       
+"# (48) b3Dr_0   \n" <<delim<< 
+"# (49) b3Dr_1   \n" <<delim<<                                                         
+"# (50) b3Dr_2   \n" <<delim<<                                                         
+"# (51) c3Dr_0   \n" <<delim<< 
+"# (52) c3Dr_1   \n" <<delim<<                                                         
+"# (53) c3Dr_2   \n" <<
 
 endl;
 //-------------------------------------------------------
