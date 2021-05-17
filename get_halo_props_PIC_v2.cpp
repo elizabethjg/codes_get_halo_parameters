@@ -161,67 +161,67 @@ printf("--------------------------- \n");
 outdata <<
 
 "# OUTPUT FROM get_halo_props_PIC_v2 \n"
-"# (1) Npart \n" <<delim<< 
-"# (2) log10(mass) \n" <<delim<<      
+"# (1) Npart \n" 
+"# (2) log10(mass) \n" 
 //position                                                
-"# (3) xc_fof \n" <<delim<< 
-"# (4) yc_fof \n" <<delim<< 
-"# (5) zc_fof \n" <<delim<<  
-"# (6) xc \n" <<delim<< 
-"# (7) yc \n" <<delim<< 
-"# (8) zc \n" <<delim<<  
+"# (3) xc_fof \n" 
+"# (4) yc_fof \n" 
+"# (5) zc_fof \n" 
+"# (6) xc \n" 
+"# (7) yc \n" 
+"# (8) zc \n" 
 //max radius
-"# (9) r_max \n" <<delim<<
+"# (9) r_max \n" 
 //velocity                                                
-"# (10) vxc \n" <<delim<< 
-"# (11) vyc \n" <<delim<< 
-"# (12) vzc \n" <<delim<<
+"# (10) vxc \n" 
+"# (11) vyc \n" 
+"# (12) vzc \n" 
 //angular momentum                                        
-"# (13) J0 \n" <<delim<< 
-"# (14) J1 \n" <<delim<< 
-"# (15) J2 \n" <<delim<<  
+"# (13) J0 \n" 
+"# (14) J1 \n" 
+"# (15) J2 \n" 
 //Energies                                                
-"# (16) EKin \n" <<delim<< 
-"# (17) EPot \n" <<delim<<          
+"# (16) EKin \n" 
+"# (17) EPot \n" 
 //2D                                                      
-"# (18) a2D_mod \n" <<delim<< 
-"# (19) b2D_mod \n" <<delim<< 
-"# (20) a2D_0   \n" <<delim<< 
-"# (21) a2D_1   \n" <<delim<<       
-"# (22) b2D_0   \n" <<delim<< 
-"# (23) b2D_1   \n" <<delim<<                                                         
+"# (18) a2D_mod \n" 
+"# (19) b2D_mod \n" 
+"# (20) a2D_0   \n" 
+"# (21) a2D_1   \n" 
+"# (22) b2D_0   \n" 
+"# (23) b2D_1   \n" 
 //2D (reduced)                                            
-"# (24) a2Dr_mod \n" <<delim<< 
-"# (25) b2Dr_mod \n" <<delim<< 
-"# (26) a2Dr_0   \n" <<delim<< 
-"# (27) a2Dr_1   \n" <<delim<<       
-"# (28) b2Dr_0   \n" <<delim<< 
-"# (29) b2Dr_1   \n" <<delim<<                                                         
+"# (24) a2Dr_mod \n" 
+"# (25) b2Dr_mod \n" 
+"# (26) a2Dr_0   \n" 
+"# (27) a2Dr_1   \n" 
+"# (28) b2Dr_0   \n" 
+"# (29) b2Dr_1   \n" 
 //3D                                                      
-"# (30) a3D_mod \n" <<delim<< 
-"# (31) b3D_mod \n" <<delim<< 
-"# (32) c3D_mod \n" <<delim<< 
-"# (33) a3D_0   \n" <<delim<< 
-"# (34) a3D_1   \n" <<delim<<       
-"# (35) a3D_2   \n" <<delim<<       
-"# (36) b3D_0   \n" <<delim<< 
-"# (37) b3D_1   \n" <<delim<<                                                         
-"# (38) b3D_2   \n" <<delim<<                                                         
-"# (39) c3D_0   \n" <<delim<< 
-"# (40) c3D_1   \n" <<delim<<                                                         
-"# (41) c3D_2   \n" <<delim<<                                                         
+"# (30) a3D_mod \n" 
+"# (31) b3D_mod \n" 
+"# (32) c3D_mod \n" 
+"# (33) a3D_0   \n" 
+"# (34) a3D_1   \n" 
+"# (35) a3D_2   \n" 
+"# (36) b3D_0   \n"
+"# (37) b3D_1   \n" 
+"# (38) b3D_2   \n"                                                          
+"# (39) c3D_0   \n"  
+"# (40) c3D_1   \n"                                                          
+"# (41) c3D_2   \n"                                                          
 //3D (reduced)
-"# (42) a3Dr_mod \n" <<delim<< 
-"# (43) b3Dr_mod \n" <<delim<< 
-"# (44) c3Dr_mod \n" <<delim<< 
-"# (45) a3Dr_0   \n" <<delim<< 
-"# (46) a3Dr_1   \n" <<delim<<       
-"# (47) a3Dr_2   \n" <<delim<<       
-"# (48) b3Dr_0   \n" <<delim<< 
-"# (49) b3Dr_1   \n" <<delim<<                                                         
-"# (50) b3Dr_2   \n" <<delim<<                                                         
-"# (51) c3Dr_0   \n" <<delim<< 
-"# (52) c3Dr_1   \n" <<delim<<                                                         
+"# (42) a3Dr_mod \n" 
+"# (43) b3Dr_mod \n" 
+"# (44) c3Dr_mod \n" 
+"# (45) a3Dr_0   \n" 
+"# (46) a3Dr_1   \n"       
+"# (47) a3Dr_2   \n"       
+"# (48) b3Dr_0   \n" 
+"# (49) b3Dr_1   \n"                                                         
+"# (50) b3Dr_2   \n"                                                         
+"# (51) c3Dr_0   \n" 
+"# (52) c3Dr_1   \n"                                                         
 "# (53) c3Dr_2   \n" <<
 
 endl;
