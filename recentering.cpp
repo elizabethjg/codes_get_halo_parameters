@@ -11,7 +11,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
     
         ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
     
-        if(ri > r_max){ 
+        if(ri > *r_max){ 
         *r_max = ri;
         }
     }
