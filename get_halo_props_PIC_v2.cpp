@@ -306,7 +306,7 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
             
         //open output file for catalog
         ofstream outdata_ind;
-        string out_file_ind = "../catalog/particles_halo" + to_string(ihalo);
+        string out_file_ind = "../catalogs/particles_halo" + to_string(ihalo);
         outdata_ind.open(out_file_ind);
         //set format for output
         outdata_ind.setf(ios::fixed);
