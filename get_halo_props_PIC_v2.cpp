@@ -317,8 +317,8 @@ for (int ihalo = 0; ihalo < 30000; ihalo++) {
         printf("y = %.1f \n", y_part[0]);
         printf("z = %.1f \n", z_part[0]);
 
-        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, r_max);
-        printf("rmax = %.1f \n", rmax);
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
+        printf("rmax = %.1f \n", r_max);
         printf("x = %.1f \n", x_part[0]);
         printf("y = %.1f \n", y_part[0]);
         printf("z = %.1f \n", z_part[0]);
