@@ -305,12 +305,12 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     if(Npart>3000 && Npart < 30000){
             
         //open output file to save particles
-        ofstream outdata_ind;
-        string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
-        outdata_ind.open(out_file_ind);
+        //ofstream outdata_ind;
+        //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
+        //outdata_ind.open(out_file_ind);
         //set format for output
-        outdata_ind.setf(ios::fixed);
-        outdata_ind.precision(3);
+        //outdata_ind.setf(ios::fixed);
+        //outdata_ind.precision(3);
 
 
         printf("Computing properties\n");    
@@ -357,10 +357,10 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         vector <float> x_part_proj, y_part_proj;
         for(int i = 0; i < Npart; i++){
                         
-            outdata_ind <<
-            x_part0[i] << delim<< y_part0[i] <<delim<< z_part0[i] <<delim<<
-            x_part[i] << delim<< y_part[i] <<delim<< z_part[i] <<
-            endl;
+            //outdata_ind <<
+            //x_part0[i] << delim<< y_part0[i] <<delim<< z_part0[i] <<delim<<
+            //x_part[i] << delim<< y_part[i] <<delim<< z_part[i] <<
+            //endl;
             
                 
             
@@ -371,7 +371,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
             x_part_proj.push_back(xi);
             y_part_proj.push_back(yi);
         }
-        outdata_ind.close();      
+        //outdata_ind.close();      
         //-------------------------------------------------------------------------------------------------------
 
         
