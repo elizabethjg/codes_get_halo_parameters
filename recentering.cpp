@@ -34,7 +34,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof, vector
             
             // Maximum radius rescaled up to which particles are consider
             // to compute the centre of mass
-            r_samp =r_max*(1 - float(j)/float(nbin_rc)); 
+            r_samp = r_max*(1 - float(j)/float(nbin_rc)); 
             
             ncenter = 0; 
             xc = 0; yc = 0; zc = 0; 
