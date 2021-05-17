@@ -244,7 +244,7 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     unsigned int haloID=0;
     float xc_fof=0, yc_fof=0, zc_fof=0, vxc=0, vyc=0, vzc=0;
 
-    //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
+    indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
     indata.read(reinterpret_cast<char*>(&Npart),   length); //number of fof particles
     indata.read(reinterpret_cast<char*>(&mass), length); //fof mass = particle mass * sNpart
     indata.read(reinterpret_cast<char*>(&xc_fof),   length); //x,y,z coordinates of fof center of mass in kpc/h
@@ -258,7 +258,8 @@ for (int ihalo = 0; ihalo < 10; ihalo++) {
     
     float lm = log10(mass);
     
-    printf("Halo %d: %d particles\n", ihalo, Npart);
+    printf("Halo %d: %d haloID\n", ihalo, haloID);
+    printf("%d particles\n", ihalo, Npart);
     printf("log(M_fof) = %.1f\n", lm);
     printf("xc = %.1f\n", xc_fof);
     printf("yc = %.1f\n", yc_fof);
