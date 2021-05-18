@@ -316,7 +316,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
 
         printf("Computing properties\n");    
-        printf("Halo %d, %d fraction", ihalo, float(ihalo)/float(nhalos));
+        printf("Halo %d, %.1f fraction \n", ihalo, (float(ihalo)/float(nhalos)));
         printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
