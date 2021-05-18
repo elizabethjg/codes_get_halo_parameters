@@ -79,7 +79,7 @@ void ini_MI_3D(const vector <float> x_part, const vector <float> y_part, const v
 //----------------------------------- main code -----------------------------------
 int main(int argc, char **argv){
 
-auto t_start = std::chrono::high_resolution_clock::now();
+std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
 //eat input and output filenames
 string filename_input = argv[1];
@@ -304,7 +304,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //-----------------------------------------------------
 
 
-    if(Npart>3000 && Npart < 30000){
+    if(lm>14.){
             
         //open output file to save particles
         //ofstream outdata_ind;
@@ -591,11 +591,11 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         endl;
         //-------------------------------------------------------
     
-        
+printf("-----------");        
     }  
     
     
-printf("-----------");    
+    
     
 }//--------------- end loop over halos --------------------
 
@@ -605,11 +605,10 @@ outdata.close();
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
 
-auto t_end = std::chrono::high_resolution_clock::now();
-double elapsed_time_ms = std::chrono::duration<double, std::milli>(t_end-t_start).count();
+std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+std::cout << "Total TIME = " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "[s]" << std::endl;
 
 
-printf("Total TIME = %.1f \n", elapsed_time_ms/60.);
 
 return 0;
 
