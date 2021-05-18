@@ -315,9 +315,9 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         //outdata_ind.precision(3);
 
 
-        printf("Computing properties\n");    
+        //printf("Computing properties\n");    
         printf("Halo %d, %.1f fraction \n", ihalo, (float(ihalo)/float(nhalos)));
-        printf("log(M_fof) = %.1f\n", lm);
+        //printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         double EKin = 0;
@@ -591,7 +591,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         endl;
         //-------------------------------------------------------
     
-printf("-----------");        
     }  
     
     
