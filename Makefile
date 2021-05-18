@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -O3 -ffast-math -faggressive-loop-optimizations -ftree-vectorize
+CFLAGS = -O3 -fopenmp
 LDFLAGS = -lgsl -lgslcblas -lm
 
 SOURCES := halo_energy.cpp recentering.cpp get_halo_props_PIC_v2.cpp
