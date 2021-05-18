@@ -12,7 +12,7 @@
 #include <gsl/gsl_eigen.h>
 #include "halo_energy.h"
 #include "recentering.h"
-
+#include <chrono>
 
 using namespace std;
 
@@ -79,6 +79,7 @@ void ini_MI_3D(const vector <float> x_part, const vector <float> y_part, const v
 //----------------------------------- main code -----------------------------------
 int main(int argc, char **argv){
 
+auto t_start = std::chrono::high_resolution_clock::now();
 
 //eat input and output filenames
 string filename_input = argv[1];
@@ -316,7 +317,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
         printf("Computing properties\n");    
         printf("Halo %d: %d haloID\n", ihalo, haloID);
-        printf("%d particles\n", Npart);
         printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
@@ -595,7 +595,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     }  
     
     
-    
+printf("-----------");    
     
 }//--------------- end loop over halos --------------------
 
@@ -605,5 +605,12 @@ outdata.close();
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
 
+auto t_end = std::chrono::high_resolution_clock::now();
+double elapsed_time_ms = std::chrono::duration<double, std::milli>(t_end-t_start).count();
+
+
+printf("Total TIME = %.1f \n", elapsed_time_ms/60.);
+
 return 0;
+
 }
