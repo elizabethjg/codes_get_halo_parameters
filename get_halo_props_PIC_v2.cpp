@@ -304,7 +304,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //-----------------------------------------------------
 
 
-    if(lm>14.){
+    if(lm>12.){
             
         //open output file to save particles
         //ofstream outdata_ind;
@@ -316,7 +316,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
 
         printf("Computing properties\n");    
-        printf("Halo %d: %d haloID\n", ihalo, haloID);
+        printf("Halo %d, %d fraction", ihalo, float(ihalo)/float(nhalos));
         printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
