@@ -269,8 +269,8 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //-----------------------------------------------------
 
 
-    //if(lm>14.){
-    if(Npart > 10.){
+    if(lm>12.){
+    //if(Npart > 10.){
             
         //open output file to save particles
         //ofstream outdata_ind;
