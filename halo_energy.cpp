@@ -1,7 +1,8 @@
 #include "halo_energy.h"
 
-void halo_energy(const vector <float> x, const vector <float> y, const vector <float> z,
-                const vector <float> vx, const vector <float> vy, const vector <float> vz,
+void halo_energy(const vector <float> x, const vector <float> y,
+                const vector <float> z, const vector <float> vx,
+                const vector <float> vy, const vector <float> vz,
                 double *Epot_halo, double *Ekin_halo){
 
     double mp = 2.927e10; //particle mass [M_sun/h]
