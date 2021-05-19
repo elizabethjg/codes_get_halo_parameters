@@ -4,12 +4,12 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
             vector <float> &x, vector <float> &y, vector <float> &z,
             float *xc_rc, float *yc_rc, float *zc_rc, float *r_max){
 
+    int np = x.size();
     int j = 0;
     int ncentermin = 10; //min np for recentering
     int ncentertmp = np; //+1 for passing the first while loop below
     int nbin_rc = 10; //log(np);
     int ncenter; // number of particles within each radius
-    int np = x.size();
 
     float xc, yc, zc; // coordinates of the center of mass
     float r_samp; // Rescaled radius
