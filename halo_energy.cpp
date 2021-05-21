@@ -33,12 +33,6 @@ void halo_energy(const vector <float> x, const vector <float> y,
 
             if(k != j){
 
-               /*
-                dxi = xi -x[k]; dxi = dxi/1000.; // conversion from kpc/h to mpc/h
-                dyi = yi -y[k]; dyi = dyi/1000.;
-                dzi = zi -z[k]; dzi = dzi/1000.;
-                */
-
                 // conversion from kpc/h to mpc/h
                 dxi = (xi - x[k]) / 1000.;// dxi = dxi/1000.;
                 dyi = (yi - y[k]) / 1000.;// dyi = dyi/1000.;
