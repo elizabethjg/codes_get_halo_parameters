@@ -1,4 +1,5 @@
 #include "halo_energy.h"
+#include <cmath>
 
 void halo_energy(const vector <float> x, const vector <float> y,
                 const vector <float> z, const vector <float> vx,

@@ -1,7 +1,7 @@
-#include <stdlib.h>
-#include <fstream>
+#ifndef HALO_ENERGY_H
+#define HALO_ENERGY_H
+
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -11,3 +11,5 @@ using namespace std;
                  const vector <float> z, const vector <float> vx,
                  const vector <float> vy, const vector <float> vz,
                  double *Epot_halo, double *Ekin_halo);
+
+#endif
