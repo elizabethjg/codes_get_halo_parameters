@@ -21,14 +21,13 @@ void halo_energy(const vector <float> x, const vector <float> y,
     int np = x.size();
 
     #pragma omp parallel for \
-        private(xi,yi,zi,dxi,dyi,dzi) \
-        reduction(+:Epot_part,Ekin_part)
+        private(xi,yi,zi,dxi,dyi,dzi)
     for (int j = 0; j < np; j++) {
 
         xi=x[j]; yi=y[j]; zi=z[j];
 
         // in units of (kg*km^2/s^2)*10^40
-        Ekin_part = fEkin*mp*(vx[j]*vx[j] + vy[j]*vy[j] + vz[j]*vz[j]); 
+        Ekin_part = fEkin*mp*(vx[j]*vx[j] + vy[j]*vy[j] + vz[j]*vz[j]);
 
         for (int k = 0; k < np; k++) {
 
@@ -46,10 +45,9 @@ void halo_energy(const vector <float> x, const vector <float> y,
 
         }
 
-//        *Epot_halo=*Epot_halo + Epot_part;
-//        *Ekin_halo=*Ekin_halo + Ekin_part;
-          Epot_part += Epot_part;
-          Ekin_part += Ekin_part;
+        *Epot_halo=*Epot_halo + Epot_part;
+        *Ekin_halo=*Ekin_halo + Ekin_part;
+
 
     }
     *Epot_halo = Epot_part;
