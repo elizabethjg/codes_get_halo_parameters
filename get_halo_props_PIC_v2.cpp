@@ -276,7 +276,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         if((float(ihalo)/float(nhalos))  > part){
                 
                 printf("=");
-                part = part + 0.1
+                part = part + 0.1;
                 
         }
         
