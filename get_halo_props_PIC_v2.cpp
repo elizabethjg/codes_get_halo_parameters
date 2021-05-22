@@ -193,11 +193,17 @@ outdata <<
 endl;
 //-------------------------------------------------------
         
-
+float part = 0.1;
 //--------------- begin loop over halos --------------------
 for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 //for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
+        if((float(ihalo)/float(nhalos))  > part){
+                
+                printf("=");
+                part = part + 0.1;
+                
+        }
 
     
     //--------------------- read data ---------------------
@@ -249,7 +255,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     
     //read particle velocities
     vector <float>  vx_part, vy_part, vz_part;
-    float part = 0.1;
+
     
     for (int i = 0; i < Npart; i++) {
         float vxi=0, vyi=0, vzi=0;
@@ -275,12 +281,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     if(Npart > 10.){
             
 
-        if((float(ihalo)/float(nhalos))  > part){
-                
-                printf("=");
-                part = part + 0.1;
-                
-        }
         
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
