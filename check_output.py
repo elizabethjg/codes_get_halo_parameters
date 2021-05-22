@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-file_name', action='store', dest='file_name',default='output')
 
 check_cat = pd.read_csv('../catalogs/output_check.csv.bz2')
-cat    = pd.read_csv('../catalogs/'+args.file_name+'output_check.csv.bz2')
+cat    = pd.read_csv('../catalogs/'+args.file_name+'.bz2')
 
 for j in cat.columns: 
     m = np.abs(check_cat[j] > 0.) 

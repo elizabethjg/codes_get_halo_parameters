@@ -249,6 +249,8 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     
     //read particle velocities
     vector <float>  vx_part, vy_part, vz_part;
+    float part = 0.1;
+    
     for (int i = 0; i < Npart; i++) {
         float vxi=0, vyi=0, vzi=0;
 
@@ -272,7 +274,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //if(lm>12.){
     if(Npart > 10.){
             
-        float part = 0.1;
+
         if((float(ihalo)/float(nhalos))  > part){
                 
                 printf("=");
