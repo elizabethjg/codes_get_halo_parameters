@@ -563,7 +563,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 indata.close();
 outdata.close();
 
-printf(">")
+printf(">\n");
 
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
