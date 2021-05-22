@@ -193,12 +193,17 @@ outdata <<
 endl;
 //-------------------------------------------------------
         
-
+float avance = 0.02;
 //--------------- begin loop over halos --------------------
 for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 //for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
-
+        if((float(ihalo)/float(nhalos))  > avance){
+                
+                printf("=");
+                avance = avance + 0.02;
+                
+        }
     
     //--------------------- read data ---------------------
     //read halo properties
@@ -567,8 +572,11 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 indata.close();
 outdata.close();
 
+
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
+
+printf(">\n");
 
 std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 std::cout << "Total TIME = " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "[s]" << std::endl;
