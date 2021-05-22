@@ -34,51 +34,51 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
     // particles or up to nbin_rc
     while(ncentermin < ncentertmp && j < nbin_rc){
 
-            // Maximum radius rescaled up to which particles are consider
-            // to compute the centre of mass
-            r_samp =  *r_max * (1 - float(j)/float(nbin_rc));
+        // Maximum radius rescaled up to which particles are consider
+        // to compute the centre of mass
+        r_samp = *r_max * (1. - float(j)/float(nbin_rc));
 
-            ncenter = 0;
-            xc = 0; yc = 0; zc = 0;
+        ncenter = 0;
+        xc = 0; yc = 0; zc = 0;
 
-            for (int k = 0; k < np; k++) {//loop over particles in halo
+        for (int k = 0; k < np; k++) {//loop over particles in halo
 
-                ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
+            ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
 
-                if(ri < r_samp){
+            if(ri < r_samp){
 
-                    xc = xc + x[k];
-                    yc = yc + y[k];
-                    zc = zc + z[k];
+                xc = xc + x[k];
+                yc = yc + y[k];
+                zc = zc + z[k];
 
-                    ncenter = ncenter + 1;
+                ncenter = ncenter + 1;
 
-                }
             }
+        }
 
-            ncentertmp = ncenter;
+        ncentertmp = ncenter;
 
-            xc = xc / double(ncenter);//center of all particles that lie within rbin
-            yc = yc / double(ncenter);
-            zc = zc / double(ncenter);
+        xc = xc / double(ncenter);//center of all particles that lie within rbin
+        yc = yc / double(ncenter);
+        zc = zc / double(ncenter);
 
-            if(ncentermin  < ncentertmp){
+        if(ncentermin  < ncentertmp){
 
-                for(int k = 0; k < np; k++){
+            for(int k = 0; k < np; k++){
 
-                    x[k] = x[k] - xc;
-                    y[k] = y[k] - yc;
-                    z[k] = z[k] - zc;
-
-                }
-
-                *xc_rc = *xc_rc + xc;
-                *yc_rc = *yc_rc + yc;
-                *zc_rc = *zc_rc + zc;
+                x[k] = x[k] - xc;
+                y[k] = y[k] - yc;
+                z[k] = z[k] - zc;
 
             }
 
-            j++;
+            *xc_rc = *xc_rc + xc;
+            *yc_rc = *yc_rc + yc;
+            *zc_rc = *zc_rc + zc;
+
+        }
+
+        j++;
     }
     //------------------------------------------------------
 }
