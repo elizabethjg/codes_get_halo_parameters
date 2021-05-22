@@ -21,7 +21,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
     int np = x.size();
 
     #pragma omp parallel for \
-        private(xi,yi,zi,dxi,dyi,dzi)
+        private(xi,yi,zi,dxi,dyi,dzi,Ekin_part,Epot_part)
     for (int j = 0; j < np; j++) {
 
         xi=x[j]; yi=y[j]; zi=z[j];
