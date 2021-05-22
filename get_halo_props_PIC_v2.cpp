@@ -193,17 +193,11 @@ outdata <<
 endl;
 //-------------------------------------------------------
         
-float part = 0.1;
+
 //--------------- begin loop over halos --------------------
 for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 //for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
-        if((float(ihalo)/float(nhalos))  > part){
-                
-                printf("=");
-                part = part + 0.1;
-                
-        }
 
     
     //--------------------- read data ---------------------
@@ -255,8 +249,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     
     //read particle velocities
     vector <float>  vx_part, vy_part, vz_part;
-
-    
     for (int i = 0; i < Npart; i++) {
         float vxi=0, vyi=0, vzi=0;
 
@@ -280,8 +272,18 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //if(lm>12.){
     if(Npart > 10.){
             
+        //open output file to save particles
+        //ofstream outdata_ind;
+        //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
+        //outdata_ind.open(out_file_ind);
+        //set format for output
+        //outdata_ind.setf(ios::fixed);
+        //outdata_ind.precision(3);
 
-        
+
+        //printf("Computing properties\n");    
+        printf("Halo %d, %.1f fraction \n", ihalo, (float(ihalo)/float(nhalos)));
+        //printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         double EKin = 0;
@@ -564,8 +566,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
 indata.close();
 outdata.close();
-
-printf(">\n");
 
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
