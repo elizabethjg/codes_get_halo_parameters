@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
 import argparse 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-file_name', action='store', dest='file_name',default='output')
+args = parser.parse_args()
 
 check_cat = pd.read_csv('../catalogs/output_check.csv.bz2')
 cat    = pd.read_csv('../catalogs/'+args.file_name+'.bz2')
