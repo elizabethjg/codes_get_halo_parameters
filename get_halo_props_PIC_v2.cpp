@@ -277,18 +277,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //if(lm>12.){
     if(Npart > 10.){
             
-        //open output file to save particles
-        //ofstream outdata_ind;
-        //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
-        //outdata_ind.open(out_file_ind);
-        //set format for output
-        //outdata_ind.setf(ios::fixed);
-        //outdata_ind.precision(3);
-
-
-        //printf("Computing properties\n");    
-        printf("Halo %d, %.1f fraction \n", ihalo, (float(ihalo)/float(nhalos)));
-        //printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         double EKin = 0;
