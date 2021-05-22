@@ -50,7 +50,5 @@ void halo_energy(const vector <float> x, const vector <float> y,
 
 
     }
-    *Epot_halo = Epot_part;
-    *Ekin_halo = Ekin_part;
 }
             //-----------------------------------------------------------------------------------------
