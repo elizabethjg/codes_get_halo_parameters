@@ -13,7 +13,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
     double Mpc = 3.08567758e22; // [m/Mpc]
     double fEkin = 0.5*h*Msun*1.e-40; //for energy unit conversion
     double fEpot = ((Msun*Msun*h*G*1.e-6) / Mpc) * 1.e-40;
-    double Ekin_part, Epot_part;
+    double Ekin_part, Epot_part, Ekin_acc = 0., Epot_acc=0.;
 
     float xi, yi, zi;
     float dxi, dyi, dzi;
@@ -21,7 +21,8 @@ void halo_energy(const vector <float> x, const vector <float> y,
     int np = x.size();
 
     #pragma omp parallel for \
-        private(xi,yi,zi,dxi,dyi,dzi,Ekin_part,Epot_part)
+        private(xi,yi,zi,dxi,dyi,dzi,Ekin_part,Epot_part) \
+        reduction(+:Ekin_acc,Epot_acc)
     for (int j = 0; j < np; j++) {
 
         xi=x[j]; yi=y[j]; zi=z[j];
@@ -40,16 +41,17 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 dzi = (zi - z[k]) / 1000.;
 
                 // in units of (kg*m^2/s^2)*10^40
-                Epot_part = Epot_part + fEpot*mp*mp/sqrt(dxi*dxi + dyi*dyi + dzi*dzi);
+                Epot_part += fEpot*mp*mp/sqrt(dxi*dxi + dyi*dyi + dzi*dzi);
 
             }
 
         }
 
-        *Epot_halo=*Epot_halo + Epot_part;
-        *Ekin_halo=*Ekin_halo + Ekin_part;
-
+        Epot_acc += Epot_part;
+        Ekin_acc += Ekin_part;
 
     }
+    *Epot_halo += Epot_acc;
+    *Ekin_halo += Ekin_acc;
 }
             //-----------------------------------------------------------------------------------------
