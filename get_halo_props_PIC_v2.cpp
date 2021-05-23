@@ -175,21 +175,22 @@ outdata <<
 "EKin" <<delim<< "EPot" <<delim<<
 //2D                                                      
 "a2D_mod" <<delim<< "b2D_mod" <<delim<<
-"a2D_0  " <<delim<< "a2D_1  " <<delim<<
-"b2D_0  " <<delim<< "b2D_1  " <<delim<<
+"a2D_x  " <<delim<< "a2D_y  " <<delim<<
+"b2D_x  " <<delim<< "b2D_y  " <<delim<<
 //2D (reduced)                                            
-"a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<< "a2Dr_0  " <<delim<<
-"a2Dr_1  " <<delim<< "b2Dr_0  " <<delim<< "b2Dr_1  " <<delim<<
+"a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<< 
+"a2Dr_x  " <<delim<< "a2Dr_y  " <<delim<< 
+"b2Dr_x  " <<delim<< "b2Dr_y  " <<delim<<
 //3D                                                          
 "a3D_mod" <<delim<< "b3D_mod" <<delim<< "c3D_mod" <<delim<<   
-"a3D_0  " <<delim<< "a3D_1  " <<delim<< "a3D_2  " <<delim<<   
-"b3D_0  " <<delim<< "b3D_1  " <<delim<< "b3D_2  " <<delim<<                          
-"c3D_0  "  <<delim<< "c3D_1  " <<delim<< "c3D_2  " <<delim<<                          
+"a3D_x  " <<delim<< "a3D_y  " <<delim<< "a3D_z  " <<delim<<   
+"b3D_x  " <<delim<< "b3D_y  " <<delim<< "b3D_z  " <<delim<<                          
+"c3D_x  "  <<delim<< "c3D_y  " <<delim<< "c3D_z  " <<delim<<                          
 //3D (reduced)                                                
 "a3Dr_mod" <<delim<< "b3Dr_mod" <<delim<< "c3Dr_mod" <<delim<<
-"a3Dr_0  " <<delim<< "a3Dr_1  " <<delim<< "a3Dr_2  " <<delim<<
-"b3Dr_0  " <<delim<< "b3Dr_1  " <<delim<< "b3Dr_2  " <<delim<<
-"c3Dr_0  "  <<delim<< "c3Dr_1  " <<delim<< "c3Dr_2  " <<
+"a3Dr_x  " <<delim<< "a3Dr_y  " <<delim<< "a3Dr_z  " <<delim<<
+"b3Dr_x  " <<delim<< "b3Dr_y  " <<delim<< "b3Dr_z  " <<delim<<
+"c3Dr_x  "  <<delim<< "c3Dr_y  " <<delim<< "c3Dr_z  " <<
 endl;
 //-------------------------------------------------------
         
