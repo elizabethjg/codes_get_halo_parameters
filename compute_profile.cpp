@@ -1,19 +1,21 @@
-#define _USE_MATH_DEFINES
-
+#include "compute_profile.h"
 #include <cmath>
 
 
-void ro_r(const vector <float> x_part, const vector <float> y_part, const vector <float> z_part,
-        const int nrings, const float max_distance, vector <float> ro){
+void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
+        const int nrings, const float max_distance, vector <float> *ro){
 
-    float V; //¿que representa esta variable?
+    float V; //Volumen de la cascara
+    float rsq; //Volumen de la cascara
     int npart = x_part.size();
 
-    const float ring_width = max_distance / nrings;
+    const float ring_width;
+    ring_width = float(max_distance) / float(nrings);
 
     for (i = 0; i < npart; i++){
 
-        rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
+        //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
+        rsq = sqrt(x[i]*x[i] + y[i]*y[i]+ z[i]*z[i])
 
         idx = (int)(rsq/ring_width);
 
@@ -24,7 +26,7 @@ void ro_r(const vector <float> x_part, const vector <float> y_part, const vector
             idx = nrings - 1;
         }
 
-        ro[idx] += 1;
+        *ro[idx] += 1;
 	}
 
     /* Chequeo del número de partículas por anillo y del total.*/
@@ -41,7 +43,7 @@ void ro_r(const vector <float> x_part, const vector <float> y_part, const vector
 
         rin = ring_width * i
         V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3))
-        ro[i] = ri[i] / V
+        *ro[i] = *ro[i] / V
 
     }
 }

@@ -12,6 +12,7 @@
 #include <gsl/gsl_eigen.h>
 #include "halo_energy.h"
 #include "recentering.h"
+#include "compute_profile.h"
 #include <chrono>
 
 using namespace std;
@@ -293,9 +294,9 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
         
         // COMPUTE DENSITY PROFILE
-        //int NRINGS = 10;
-        //float ro[NRINGS] = {0};
-        //ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
+        int NRINGS = 10;
+        float ro[NRINGS] = {0};
+        ro_r(x_part, y_part, z_part, NRINGS, r_max, &ro);
         
         //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
         //get ra & dec of center
