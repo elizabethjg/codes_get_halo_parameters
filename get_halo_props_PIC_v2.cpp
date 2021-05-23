@@ -118,6 +118,12 @@ outdata.open(filename_output.c_str());
 outdata.setf(ios::fixed);
 outdata.precision(3);
 
+//open output file to save profiles
+ofstream outdata_pro;
+string out_file_pro = outdata.open(filename_output.c_str())+"_profile";
+outdata_pro.open(out_file_pro);
+outdata_pro.setf(ios::fixed);
+outdata_pro.precision(3);
 
 
 //-------------------- open input file --------------------
@@ -159,9 +165,19 @@ printf("--------------------------- \n");
 //--------------------------------------------------
 //------------------ print header -----------------------
 
+// For output profile
+
+outdata_pro <<
+"Halo number" <<delim<< "r_max" <<delim<<
+"r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
+"r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
+"r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
+"r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
+"r12" <<delim<< "r13" <<delim<< "r14" <<
+endl;
+
+// For output params
 outdata <<
-
-
 "Halo number" <<delim<< "Npart" <<delim<< "log10(mass)" <<delim<< 
 //position                                                
 "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<< 
@@ -278,6 +294,14 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
     //if(lm>12.){
     if(Npart > 10.){
+
+        //open output file to save particles
+        //ofstream outdata_ind;
+        //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
+        //outdata_ind.open(out_file_ind);
+        //set format for output
+        //outdata_ind.setf(ios::fixed);
+        //outdata_ind.precision(3);
             
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
@@ -294,9 +318,22 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
         
         // COMPUTE DENSITY PROFILE
-        int NRINGS = 10;
+        int NRINGS = 15;
         float ro[NRINGS] = {0};
         ro_r(x_part, y_part, z_part, NRINGS, r_max, &ro);
+
+        //save profile        
+        outdata_pro <<                
+        ihalo << delim<< r_max <<delim<< 
+        ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
+        ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
+        ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
+        ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
+        ro[12] <<delim<< ro[13] <<delim<< ro[14] <<
+        endl;
+        
+                
+        
         
         //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
         //get ra & dec of center
@@ -561,10 +598,15 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
 indata.close();
 outdata.close();
+outdata_pro.close();
 
 
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
+
+string cmd = "bzip2 " + filename_output_;
+system(cmd.c_str());
+
 
 printf(">\n");
 
