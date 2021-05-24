@@ -9,9 +9,9 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     float V; //Volumen de la cascara
     float rsq; //Volumen de la cascara
-    int npart = x_part.size();
+    int npart = x.size();
 
-    const float ring_width;
+    float ring_width;
     ring_width = float(max_distance) / float(nrings);
 
     for (i = 0; i < npart; i++){
