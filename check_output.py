@@ -15,3 +15,35 @@ print(cat.shape)
 for j in cat.columns: 
     m = np.abs(check_cat[j] > 0.) 
     print(j,np.max(((cat[j]/check_cat[j])[m])))
+
+'''
+
+cat = check_cat 
+
+rc = np.sqrt((cat.xc_fof-cat.xc_rc)**2 + (cat.yc_fof-cat.yc_rc)**2 + (cat.zc_fof-cat.zc_rc)**2)
+
+xold = cat.xc_fof - cat.xc_rc
+yold = cat.yc_fof - cat.yc_rc
+zold = cat.zc_fof - cat.zc_rc
+
+lM = cat['log10(mass)']
+idhalo = cat['Halo number']
+
+
+part0 = np.loadtxt('ind_halos/particles_halo'+str(int(idpru))).T
+
+f, ax = plt.subplots(1, 3, figsize=(12,4),sharex=True,sharey=True)
+f.subplots_adjust(hspace=0,wspace=0)
+
+ax[0].plot(part0[3],part0[4],'C7.')
+ax[1].plot(part0[3],part0[5],'C7.')
+ax[2].plot(part0[4],part0[5],'C7.')
+
+ax[0].plot(0,0,'C3o')
+ax[1].plot(0,0,'C3o')
+ax[2].plot(0,0,'C3o')
+
+ax[0].plot(xold[idhalo == idpru],yold[idhalo == idpru],'C1o')
+ax[1].plot(xold[idhalo == idpru],zold[idhalo == idpru],'C1o')
+ax[2].plot(yold[idhalo == idpru],zold[idhalo == idpru],'C1o')
+'''

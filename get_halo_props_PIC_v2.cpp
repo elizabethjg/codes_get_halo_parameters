@@ -168,14 +168,14 @@ printf("--------------------------- \n");
 
 // For output profile
 
-//outdata_pro <<
-//"Halo number" <<delim<< "r_max" <<delim<<
-//"r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
-//"r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
-//"r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
-//"r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
-//"r12" <<delim<< "r13" <<delim<< "r14" <<
-//endl;
+outdata_pro <<
+"Halo number" <<delim<< "r_max" <<delim<<
+"r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
+"r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
+"r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
+"r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
+"r12" <<delim<< "r13" <<delim<< "r14" <<
+endl;
 
 // For output params
 outdata <<

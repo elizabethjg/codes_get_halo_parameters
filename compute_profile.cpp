@@ -5,6 +5,8 @@
 void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
         const int nrings, const float max_distance, vector <float> &ro){
 
+    double mp = 2.927e10; //1 particle mass [M_sun/h]
+
     float V; //Volumen de la cascara
     float rsq; //Volumen de la cascara
     int npart = x_part.size();
@@ -39,11 +41,13 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 		printf("%d particle(s) are missing\n", npart - total);
     }
 
+    ring_width = ring_width*1000. //Change units from kpc to pc
+
     for (i = 0; i < nrings; i++){
 
         rin = ring_width * i
-        V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3))
-        ro[i] = ro[i] / V
+        V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3)) //In units of pc3
+        ro[i] = (mp*ro[i]) / V //In units of M_sun/(h*pc3)
 
     }
 }
