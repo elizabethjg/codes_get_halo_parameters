@@ -20,6 +20,9 @@
 using namespace std;
 
 
+void print_header(ofstream outdata);
+void print_profile_header(ofstream outdata);
+
 //---------------------------------------------------------------------------------
 //----------------------------------- main code -----------------------------------
 int main(int argc, char **argv){
