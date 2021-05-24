@@ -175,30 +175,36 @@ outdata <<
 "EKin" <<delim<< "EPot" <<delim<<
 //2D                                                      
 "a2D_mod" <<delim<< "b2D_mod" <<delim<<
-"a2D_0  " <<delim<< "a2D_1  " <<delim<<
-"b2D_0  " <<delim<< "b2D_1  " <<delim<<
+"a2D_x  " <<delim<< "a2D_y  " <<delim<<
+"b2D_x  " <<delim<< "b2D_y  " <<delim<<
 //2D (reduced)                                            
-"a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<< "a2Dr_0  " <<delim<<
-"a2Dr_1  " <<delim<< "b2Dr_0  " <<delim<< "b2Dr_1  " <<delim<<
+"a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<< 
+"a2Dr_x  " <<delim<< "a2Dr_y  " <<delim<< 
+"b2Dr_x  " <<delim<< "b2Dr_y  " <<delim<<
 //3D                                                          
 "a3D_mod" <<delim<< "b3D_mod" <<delim<< "c3D_mod" <<delim<<   
-"a3D_0  " <<delim<< "a3D_1  " <<delim<< "a3D_2  " <<delim<<   
-"b3D_0  " <<delim<< "b3D_1  " <<delim<< "b3D_2  " <<delim<<                          
-"c3D_0  "  <<delim<< "c3D_1  " <<delim<< "c3D_2  " <<delim<<                          
+"a3D_x  " <<delim<< "a3D_y  " <<delim<< "a3D_z  " <<delim<<   
+"b3D_x  " <<delim<< "b3D_y  " <<delim<< "b3D_z  " <<delim<<                          
+"c3D_x  "  <<delim<< "c3D_y  " <<delim<< "c3D_z  " <<delim<<                          
 //3D (reduced)                                                
 "a3Dr_mod" <<delim<< "b3Dr_mod" <<delim<< "c3Dr_mod" <<delim<<
-"a3Dr_0  " <<delim<< "a3Dr_1  " <<delim<< "a3Dr_2  " <<delim<<
-"b3Dr_0  " <<delim<< "b3Dr_1  " <<delim<< "b3Dr_2  " <<delim<<
-"c3Dr_0  "  <<delim<< "c3Dr_1  " <<delim<< "c3Dr_2  " <<
+"a3Dr_x  " <<delim<< "a3Dr_y  " <<delim<< "a3Dr_z  " <<delim<<
+"b3Dr_x  " <<delim<< "b3Dr_y  " <<delim<< "b3Dr_z  " <<delim<<
+"c3Dr_x  "  <<delim<< "c3Dr_y  " <<delim<< "c3Dr_z  " <<
 endl;
 //-------------------------------------------------------
         
-
+float avance = 0.02;
 //--------------- begin loop over halos --------------------
 for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 //for (int ihalo = 0; ihalo < 30000; ihalo++) {
     
-
+        if((float(ihalo)/float(nhalos))  > avance){
+                
+                printf("=");
+                avance = avance + 0.02;
+                
+        }
     
     //--------------------- read data ---------------------
     //read halo properties
@@ -272,18 +278,6 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
     //if(lm>12.){
     if(Npart > 10.){
             
-        //open output file to save particles
-        //ofstream outdata_ind;
-        //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
-        //outdata_ind.open(out_file_ind);
-        //set format for output
-        //outdata_ind.setf(ios::fixed);
-        //outdata_ind.precision(3);
-
-
-        //printf("Computing properties\n");    
-        printf("Halo %d, %.1f fraction \n", ihalo, (float(ihalo)/float(nhalos)));
-        //printf("log(M_fof) = %.1f\n", lm);
 
         // COMPUTE KENETIC AND POTENTIAL ENERGIES
         double EKin = 0;
@@ -567,8 +561,11 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 indata.close();
 outdata.close();
 
+
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
+
+printf(">\n");
 
 std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 std::cout << "Total TIME = " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "[s]" << std::endl;
