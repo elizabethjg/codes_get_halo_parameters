@@ -1,6 +1,9 @@
 #include "compute_profile.h"
-#include <cmath>
 
+#include <cmath>
+#include <iostream>
+
+using namespace std;
 
 void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
         const int nrings, const float max_distance, vector <float> &ro){
@@ -9,15 +12,15 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     float V; //Volumen de la cascara
     float rsq; //Volumen de la cascara
-    int npart = x.size();
+    int npart = x.size(), idx = -1;
 
     float ring_width;
     ring_width = float(max_distance) / float(nrings);
 
-    for (i = 0; i < npart; i++){
+    for (int i = 0; i < npart; i++){
 
         //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
-        rsq = sqrt(x[i]*x[i] + y[i]*y[i]+ z[i]*z[i])
+        rsq = sqrt(x[i]*x[i] + y[i]*y[i]+ z[i]*z[i]);
 
         idx = (int)(rsq/ring_width);
 
@@ -33,21 +36,21 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     /* Chequeo del número de partículas por anillo y del total.*/
     int total = 0;
-    for (i = 0; i < nrings; i++){
+    for (int i = 0; i < nrings; i++){
         total += ro[i];
     }
 
     if (total != npart){
-		printf("%d particle(s) are missing\n", npart - total);
+		cout << (npart -total) << "particle(s) are missing" << endl;
     }
 
-    ring_width = ring_width*1000. //Change units from kpc to pc
+    ring_width = ring_width*1000.; //Change units from kpc to pc
 
-    for (i = 0; i < nrings; i++){
+    for (int i = 0; i < nrings; i++){
 
-        rin = ring_width * i
-        V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3)) //In units of pc3
-        ro[i] = (mp*ro[i]) / V //In units of M_sun/(h*pc3)
+        rin = ring_width * i;
+        V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3)); //In units of pc3
+        ro[i] = (mp*ro[i]) / V; //In units of M_sun/(h*pc3)
 
     }
 }
