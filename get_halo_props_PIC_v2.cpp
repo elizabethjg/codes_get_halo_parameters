@@ -15,13 +15,13 @@
 #include "halo_energy.h"
 #include "recentering.h"
 #include "compute_profile.h"
-#include "moment_of_interia.h"
+#include "moment_of_inertia.h"
 
 using namespace std;
 
 
-void print_header(ofstream outdata);
-void print_profile_header(ofstream outdata);
+void print_header(ofstream &outdata);
+void print_profile_header(ofstream &outdata);
 
 //---------------------------------------------------------------------------------
 //----------------------------------- main code -----------------------------------
@@ -508,7 +508,7 @@ int main(int argc, char **argv){
 }
 
 
-void print_header(ofstream outdata){
+void print_header(ofstream &outdata){
 
     //delimiter for output
     string delim = ",";

@@ -1,5 +1,5 @@
-#ifndef MOMENT_OF_INTERIA_H
-#define MOMENT_OF_INTERIA_H
+#ifndef MOMENT_OF_INERTIA_H
+#define MOMENT_OF_INERTIA_H
 
 #include <vector>
 #include <string>

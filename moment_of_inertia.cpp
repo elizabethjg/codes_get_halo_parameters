@@ -1,4 +1,4 @@
-#include "moment_of_interia.h"
+#include "moment_of_inertia.h"
 
 #include <cmath>
 
