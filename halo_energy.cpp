@@ -6,6 +6,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 const vector <float> vy, const vector <float> vz,
                 double *Epot_halo, double *Ekin_halo){
 
+
     double mp = 2.927e10; //particle mass [M_sun/h]
     double G = 6.67384e-11; // [m3 kg-1 s-2]
     double Msun = 1.9891e30; // [kg/M_sun]
@@ -39,6 +40,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 dxi = (xi - x[k]) / 1000.;
                 dyi = (yi - y[k]) / 1000.;
                 dzi = (zi - z[k]) / 1000.;
+
 
                 // in units of (kg*m^2/s^2)*10^40
                 Epot_part += fEpot*mp*mp/sqrt(dxi*dxi + dyi*dyi + dzi*dzi);
