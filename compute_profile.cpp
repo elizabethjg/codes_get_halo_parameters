@@ -9,6 +9,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         const int nrings, const float max_distance, vector <float> &ro){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
+    double pi = 3.141592653589793
+    float rin
 
     float V; //Volumen de la cascara
     float rsq; //Volumen de la cascara
@@ -49,7 +51,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     for (int i = 0; i < nrings; i++){
 
         rin = ring_width * i;
-        V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3)); //In units of pc3
+        V = (4./3.) * pi * (pow((rin + ring_width), 3) - pow(rin, 3)); //In units of pc3
         ro[i] = (mp*ro[i]) / V; //In units of M_sun/(h*pc3)
 
     }
