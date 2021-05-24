@@ -112,63 +112,9 @@ int main(int argc, char **argv){
     printf("Total number of particles = %d \n", Nparttot);
     printf("--------------------------- \n");
 
-    //--------------------------------------------------
-    //------------------ print header -----------------------
-
-    // For output profile
-
-    outdata_pro <<
-    "Halo number" <<delim<< "r_max" <<delim<<
-    "r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
-    "r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
-    "r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
-    "r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
-    "r12" <<delim<< "r13" <<delim<< "r14" <<
-    endl;
-
-    // For output params
-    outdata <<
-    "Halo number" <<delim<< "Npart" <<delim<< "log10(mass)" <<delim<<
-
-    //position
-    "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<<
-    "xc_rc" <<delim<< "yc_rc" <<delim<< "zc_rc" <<delim<<
-
-    //max radius
-    "r_max" <<delim<<
-
-    //velocity
-    "vxc" <<delim<< "vyc" <<delim<< "vzc" <<delim<<
-
-    //angular momentum
-    "J0"  <<delim<< "J1" <<delim<< "J2" <<delim<<
-
-    //Energies
-    "EKin" <<delim<< "EPot" <<delim<<
-
-    //2D
-    "a2D_mod" <<delim<< "b2D_mod" <<delim<<
-    "a2D_x  " <<delim<< "a2D_y  " <<delim<<
-    "b2D_x  " <<delim<< "b2D_y  " <<delim<<
-
-    //2D (reduced)
-    "a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<<
-    "a2Dr_x  " <<delim<< "a2Dr_y  " <<delim<<
-    "b2Dr_x  " <<delim<< "b2Dr_y  " <<delim<<
-
-    //3D
-    "a3D_mod" <<delim<< "b3D_mod" <<delim<< "c3D_mod" <<delim<<
-    "a3D_x  " <<delim<< "a3D_y  " <<delim<< "a3D_z  " <<delim<<
-    "b3D_x  " <<delim<< "b3D_y  " <<delim<< "b3D_z  " <<delim<<
-    "c3D_x  "  <<delim<< "c3D_y  " <<delim<< "c3D_z  " <<delim<<
-
-    //3D (reduced)
-    "a3Dr_mod" <<delim<< "b3Dr_mod" <<delim<< "c3Dr_mod" <<delim<<
-    "a3Dr_x  " <<delim<< "a3Dr_y  " <<delim<< "a3Dr_z  " <<delim<<
-    "b3Dr_x  " <<delim<< "b3Dr_y  " <<delim<< "b3Dr_z  " <<delim<<
-    "c3Dr_x  "  <<delim<< "c3Dr_y  " <<delim<< "c3Dr_z  " <<
-    endl;
-    //-------------------------------------------------------
+    // print headers
+    print_header(outdata);
+    print_profile_header(outdata_pro);
 
     float avance = 0.02;
     //--------------- begin loop over halos --------------------
@@ -555,5 +501,78 @@ int main(int argc, char **argv){
     std::cout << "Total TIME = " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "[s]" << std::endl;
 
     return 0;
+
+}
+
+
+void print_header(ofstream outdata){
+
+    //delimiter for output
+    string delim = ",";
+
+    //--------------------------------------------------
+    //------------------ print header -----------------------
+
+    // For output params
+    outdata <<
+    "Halo number" <<delim<< "Npart" <<delim<< "log10(mass)" <<delim<<
+
+    //position
+    "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<<
+    "xc_rc" <<delim<< "yc_rc" <<delim<< "zc_rc" <<delim<<
+
+    //max radius
+    "r_max" <<delim<<
+
+    //velocity
+    "vxc" <<delim<< "vyc" <<delim<< "vzc" <<delim<<
+
+    //angular momentum
+    "J0"  <<delim<< "J1" <<delim<< "J2" <<delim<<
+
+    //Energies
+    "EKin" <<delim<< "EPot" <<delim<<
+
+    //2D
+    "a2D_mod" <<delim<< "b2D_mod" <<delim<<
+    "a2D_x  " <<delim<< "a2D_y  " <<delim<<
+    "b2D_x  " <<delim<< "b2D_y  " <<delim<<
+
+    //2D (reduced)
+    "a2Dr_mod" <<delim<< "b2Dr_mod" <<delim<<
+    "a2Dr_x  " <<delim<< "a2Dr_y  " <<delim<<
+    "b2Dr_x  " <<delim<< "b2Dr_y  " <<delim<<
+
+    //3D
+    "a3D_mod" <<delim<< "b3D_mod" <<delim<< "c3D_mod" <<delim<<
+    "a3D_x  " <<delim<< "a3D_y  " <<delim<< "a3D_z  " <<delim<<
+    "b3D_x  " <<delim<< "b3D_y  " <<delim<< "b3D_z  " <<delim<<
+    "c3D_x  "  <<delim<< "c3D_y  " <<delim<< "c3D_z  " <<delim<<
+
+    //3D (reduced)
+    "a3Dr_mod" <<delim<< "b3Dr_mod" <<delim<< "c3Dr_mod" <<delim<<
+    "a3Dr_x  " <<delim<< "a3Dr_y  " <<delim<< "a3Dr_z  " <<delim<<
+    "b3Dr_x  " <<delim<< "b3Dr_y  " <<delim<< "b3Dr_z  " <<delim<<
+    "c3Dr_x  "  <<delim<< "c3Dr_y  " <<delim<< "c3Dr_z  " <<
+    endl;
+    //-------------------------------------------------------
+}
+
+
+void  print_profile_header(ofstream &outdata_pro){
+
+    //delimiter for output
+    string delim = ",";
+
+    // For output profile
+
+    outdata_pro <<
+    "Halo number" <<delim<< "r_max" <<delim<<
+    "r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
+    "r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
+    "r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
+    "r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
+    "r12" <<delim<< "r13" <<delim<< "r14" <<
+    endl;
 
 }
