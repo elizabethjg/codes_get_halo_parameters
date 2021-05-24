@@ -316,14 +316,14 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         float yc = 0;
         float zc = 0;
 
-        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, r_max);
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
         
         // COMPUTE DENSITY PROFILE
         vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
         int NRINGS = ro.size();
-        ro_r(x_part, y_part, z_part, NRINGS, r_max, &ro);
+        ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
 
-        save profile        
+        //save profile        
         outdata_pro <<                
         ihalo << delim<< r_max <<delim<< 
         ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
