@@ -3,7 +3,7 @@
 
 
 void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
-        const int nrings, const float max_distance, vector <float> *ro){
+        const int nrings, const float max_distance, vector <float> &ro){
 
     float V; //Volumen de la cascara
     float rsq; //Volumen de la cascara
@@ -26,7 +26,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
             idx = nrings - 1;
         }
 
-        *ro[idx] += 1;
+        ro[idx] += 1;
 	}
 
     /* Chequeo del número de partículas por anillo y del total.*/
@@ -43,7 +43,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
         rin = ring_width * i
         V = (4./3.) * pi * (pow((rin + ring_witdth), 3) - pow(rin, 3))
-        *ro[i] = *ro[i] / V
+        ro[i] = ro[i] / V
 
     }
 }

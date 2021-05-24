@@ -316,7 +316,7 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         float yc = 0;
         float zc = 0;
 
-        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
+        recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, r_max);
         
         // COMPUTE DENSITY PROFILE
         vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
