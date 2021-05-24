@@ -1,6 +1,6 @@
 #include "moment_of_interia.h"
 
-#include <string>
+#include <cmath>
 
 using namespace std;
 

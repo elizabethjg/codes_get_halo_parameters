@@ -2,6 +2,9 @@
 #define MOMENT_OF_INTERIA_H
 
 #include <vector>
+#include <string>
+
+using namespace std;
 
 void ini_MI_2D(const vector <float> x_part, const vector <float> y_part,\
                 double MI[2*2], const string type);
