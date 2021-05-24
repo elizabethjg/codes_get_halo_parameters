@@ -86,6 +86,7 @@ std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 string filename_input = argv[1];
 string filename_output = argv[2];
 
+
 //delimiter for output
 string delim = ",";
 
@@ -120,8 +121,8 @@ outdata.precision(3);
 
 //open output file to save profiles
 ofstream outdata_pro;
-string out_file_pro = outdata.open(filename_output.c_str())+"_profile";
-outdata_pro.open(out_file_pro);
+string out_file_pro = filename_output+"_profile";
+outdata_pro.open(out_file_pro.c_str());
 outdata_pro.setf(ios::fixed);
 outdata_pro.precision(3);
 
@@ -167,14 +168,14 @@ printf("--------------------------- \n");
 
 // For output profile
 
-outdata_pro <<
-"Halo number" <<delim<< "r_max" <<delim<<
-"r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
-"r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
-"r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
-"r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
-"r12" <<delim<< "r13" <<delim<< "r14" <<
-endl;
+//outdata_pro <<
+//"Halo number" <<delim<< "r_max" <<delim<<
+//"r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
+//"r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
+//"r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
+//"r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
+//"r12" <<delim<< "r13" <<delim<< "r14" <<
+//endl;
 
 // For output params
 outdata <<
@@ -318,11 +319,11 @@ for (int ihalo = 0; ihalo < nhalos; ihalo++) {
         recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
         
         // COMPUTE DENSITY PROFILE
-        int NRINGS = 15;
-        float ro[NRINGS] = {0};
+        vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+        int NRINGS = ro.size();
         ro_r(x_part, y_part, z_part, NRINGS, r_max, &ro);
 
-        //save profile        
+        save profile        
         outdata_pro <<                
         ihalo << delim<< r_max <<delim<< 
         ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
@@ -600,12 +601,11 @@ indata.close();
 outdata.close();
 outdata_pro.close();
 
-
 string cmd = "bzip2 " + filename_output;
 system(cmd.c_str());
 
-string cmd = "bzip2 " + filename_output_;
-system(cmd.c_str());
+string cmd_pro = "bzip2 " + out_file_pro;
+system(cmd_pro.c_str());
 
 
 printf(">\n");
