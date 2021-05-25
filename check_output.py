@@ -12,9 +12,11 @@ cat    = pd.read_csv(args.file_name+'.bz2')
 print(check_cat.shape)
 print(cat.shape)
 
-for j in cat.columns: 
-    m = np.abs(check_cat[j] > 0.) 
-    print(j,np.max(((cat[j]/check_cat[j])[m])))
+for j in range(len(check_cat.columns)):
+    col_check = check_cat.columns[j]
+    col_cat   = cat.columns[j]
+    m = np.abs(check_cat[col_check] > 0.) 
+    print(col_cat,np.max(((cat[col_cat]/check_cat[col_check])[m])))
 
 '''
 
