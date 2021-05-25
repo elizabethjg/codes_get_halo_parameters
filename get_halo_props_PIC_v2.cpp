@@ -16,6 +16,7 @@
 #include "recentering.h"
 #include "compute_profile.h"
 #include "calculate_shapes.h"
+#include "project_particles.h"
 
 using namespace std;
 
@@ -41,15 +42,14 @@ int main(int argc, char **argv){
     ofstream outdata;
     outdata.open(filename_output.c_str());
 
-
-    //set format for output
-    outdata.setf(ios::fixed);
-    outdata.precision(3);
-
     //open output file to save profiles
     ofstream outdata_pro;
     string out_file_pro = filename_output+"_profile";
-    outdata_pro.open(out_file_pro.c_str());
+    outdata_pro.open(out_file_pro.c_str()); 
+ 
+    //set format for output
+    outdata.setf(ios::fixed);
+    outdata.precision(3);
     outdata_pro.setf(ios::fixed);
     outdata_pro.precision(3);
 
@@ -67,9 +67,6 @@ int main(int argc, char **argv){
         return 0;
     }
     //---------------------------------------------------------
-
-
-
 
     //----- read catalog properties from input file-----
     float limitmass=0, mass=0;
@@ -94,6 +91,10 @@ int main(int argc, char **argv){
     printf("Limit mass = %.1f \n", limitmass);
     printf("Total number of particles = %d \n", Nparttot);
     printf("--------------------------- \n");
+    printf("WARNING \n");
+    printf("Computation will be performed for halos \n");
+    printf("with more than 10 particles \n");
+    printf("--------------------------- \n");
 
     // print headers
     print_header(outdata);
@@ -104,6 +105,8 @@ int main(int argc, char **argv){
     //--------------- begin loop over halos --------------------
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
+        // Define variables that will save semi-axis vectors
+        // and modulus
         float a2D[2], b2D[2], a2Dr[2], b2Dr[2];
         float a2Dr_abs, b2Dr_abs, a2D_abs, b2D_abs;
 
@@ -111,8 +114,6 @@ int main(int argc, char **argv){
         float a3Dr[3], b3Dr[3], c3Dr[3];
         float a3Dr_abs, b3Dr_abs, c3Dr_abs;
         float a3D_abs, b3D_abs, c3D_abs;
-
-    //for (int ihalo = 0; ihalo < 30000; ihalo++) {
 
         if((float(ihalo)/float(nhalos))  > avance){
 
@@ -163,10 +164,6 @@ int main(int argc, char **argv){
             y_part.push_back(yi);
             z_part.push_back(zi);
 
-            x_part0.push_back(xi);
-            y_part0.push_back(yi);
-            z_part0.push_back(zi);
-
         }
 
         indata.read(buffer, 2*length);
@@ -193,18 +190,9 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        //if(lm>12.){
         if(Npart > 10.){
 
-            //open output file to save particles
-            //ofstream outdata_ind;
-            //string out_file_ind = "../catalogs/ind_halos/particles_halo" + to_string(ihalo);
-            //outdata_ind.open(out_file_ind);
-            //set format for output
-            //outdata_ind.setf(ios::fixed);
-            //outdata_ind.precision(3);
-
-
+            
             // COMPUTE KENETIC AND POTENTIAL ENERGIES
             double EKin = 0;
             double EPot = 0;
@@ -218,65 +206,23 @@ int main(int argc, char **argv){
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
 
-            // COMPUTE DENSITY PROFILE
-            vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            int NRINGS = ro.size();
-            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
-
-            //save profile
-            outdata_pro <<
-            ihalo << delim<< r_max <<delim<<
-            ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
-            ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
-            ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
-            ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
-            ro[12] <<delim<< ro[13] <<delim<< ro[14] <<
-            endl;
-
-            //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
-            //get ra & dec of center
-            double ra_center = 0;
-            if(yc > 0){ra_center = atan(xc/yc);}
-            double dec_center = asin(zc/sqrt(xc*xc + yc*yc + zc*zc));
-
-            //define normalized 3Dvectors which span tangential plain perpendicular to los vector pointing to halo
-            //vector with constant latitude (no dependence on dec),
-            double e1x =   cos(ra_center);
-            double e1y =   -sin(ra_center);
-            //double e1z =   0;//not needed
-
-            //vector with constant longitude (perpendiculat to los and e1)
-            double e2x = - sin(dec_center) * sin(ra_center);
-            double e2y = - sin(dec_center) * cos(ra_center);
-            double e2z =   cos(dec_center);
-
-            //project halo particles on plain via scalar product
+            //PROJECT POSITION OF PARTICLES
             vector <float> x_part_proj, y_part_proj;
-            for(int i = 0; i < Npart; i++){
+            project(x_part, y_part, z_part, xc, yc, zc, x_part_proj, y_part_proj);
 
-                //outdata_ind <<
-                //x_part0[i] << delim<< y_part0[i] <<delim<< z_part0[i] <<delim<<
-                //x_part[i] << delim<< y_part[i] <<delim<< z_part[i] <<
-                //endl;
 
-                float xi = e1x*x_part[i] + e1y*y_part[i]; // + e1z*z_part[i]
-                float yi = e2x*x_part[i] + e2y*y_part[i] + e2z*z_part[i];
+            // COMPUTE SEMI-AXIS USING INTERTIAL TENSOR
 
-                x_part_proj.push_back(xi);
-                y_part_proj.push_back(yi);
-            }
-            //outdata_ind.close();
-            //-------------------------------------------------------------------------------------------------------
-
-            calculate_2d_shapes(&x_part_proj, &y_part_proj, \
+            calculate_2d_shapes(x_part_proj, y_part_proj, \
                                     a2D, b2D, a2Dr, b2Dr, \
                                     &a2Dr_abs, &b2Dr_abs, &a2D_abs, &b2D_abs);
 
-            calculate_3d_shapes(&x_part, &y_part, \
-                            &z_part, a3D, b3D, c3D, \
+            calculate_3d_shapes(x_part, y_part, \
+                            z_part, a3D, b3D, c3D, \
                             a3Dr, b3Dr, c3Dr, \
                             &a3D_abs, &b3D_abs, &c3D_abs, \
                             &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
+                            
             //---------------------- angular momentum -------------------------------
             //array for angular momentum vector
             double J[3];
@@ -297,17 +243,6 @@ int main(int argc, char **argv){
 
             //------------------ print output -----------------------
 
-            //axis ratios
-            //double q2D = b2D_abs / a2D_abs;
-            //double q2Dr = b2Dr_abs / a2Dr_abs;
-            //
-            //double q3D = b3D_abs / a3D_abs;
-            //double q3Dr = b3Dr_abs / a3Dr_abs;
-            //
-            //double s3D = c3D_abs / a3D_abs;
-            //double s3Dr = c3Dr_abs / a3Dr_abs;
-
-            //cout <<
             outdata <<
 
             ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
@@ -352,6 +287,21 @@ int main(int argc, char **argv){
 
             endl;
             //-------------------------------------------------------
+
+            // COMPUTE DENSITY PROFILE
+            vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            int NRINGS = ro.size();
+            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
+
+            //save profile
+            outdata_pro <<
+            ihalo << delim<< r_max <<delim<<
+            ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
+            ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
+            ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
+            ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
+            ro[12] <<delim<< ro[13] <<delim<< ro[14] <<
+            endl;
 
         }
 
