@@ -24,6 +24,18 @@ using namespace std;
 void print_header(ofstream &outdata);
 void print_profile_header(ofstream &outdata);
 
+void save_profile(ofstream &outdata_pro, vector <float> ro, int ihalo, float r_max);
+void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
+                float xc_fof, float yc_fof, float zc_fof, float r_max, \
+                float xc, float yc, float zc, \
+                float vxc, float vyc, float vzc, \
+                double *J, double EKin, double EPot, \
+                float a2D_abs, float b2D_abs, float a2Dr_abs, float b2Dr_abs, \
+                float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
+                float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
+                float a3D_abs, float b3D_abs, float c3D_abs, \
+                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr);
+
 //---------------------------------------------------------------------------------
 //----------------------------------- main code -----------------------------------
 int main(int argc, char **argv){
@@ -33,7 +45,6 @@ int main(int argc, char **argv){
     //eat input and output filenames
     string filename_input = argv[1];
     string filename_output = argv[2];
-
 
     //delimiter for output
     string delim = ",";
@@ -45,8 +56,8 @@ int main(int argc, char **argv){
     //open output file to save profiles
     ofstream outdata_pro;
     string out_file_pro = filename_output+"_profile";
-    outdata_pro.open(out_file_pro.c_str()); 
- 
+    outdata_pro.open(out_file_pro.c_str());
+
     //set format for output
     outdata.setf(ios::fixed);
     outdata.precision(3);
@@ -149,6 +160,7 @@ int main(int argc, char **argv){
         //read particle coordinates
         vector <float> x_part, y_part, z_part;
         vector <float> x_part0, y_part0, z_part0;
+
         for (int i = 0; i < Npart; i++) {
             float xi=0, yi=0, zi=0;
 
@@ -192,7 +204,7 @@ int main(int argc, char **argv){
 
         if(Npart > 10.){
 
-            
+
             // COMPUTE KENETIC AND POTENTIAL ENERGIES
             double EKin = 0;
             double EPot = 0;
@@ -222,7 +234,7 @@ int main(int argc, char **argv){
                             a3Dr, b3Dr, c3Dr, \
                             &a3D_abs, &b3D_abs, &c3D_abs, \
                             &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
-                            
+
             //---------------------- angular momentum -------------------------------
             //array for angular momentum vector
             double J[3];
@@ -241,52 +253,74 @@ int main(int argc, char **argv){
             for(int i = 0; i < 3; i++){ J[i] /= double(Npart); }
             //-----------------------------------------------------------------------
 
-            //------------------ print output -----------------------
+            // //------------------ print output -----------------------
+            //
+            // //axis ratios
+            // //double q2D = b2D_abs / a2D_abs;
+            // //double q2Dr = b2Dr_abs / a2Dr_abs;
+            // //
+            // //double q3D = b3D_abs / a3D_abs;
+            // //double q3Dr = b3Dr_abs / a3Dr_abs;
+            // //
+            // //double s3D = c3D_abs / a3D_abs;
+            // //double s3Dr = c3Dr_abs / a3Dr_abs;
+            //
+            // //cout <<
+            // outdata <<
+            //
+            // ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
+            //
+            // //position
+            // xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
+            // xc     <<delim<< yc     <<delim<< zc <<delim<<            //6,7,8
+            //
+            // //max radius
+            // r_max <<delim<<                                           //9
+            //
+            // //velocity
+            // vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
+            //
+            // //angular momentum
+            // J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
+            //
+            // //Energies
+            // EKin <<delim<< EPot <<delim<<                             //16,17
+            //
+            // //2D
+            // a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
+            // a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
+            // b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
+            //
+            // //2D (reduced)
+            // a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
+            // a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
+            // b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
+            //
+            // //3D
+            // a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
+            // a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
+            // b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
+            // c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
+            //
+            // //3D (reduced)
+            // a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
+            // a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
+            // b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
+            // c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
+            //
+            // endl;
+            // //-------------------------------------------------------
+            save_output(outdata, ihalo, Npart, mass, \
+                        xc_fof, yc_fof, zc_fof, r_max, \
+                        xc, yc, zc, \
+                        vxc, vyc, vzc, \
+                        J, EKin, EPot, \
+                        a2D_abs, b2D_abs, a2Dr_abs, b2Dr_abs, \
+                        a2D, b2D, a2Dr,  b2Dr, \
+                        a3Dr_abs, b3Dr_abs, c3Dr_abs, \
+                        a3D_abs, b3D_abs, c3D_abs, \
+                        a3D, b3D, c3D, a3Dr, b3Dr, c3Dr);
 
-            outdata <<
-
-            ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
-
-            //position
-            xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
-            xc     <<delim<< yc     <<delim<< zc <<delim<<            //6,7,8
-
-            //max radius
-            r_max <<delim<<                                           //9
-
-            //velocity
-            vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
-
-            //angular momentum
-            J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
-
-            //Energies
-            EKin <<delim<< EPot <<delim<<                             //16,17
-
-            //2D
-            a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
-            a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
-            b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
-
-            //2D (reduced)
-            a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
-            a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
-            b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
-
-            //3D
-            a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
-            a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
-            b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
-            c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
-
-            //3D (reduced)
-            a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
-            a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
-            b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
-            c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
-
-            endl;
-            //-------------------------------------------------------
 
             // COMPUTE DENSITY PROFILE
             vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
@@ -381,7 +415,7 @@ void print_header(ofstream &outdata){
 }
 
 
-void  print_profile_header(ofstream &outdata_pro){
+void print_profile_header(ofstream &outdata_pro){
 
     //delimiter for output
     string delim = ",";
@@ -395,6 +429,84 @@ void  print_profile_header(ofstream &outdata_pro){
     "r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
     "r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
     "r12" <<delim<< "r13" <<delim<< "r14" <<
+    endl;
+
+}
+
+void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
+                float xc_fof, float yc_fof, float zc_fof, float r_max, \
+                float xc, float yc, float zc, \
+                float vxc, float vyc, float vzc, \
+                double *J, double EKin, double EPot, \
+                float a2D_abs, float b2D_abs, float a2Dr_abs, float b2Dr_abs, \
+                float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
+                float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
+                float a3D_abs, float b3D_abs, float c3D_abs, \
+                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr
+                ){
+
+    //delimiter for output
+    string delim = ",";
+
+    outdata <<
+
+    ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
+
+    //position
+    xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
+    xc     <<delim<< yc     <<delim<< zc <<delim<<            //6,7,8
+
+    //max radius
+    r_max <<delim<<                                           //9
+
+    //velocity
+    vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
+
+    //angular momentum
+    J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
+
+    //Energies
+    EKin <<delim<< EPot <<delim<<                             //16,17
+
+    //2D
+    a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
+    a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
+    b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
+
+    //2D (reduced)
+    a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
+    a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
+    b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
+
+    //3D
+    a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
+    a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
+    b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
+    c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
+
+    //3D (reduced)
+    a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
+    a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
+    b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
+    c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
+
+    endl;
+    //-------------------------------------------------------
+
+}
+
+void save_profile(ofstream &outdata_pro, vector <float> ro, int ihalo, float r_max){
+
+    //delimiter for output
+    string delim = ",";
+
+    outdata_pro <<
+    ihalo << delim<< r_max <<delim<<
+    ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
+    ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
+    ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
+    ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
+    ro[12] <<delim<< ro[13] <<delim<< ro[14] <<
     endl;
 
 }
