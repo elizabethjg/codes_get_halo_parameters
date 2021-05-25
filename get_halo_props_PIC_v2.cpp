@@ -22,9 +22,12 @@ using namespace std;
 
 
 void print_header(ofstream &outdata);
+
 void print_profile_header(ofstream &outdata);
 
+
 void save_profile(ofstream &outdata_pro, vector <float> ro, int ihalo, float r_max);
+
 void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
                 float xc_fof, float yc_fof, float zc_fof, float r_max, \
                 float xc, float yc, float zc, \
@@ -139,7 +142,6 @@ int main(int argc, char **argv){
         unsigned int haloID=0;
         float xc_fof=0, yc_fof=0, zc_fof=0, vxc=0, vyc=0, vzc=0;
 
-        //indata.read(reinterpret_cast<char*>(&haloID),   length); //fof ID
         //number of fof particles
         indata.read(reinterpret_cast<char*>(&Npart), length);
         //fof mass = particle mass * sNpart
@@ -159,7 +161,6 @@ int main(int argc, char **argv){
 
         //read particle coordinates
         vector <float> x_part, y_part, z_part;
-        vector <float> x_part0, y_part0, z_part0;
 
         for (int i = 0; i < Npart; i++) {
             float xi=0, yi=0, zi=0;
