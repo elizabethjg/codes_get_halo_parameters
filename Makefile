@@ -13,7 +13,7 @@ else
 endif
 endif
 
-SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp
+SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp
 OBJECTS := $(SOURCES:.cpp=.o)
 TARGET = get_halo_props_PIC_v2
 
@@ -23,7 +23,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(LDFLAGS) $< -o $@
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
