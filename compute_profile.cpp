@@ -6,7 +6,7 @@
 using namespace std;
 
 void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
-        const int nrings, const float max_distance, vector <float> &ro){
+        const int nrings, const float max_distance, vector <double> &ro){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
