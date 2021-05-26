@@ -324,18 +324,30 @@ int main(int argc, char **argv){
 
 
             // COMPUTE DENSITY PROFILE
+            // 3D profile
+            
             vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
             int NRINGS = ro.size();
             ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
 
+            vector <double> Sigma = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma);
+
             //save profile
             outdata_pro <<
+            
             ihalo << delim<< r_max <<delim<<
             ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
             ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
             ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
             ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
-            ro[12] <<delim<< ro[13] <<delim<< ro[14] <<
+            ro[12] <<delim<< ro[13] <<delim<< ro[14] <<delim<<
+            Sigma[0] <<delim<<  Sigma[1] <<delim<<  Sigma[2] <<delim<<
+            Sigma[3] <<delim<<  Sigma[4] <<delim<<  Sigma[5] <<delim<<
+            Sigma[6] <<delim<<  Sigma[7] <<delim<<  Sigma[8] <<delim<<
+            Sigma[9] <<delim<<  Sigma[10] <<delim<< Sigma[11] <<delim<<
+            Sigma[12] <<delim<< Sigma[13] <<delim<< Sigma[14] <<
+
             endl;
 
         }
