@@ -324,7 +324,7 @@ int main(int argc, char **argv){
 
 
             // COMPUTE DENSITY PROFILE
-            vector <float> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
             int NRINGS = ro.size();
             ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
 
