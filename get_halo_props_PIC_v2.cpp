@@ -322,6 +322,10 @@ int main(int argc, char **argv){
                         a3D_abs, b3D_abs, c3D_abs, \
                         a3D, b3D, c3D, a3Dr, b3Dr, c3Dr);
 
+            // ROTATE COORDINATES
+            theta2D = atan(a2D[1]/a2D[0])
+
+
 
             // COMPUTE DENSITY PROFILE
             // 3D profile
