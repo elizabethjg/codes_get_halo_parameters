@@ -37,4 +37,6 @@ void save_coordinates(const int ihalo,
         endl;
     }
 
+    outdata_coords.close();
+
 }
