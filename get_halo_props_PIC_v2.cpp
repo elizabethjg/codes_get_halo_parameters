@@ -349,7 +349,7 @@ int main(int argc, char **argv){
             ro_r(x_part, y_part, z_part, NRINGS, r_max, ro, 1., 1., 1.);            
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    ro[k] <<
+                    ro[k] << delim <<
                     endl;
             }
 
@@ -358,7 +358,7 @@ int main(int argc, char **argv){
             ro_r(x_part, y_part, z_part, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);            
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    ro_E[k] <<
+                    ro_E[k] << delim <<
                     endl;
             }
 
@@ -367,7 +367,7 @@ int main(int argc, char **argv){
             Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma,1.,1.);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    Sigma[k] <<
+                    Sigma[k] << delim <<
                     endl;
             }
             
@@ -376,9 +376,12 @@ int main(int argc, char **argv){
             Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    Sigma_E[k] <<
+                    Sigma_E[k] << delim <<
                     endl;
             }
+
+            outdata_pro <<
+            endl;
 
 
         }
