@@ -41,6 +41,10 @@ ax[0].plot(part0[3],part0[4],'C7.')
 ax[1].plot(part0[3],part0[5],'C7.')
 ax[2].plot(part0[4],part0[5],'C7.')
 
+ax[0].plot(part0[3],part0[4],'C7.')
+ax[1].plot(part0[3],part0[5],'C7.')
+ax[2].plot(part0[4],part0[5],'C7.')
+
 ax[0].plot(0,0,'C3o')
 ax[1].plot(0,0,'C3o')
 ax[2].plot(0,0,'C3o')

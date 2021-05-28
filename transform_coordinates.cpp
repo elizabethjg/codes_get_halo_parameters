@@ -20,8 +20,8 @@ void transform_coordinates(const vector <float> x, const vector <float> y, const
         float xi, yi, zi;
         float x2di, y2di;
         
-        x2di = (a2D[0]*x2d[k])+(a2D[1]*y[k]);
-        y2di = (b2D[0]*x2d[k])+(b2D[1]*y[k]);
+        x2di = (a2D[0]*x2d[k])+(a2D[1]*y2d[k]);
+        y2di = (b2D[0]*x2d[k])+(b2D[1]*y2d[k]);
 
         xi = (a3D[0]*x[k])+(a3D[1]*y[k])+(a3D[2]*z[k]);
         yi = (b3D[0]*x[k])+(b3D[1]*y[k])+(b3D[2]*z[k]);
