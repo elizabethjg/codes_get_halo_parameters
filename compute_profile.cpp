@@ -22,7 +22,6 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     for (int i = 0; i < npart; i++){
 
-        //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
         rsq = sqrt((x[i]*x[i])*(c/a) + (y[i]*y[i])*((a*c)/(b*b)) + (z[i]*z[i])*(a/c));
 
         idx = (int)(rsq/ring_width);
@@ -76,7 +75,6 @@ void Sigma_r(const vector <float> x, const vector <float> y,
 
     for (int i = 0; i < npart; i++){
 
-        //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
         Rsq = sqrt((x[i]*x[i])*(b/a) + (y[i]*y[i])*(a/b));
 
         idx = (int)(Rsq/ring_width);
