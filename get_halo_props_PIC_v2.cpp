@@ -17,6 +17,8 @@
 #include "compute_profile.h"
 #include "calculate_shapes.h"
 #include "project_particles.h"
+#include "save_coordinates.h"
+#include "transform_coordinates.h"
 
 using namespace std;
 
@@ -323,36 +325,57 @@ int main(int argc, char **argv){
                         a3D, b3D, c3D, a3Dr, b3Dr, c3Dr);
 
             // ROTATE COORDINATES
-            theta2D = atan(a2D[1]/a2D[0])
-
+            vector <float> x_rot, y_rot, z_rot;
+            vector <float> x2d_rot, y2d_rot; 
+            
+            transform_coordinates(const vector <float> x_part, const vector <float> y_part, const vector <float> z_part,
+                                  vector <float> &x_rot, vector <float> &y_rot, vector <float> &z_rot,
+                                  const vector <float> x_part_proj, const vector <float> y_part_proj,
+                                  vector <float> &x2d_rot, vector <float> &y2d_rot,
+                                  const vector <float> a3D, const vector <float> b3D, const vector <float> c3D, 
+                                  const vector <float> a2D, const vector <float> b2D);
 
 
             // COMPUTE DENSITY PROFILE
             // 3D profile
+
+            outdata_pro <<
+            ihalo << delim<< r_max <<
+            endl;
+            
+            int NRINGS = 15;
             
             vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            int NRINGS = ro.size();
             ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
+            
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro <<
+                    ro[k] <<
+                    endl;
+            }
+
+            vector <double> ro_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro_E);
+            
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro <<
+                    ro[k] <<
+                    endl;
+            }
+
+
 
             vector <double> Sigma = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
             Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma);
 
             //save profile
             outdata_pro <<
-            
-            ihalo << delim<< r_max <<delim<<
-            ro[0] <<delim<<  ro[1] <<delim<<  ro[2] <<delim<<
-            ro[3] <<delim<<  ro[4] <<delim<<  ro[5] <<delim<<
-            ro[6] <<delim<<  ro[7] <<delim<<  ro[8] <<delim<<
-            ro[9] <<delim<<  ro[10] <<delim<< ro[11] <<delim<<
-            ro[12] <<delim<< ro[13] <<delim<< ro[14] <<delim<<
-            Sigma[0] <<delim<<  Sigma[1] <<delim<<  Sigma[2] <<delim<<
-            Sigma[3] <<delim<<  Sigma[4] <<delim<<  Sigma[5] <<delim<<
-            Sigma[6] <<delim<<  Sigma[7] <<delim<<  Sigma[8] <<delim<<
-            Sigma[9] <<delim<<  Sigma[10] <<delim<< Sigma[11] <<delim<<
-            Sigma[12] <<delim<< Sigma[13] <<delim<< Sigma[14] <<
 
-            endl;
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro <<
+                    Sigma[k] <<
+                    endl;
+            }
 
         }
 
