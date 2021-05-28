@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <string> 
+#include <fstream>
 
 using namespace std;
 
@@ -14,6 +15,8 @@ void save_coordinates(const int ihalo,
 
     int np = x.size();
     std::string id = std::to_string(ihalo);
+
+    string delim = "    ";
 
     //open output file to save profiles
     ofstream outdata_coords;

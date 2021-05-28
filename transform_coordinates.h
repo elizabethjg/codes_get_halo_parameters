@@ -12,7 +12,7 @@ void transform_coordinates(const vector <float> x, const vector <float> y, const
         vector <float> &x_rot, vector <float> &y_rot, vector <float> &z_rot,
         const vector <float> x2d, const vector <float> y2d,
         vector <float> &x2d_rot, vector <float> &y2d_rot,
-        const vector <float> a3D, const vector <float> b3D, const vector <float> c3D, 
-        const vector <float> a2D, const vector <float> b2D);
+        const float *a3D, const float *b3D, const float *c3D, 
+        const float *a2D, const float *b2D);
 
 #endif

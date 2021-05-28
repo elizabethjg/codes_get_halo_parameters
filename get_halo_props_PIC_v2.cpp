@@ -333,7 +333,7 @@ int main(int argc, char **argv){
                                   a3D, b3D, c3D, a2D, b2D);
                                   
             save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
-                             x_part_proj, y_part_proj, x2d_rot, y2d_rot)
+                             x_part_proj, y_part_proj, x2d_rot, y2d_rot);
 
 
             // COMPUTE DENSITY PROFILE
