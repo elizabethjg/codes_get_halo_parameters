@@ -17,7 +17,7 @@ void save_coordinates(const int ihalo,
 
     //open output file to save profiles
     ofstream outdata_coords;
-    string out_file_coords = "coords"+id;
+    string out_file_coords = "../catalogcs/ind_halos/coords"+id;
     outdata_coords.open(out_file_coords.c_str());
 
     //set format for output

@@ -324,20 +324,19 @@ int main(int argc, char **argv){
                         a3D_abs, b3D_abs, c3D_abs, \
                         a3D, b3D, c3D, a3Dr, b3Dr, c3Dr);
 
-            // ROTATE COORDINATES
+            // TRANSFORM COORDINATES
             vector <float> x_rot, y_rot, z_rot;
             vector <float> x2d_rot, y2d_rot; 
             
-            transform_coordinates(const vector <float> x_part, const vector <float> y_part, const vector <float> z_part,
-                                  vector <float> &x_rot, vector <float> &y_rot, vector <float> &z_rot,
-                                  const vector <float> x_part_proj, const vector <float> y_part_proj,
-                                  vector <float> &x2d_rot, vector <float> &y2d_rot,
-                                  const vector <float> a3D, const vector <float> b3D, const vector <float> c3D, 
-                                  const vector <float> a2D, const vector <float> b2D);
+            transform_coordinates(x_part,y_part,z_part, x_rot, y_rot, z_rot,
+                                  x_part_proj, y_part_proj, x2d_rot, y2d_rot,
+                                  a3D, b3D, c3D, a2D, b2D);
+                                  
+            save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
+                             x_part_proj, y_part_proj, x2d_rot, y2d_rot)
 
 
             // COMPUTE DENSITY PROFILE
-            // 3D profile
 
             outdata_pro <<
             ihalo << delim<< r_max <<
@@ -345,37 +344,42 @@ int main(int argc, char **argv){
             
             int NRINGS = 15;
             
+            // 3D profile
             vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro);
-            
+            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro, 1., 1., 1.);            
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
                     ro[k] <<
                     endl;
             }
 
+            // 3D elliptical profile
             vector <double> ro_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro_E);
-            
+            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);            
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    ro[k] <<
+                    ro_E[k] <<
                     endl;
             }
 
-
-
+            // 2D profile
             vector <double> Sigma = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma);
-
-            //save profile
-            outdata_pro <<
-
+            Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma,1.,1.);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
                     Sigma[k] <<
                     endl;
             }
+            
+            // 2D elliptical profile
+            vector <double> Sigma_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro <<
+                    Sigma_E[k] <<
+                    endl;
+            }
+
 
         }
 

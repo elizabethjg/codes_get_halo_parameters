@@ -6,7 +6,8 @@
 using namespace std;
 
 void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
-        const int nrings, const float max_distance, vector <double> &ro){
+        const int nrings, const float max_distance, vector <double> &ro,
+        const float a, const float b, const float c){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
@@ -22,7 +23,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     for (int i = 0; i < npart; i++){
 
         //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
-        rsq = sqrt(x[i]*x[i] + y[i]*y[i]+ z[i]*z[i]);
+        rsq = sqrt((x[i]*x[i])*(c/a) + (y[i]*y[i])*((a*c)/(b*b)) + (z[i]*z[i])*(a/c));
 
         idx = (int)(rsq/ring_width);
 
@@ -58,8 +59,9 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 }
 
 
-void Sigma_r(const vector <float> x, const vector <float> y, 
-        const int nrings, const float max_distance, vector <double> &Sigma){
+void Sigma_r(const vector <float> x, const vector <float> y,
+        const int nrings, const float max_distance, vector <double> &Sigma,
+        const float a, const float b){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
@@ -75,7 +77,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
     for (int i = 0; i < npart; i++){
 
         //rsq = pow(x_part[i], 2) + pow(y_part[i], 2) + pow(z_part[i], 2)
-        Rsq = sqrt(x[i]*x[i] + y[i]*y[i]);
+        Rsq = sqrt((x[i]*x[i])*(b/a) + (y[i]*y[i])*(a/b));
 
         idx = (int)(Rsq/ring_width);
 
