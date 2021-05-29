@@ -13,7 +13,7 @@ else
 endif
 endif
 
-SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp save_coordinates.cpp transform_coordinates.cpp
+SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp transform_coordinates.cpp
 OBJECTS := $(SOURCES:.cpp=.o)
 TARGET = get_halo_props_PIC_v2
 
