@@ -466,11 +466,26 @@ void print_profile_header(ofstream &outdata_pro){
 
     outdata_pro <<
     "Halo number" <<delim<< "r_max" <<delim<<
-    "r0" <<delim<< "r1" <<delim<< "r2" <<delim<<
-    "r3" <<delim<< "r4" <<delim<< "r5" <<delim<<
-    "r6" <<delim<< "r7" <<delim<< "r8" <<delim<<
-    "r9" <<delim<< "r10" <<delim<< "r11" <<delim<<
-    "r12" <<delim<< "r13" <<delim<< "r14" <<
+    "rho_0" <<delim<< "rho_1" <<delim<< "rho_2" <<delim<<
+    "rho_3" <<delim<< "rho_4" <<delim<< "rho_5" <<delim<<
+    "rho_6" <<delim<< "rho_7" <<delim<< "rho_8" <<delim<<
+    "rho_9" <<delim<< "rho_10" <<delim<< "rho_11" <<delim<<
+    "rho_12" <<delim<< "rho_13" <<delim<< "rho_14" <<delim<<
+    "rhoE_0" <<delim<< "rhoE_1" <<delim<< "rhoE_2" <<delim<<
+    "rhoE_3" <<delim<< "rhoE_4" <<delim<< "rhoE_5" <<delim<<
+    "rhoE_6" <<delim<< "rhoE_7" <<delim<< "rhoE_8" <<delim<<
+    "rhoE_9" <<delim<< "rhoE_10" <<delim<< "rhoE_11" <<delim<<
+    "rhoE_12" <<delim<< "rhoE_13" <<delim<< "rhoE_14" <<delim<<
+    "Sigma_0" <<delim<< "Sigma_1" <<delim<< "Sigma_2" <<delim<<
+    "Sigma_3" <<delim<< "Sigma_4" <<delim<< "Sigma_5" <<delim<<
+    "Sigma_6" <<delim<< "Sigma_7" <<delim<< "Sigma_8" <<delim<<
+    "Sigma_9" <<delim<< "Sigma_10" <<delim<< "Sigma_11" <<delim<<
+    "Sigma_12" <<delim<< "Sigma_13" <<delim<< "Sigma_14" <<delim<<
+    "SigmaE_0" <<delim<< "SigmaE_1" <<delim<< "SigmaE_2" <<delim<<
+    "SigmaE_3" <<delim<< "SigmaE_4" <<delim<< "SigmaE_5" <<delim<<
+    "SigmaE_6" <<delim<< "SigmaE_7" <<delim<< "SigmaE_8" <<delim<<
+    "SigmaE_9" <<delim<< "SigmaE_10" <<delim<< "SigmaE_11" <<delim<<
+    "SigmaE_12" <<delim<< "SigmaE_13" <<delim<< "SigmaE_14" <<
     endl;
 
 }
