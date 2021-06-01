@@ -205,7 +205,7 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        if(Npart > 10.){
+        if(Npart > 3000.){
 
 
             // COMPUTE KENETIC AND POTENTIAL ENERGIES
@@ -353,7 +353,7 @@ int main(int argc, char **argv){
 
             // 3D elliptical profile
             vector <double> ro_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);            
+            ro_r(x_rot, y_rot, z_rot, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);            
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
                     ro_E[k] << delim; 
@@ -369,7 +369,7 @@ int main(int argc, char **argv){
             
             // 2D elliptical profile
             vector <double> Sigma_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            Sigma_r(x_part_proj, y_part_proj, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
+            Sigma_r(x2d_rot, y2d_rot, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
             for (int k = 0; k < NRINGS-1; k++) {
                     outdata_pro <<
                     Sigma_E[k] << delim;
