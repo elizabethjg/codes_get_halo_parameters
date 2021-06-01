@@ -59,14 +59,15 @@ ax[2].plot(yold[idhalo == idpru],zold[idhalo == idpru],'C1o')
 
 # R = np.zeros((nhalos,15))
 
-# for j in range(nhalos):
+for j in range(nhalos):
     
-    # r = np.arange(16)*(pro[1,j]/15.) 
-    # R[j,:] = r[:-1] + np.diff(r)/2. 
+    r = np.arange(16)*(pro[1,j]/15.) 
+    R[j,:] = r[:-1] + np.diff(r)/2. 
 
-# for j in range(nhalos):
-    # plt.plot(R[j,:],pro[2:17,j],'C7',alpha=0.3)
-    # plt.plot(R[j,:],pro[17:32,j],'C3',alpha=0.3)
+plt.figure()
+for j in range(nhalos):
+    plt.plot(R[j,:],pro[2:17,j],'C7',alpha=0.3)
+    plt.plot(R[j,:],pro[17:32,j],'C3',alpha=0.3)
 
 # for j in range(nhalos):
     # plt.plot(R[j,:],pro[32:47,j],'C7',alpha=0.3)

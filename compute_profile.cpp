@@ -12,7 +12,9 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     double mp = 2.927e10/0.7; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
     float rin;
-
+    
+    max_distance = max_distance/0.7
+    
     float V; //Volumen de la cascara
     float rsq; 
     int npart = x.size(), idx = -1;
@@ -21,6 +23,10 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     ring_width = float(max_distance) / float(nrings);
 
     for (int i = 0; i < npart; i++){
+
+        x[i] = x[i]/0.7
+        y[i] = y[i]/0.7
+        z[i] = z[i]/0.7
 
         rsq = sqrt((x[i]*x[i])*(c/a) + (y[i]*y[i])*((a*c)/(b*b)) + (z[i]*z[i])*(a/c));
 
