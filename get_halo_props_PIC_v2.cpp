@@ -205,7 +205,7 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        if(Npart > 10.){
+        if(Npart > 3000.){
 
 
             // COMPUTE KENETIC AND POTENTIAL ENERGIES
