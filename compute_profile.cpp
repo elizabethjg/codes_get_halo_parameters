@@ -51,8 +51,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     for (int i = 0; i < nrings; i++){
 
         rin = ring_width * i;
-        V = (4./3.) * pi * (pow((rin + ring_width), 3) - pow(rin, 3)); //In units of Mpc3
-        ro[i] = (mp*ro[i]) / V; //In units of M_sun/(h2*Mpc3)
+        V = (4./3.) * pi * (pow((rin + ring_width), 3) - pow(rin, 3)); //In units of Mpc3/h3
+        ro[i] = (mp*ro[i]) / V; //In units of (M_sun h2)/Mpc3
 
     }
 }
