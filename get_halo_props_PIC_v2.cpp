@@ -23,24 +23,6 @@
 using namespace std;
 
 
-void print_header(ofstream &outdata);
-
-void print_profile_header(ofstream &outdata);
-
-
-void save_profile(ofstream &outdata_pro, vector <float> ro, int ihalo, float r_max);
-
-void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
-                float xc_fof, float yc_fof, float zc_fof, float r_max, \
-                float xc, float yc, float zc, \
-                float vxc, float vyc, float vzc, \
-                double *J, double EKin, double EPot, \
-                float a2D_abs, float b2D_abs, float a2Dr_abs, float b2Dr_abs, \
-                float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
-                float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
-                float a3D_abs, float b3D_abs, float c3D_abs, \
-                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr);
-
 //---------------------------------------------------------------------------------
 //----------------------------------- main code -----------------------------------
 int main(int argc, char **argv){
@@ -102,15 +84,15 @@ int main(int argc, char **argv){
 
     indata.read(buffer, 2*length);
 
-    printf("########################### \n");
-    printf("TOTAL NUMBER OF HALOS = %d \n", nhalos);
-    printf("Limit mass = %.1f \n", limitmass);
-    printf("Total number of particles = %d \n", Nparttot);
-    printf("--------------------------- \n");
-    printf("WARNING \n");
-    printf("Computation will be performed for halos \n");
-    printf("with more than 10 particles \n");
-    printf("--------------------------- \n");
+    cout << ("###########################") << endl;
+    cout << ("TOTAL NUMBER OF HALOS = %d", nhalos) << endl;
+    cout << ("Limit mass = %.1f", limitmass) << endl;
+    cout << ("Total number of particles = %d", Nparttot) << endl;
+    cout << ("---------------------------") << endl;
+    cout << ("WARNING") << endl;
+    cout << ("Computation will be performed for halos") << endl;
+    cout << ("with more than 10 particles") << endl;
+    cout << ("---------------------------") << endl;
 
     // print headers
     print_header(outdata);
@@ -133,7 +115,7 @@ int main(int argc, char **argv){
 
         if((float(ihalo)/float(nhalos))  > avance){
 
-            printf("=");
+            cout << ("=");
             avance = avance + 0.02;
 
         }
@@ -326,12 +308,12 @@ int main(int argc, char **argv){
 
             // TRANSFORM COORDINATES
             vector <float> x_rot, y_rot, z_rot;
-            vector <float> x2d_rot, y2d_rot; 
-            
+            vector <float> x2d_rot, y2d_rot;
+
             transform_coordinates(x_part,y_part,z_part, x_rot, y_rot, z_rot,
                                   x_part_proj, y_part_proj, x2d_rot, y2d_rot,
                                   a3D, b3D, c3D, a2D, b2D);
-                                  
+
             //save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
             //                 x_part_proj, y_part_proj, x2d_rot, y2d_rot);
 
@@ -340,12 +322,12 @@ int main(int argc, char **argv){
 
             outdata_pro <<
             ihalo << delim << r_max << delim;
-            
+
             int NRINGS = 15;
-            
+
             // 3D profile
             vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro, 1., 1., 1.);            
+            ro_r(x_part, y_part, z_part, NRINGS, r_max, ro, 1., 1., 1.);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
                     ro[k] << delim;
@@ -353,10 +335,10 @@ int main(int argc, char **argv){
 
             // 3D elliptical profile
             vector <double> ro_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            ro_r(x_rot, y_rot, z_rot, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);            
+            ro_r(x_rot, y_rot, z_rot, NRINGS, r_max, ro_E, a3D_abs, b3D_abs, c3D_abs);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
-                    ro_E[k] << delim; 
+                    ro_E[k] << delim;
             }
 
             // 2D profile
@@ -366,7 +348,7 @@ int main(int argc, char **argv){
                     outdata_pro <<
                     Sigma[k] << delim;
             }
-            
+
             // 2D elliptical profile
             vector <double> Sigma_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
             Sigma_r(x2d_rot, y2d_rot, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
@@ -393,7 +375,7 @@ int main(int argc, char **argv){
     string cmd_pro = "bzip2 " + out_file_pro;
     system(cmd_pro.c_str());
 
-    printf(">\n");
+    cout << (">\n");
 
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Total TIME = " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "[s]" << std::endl;
