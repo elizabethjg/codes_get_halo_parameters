@@ -11,8 +11,8 @@ void halo_energy(const vector <float> x, const vector <float> y,
     double Msun = 1.989; //1.e30 [kg/M_sun]
     double h = 0.7;
     double Mpc = 3.08567758; //1e22 [m/Mpc]
-    double fEkin = (0.5*Msun)/h; //for energy unit conversion
-    double fEpot = ((Msun*Msun*G)    / (Mpc*h)) * 10.;
+    double fEkin = 0.5*h*zMsun; //for energy unit conversion
+    double fEpot = ((Msun*Msun*h*G) / Mpc) * 10.;
     double Ekin_part, Epot_part, Ekin_acc = 0., Epot_acc=0.;
 
     float xi, yi, zi;
