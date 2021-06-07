@@ -26,17 +26,17 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
         idx = (int)(rsq/ring_width);
 
-        //* Este if hace falta para el caso en que la distancia sea
-         //* exactamente igual a la máxima distancia posible porque se
-         //* suma partícula en cada anillo si r1 <= r < r2.*/
+        /* Este if hace falta para el caso en que la distancia sea
+         * exactamente igual a la máxima distancia posible porque se
+         * suma partícula en cada anillo si r1 <= r < r2.*/
         //if (idx >= nrings){
             //idx = nrings - 1;
         //}
 
-        //ro[idx] += 1;
-	//}
+        ro[idx] += 1;
+	}
 
-    //* Chequeo del número de partículas por anillo y del total.*/
+    /* Chequeo del número de partículas por anillo y del total.*/
     //int total = 0;
     //for (int i = 0; i < nrings; i++){
         //total += ro[i];
@@ -86,8 +86,8 @@ void Sigma_r(const vector <float> x, const vector <float> y,
             //idx = nrings - 1;
         //}
 
-        //Sigma[idx] += 1;
-	//}
+        Sigma[idx] += 1;
+	}
 
     /* Chequeo del número de partículas por anillo y del total.*/
     //int total = 0;

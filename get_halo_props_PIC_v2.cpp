@@ -370,7 +370,7 @@ int main(int argc, char **argv){
             
             // 2D elliptical profile
             vector <double> Sigma_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            Sigma_r(x2d_rot, y2d_rot NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
+            Sigma_r(x2d_rot, y2d_rot, NRINGS, r_max, Sigma_E, a2D_abs, b2D_abs);
             for (int k = 0; k < NRINGS-1; k++) {
                     outdata_pro <<
                     Sigma_E[k] << delim;
