@@ -3,7 +3,6 @@
 //shapes and orientations are measured in 3d and in 2d on a plain perpendicular the observers line of sight
 
 
-#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
