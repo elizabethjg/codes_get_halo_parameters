@@ -36,7 +36,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         ro[idx] += 1;
 	}
 
-    /* Chequeo del número de partículas por anillo y del total.*/
+    /* Chequeo del número de partículas por anillo y del total.
     int total = 0;
     for (int i = 0; i < nrings; i++){
         total += ro[i];
@@ -45,6 +45,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     if (total != npart){
 		cout << (npart -total) << "particle(s) are missing" << endl;
     }
+    */
 
     ring_width = ring_width/1000.; //Change units from kpc to Mpc
 
@@ -89,7 +90,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
         Sigma[idx] += 1;
 	}
 
-    /* Chequeo del número de partículas por anillo y del total.*/
+    /* Chequeo del número de partículas por anillo y del total.
     int total = 0;
     for (int i = 0; i < nrings; i++){
         total += Sigma[i];
@@ -98,6 +99,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
     if (total != npart){
 		cout << (npart -total) << "particle(s) are missing" << endl;
     }
+    */ 
 
     ring_width = ring_width/1000.; //Change units from kpc to Mpc
 
