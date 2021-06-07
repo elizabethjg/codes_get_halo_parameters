@@ -74,25 +74,21 @@ for j in range(nhalos):
     # plt.plot(R[j,:],pro[47:,j],'C3',alpha=0.3)
 
 
-# rin = 0
-# step = rmax/15.
+rpart = np.sqrt(x**2 + y**2 + z**2)/1.e3
+rin = 0
+step = rmax/15.
 
-# rho = np.zeros(15)
-# rp = np.zeros(15)
-# V = np.zeros(15)
-# V2 = np.zeros(15)
+rho = np.zeros(15)
+rp = np.zeros(15)
 
-# for ring in range(15):
-    
-    # rin2 = step*ring
-    # print(rin2)
-    # V2[ring]    = (4./3.)*np.pi*((rin2+step)**3 - rin2**3)
-    
-    # mask = (rpart <= rin+step)*(rpart > rin)
-    # V[ring]    = np.pi*((rin+step)**2 - rin**2)
-    # rho[ring] = (mask.sum()*mp)/V[ring]
-    # rp[ring] = rin + 0.5*step
-    # rin = rin+step
+Ntot = 0
+for ring in range(15):
+    V    = (4./3.)*np.pi*((rin+step)**3 - rin**3)
+    mask = (rpart <= rin+step)*(rpart > rin)
+    rho[ring] = (mask.sum()*mp)/V
+    rp[ring] = rin + 0.5*step
+    Ntot += mask.sum()
+    rin = rin+step
 
 # x = np.array([])
 # y = np.array([])
