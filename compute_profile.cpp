@@ -29,7 +29,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         /* Este if hace falta para el caso en que la distancia sea
          * exactamente igual a la máxima distancia posible porque se
          * suma partícula en cada anillo si r1 <= r < r2.*/
-        zif (idx >= nrings){
+        if (idx >= nrings){
             idx = nrings - 1;
         }
 
