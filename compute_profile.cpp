@@ -26,14 +26,6 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
         idx = (int)(rsq/ring_width);
 
-        /* Este if hace falta para el caso en que la distancia sea
-         * exactamente igual a la máxima distancia posible porque se
-         * suma partícula en cada anillo si r1 <= r < r2.
-        if (idx >= nrings){
-            idx = nrings - 1;
-        }
-        */
-
         ro[idx] += 1;
 	}
 
@@ -80,14 +72,6 @@ void Sigma_r(const vector <float> x, const vector <float> y,
         Rsq = sqrt((x[i]*x[i])*(b/a) + (y[i]*y[i])*(a/b));
 
         idx = (int)(Rsq/ring_width);
-
-        /* Este if hace falta para el caso en que la distancia sea
-         * exactamente igual a la máxima distancia posible porque se
-         * suma partícula en cada anillo si r1 <= r < r2.
-        if (idx >= nrings){
-            idx = nrings - 1;
-        }
-        */
 
         Sigma[idx] += 1;
 	}
