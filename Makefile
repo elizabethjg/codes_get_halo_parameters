@@ -8,8 +8,6 @@ ifeq ("$(HOST)" , "zen2")  # zen2 x86 family Rome
 else
 ifeq ("$(HOST)" ,"clemente") # clemente x86 family broadwell
         CFLAGS +=  -march=broadwell # For clemente
-else
-        CFLAGS += -march=native  # Any other equipment
 endif
 endif
 
