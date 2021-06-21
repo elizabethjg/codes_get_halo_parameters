@@ -39,7 +39,7 @@ int main(int argc, char **argv){
     //open output file for catalog
     ofstream outdata;
     string out_file_main = filename_output+"_main.csv";
-    outdata.open(filename_output.c_str());
+    outdata.open(out_file_main.c_str());
 
     //open output file to save profiles
     ofstream outdata_pro;
