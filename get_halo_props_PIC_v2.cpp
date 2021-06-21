@@ -312,7 +312,7 @@ int main(int argc, char **argv){
     outdata.close();
     outdata_pro.close();
 
-    string cmd = "bzip2 " + filename_output;
+    string cmd = "bzip2 " + out_file_main;
     system(cmd.c_str());
 
     string cmd_pro = "bzip2 " + out_file_pro;
