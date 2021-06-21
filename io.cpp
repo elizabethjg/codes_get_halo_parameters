@@ -13,7 +13,7 @@ void print_header(ofstream &outdata){
 
     // For output params
     outdata <<
-    "Halo number" <<delim<< "Npart" <<delim<< "log10(mass)" <<delim<<
+    "Halo_number" <<delim<< "Npart" <<delim<< "lMfof" <<delim<<
 
     //position
     "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<<

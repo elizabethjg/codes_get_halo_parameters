@@ -38,11 +38,12 @@ int main(int argc, char **argv){
 
     //open output file for catalog
     ofstream outdata;
+    string out_file_main = filename_output+"_main.csv";
     outdata.open(filename_output.c_str());
 
     //open output file to save profiles
     ofstream outdata_pro;
-    string out_file_pro = filename_output+"_profile";
+    string out_file_pro = filename_output+"_pro.csv";
     outdata_pro.open(out_file_pro.c_str());
 
     //set format for output
@@ -237,64 +238,6 @@ int main(int argc, char **argv){
             //specific angular momentum
             for(int i = 0; i < 3; i++){ J[i] /= double(Npart); }
             //-----------------------------------------------------------------------
-
-            // //------------------ print output -----------------------
-            //
-            // //axis ratios
-            // //double q2D = b2D_abs / a2D_abs;
-            // //double q2Dr = b2Dr_abs / a2Dr_abs;
-            // //
-            // //double q3D = b3D_abs / a3D_abs;
-            // //double q3Dr = b3Dr_abs / a3Dr_abs;
-            // //
-            // //double s3D = c3D_abs / a3D_abs;
-            // //double s3Dr = c3Dr_abs / a3Dr_abs;
-            //
-            // //cout <<
-            // outdata <<
-            //
-            // ihalo <<delim<< Npart <<delim<< log10(mass) <<delim<<     //0,1,2
-            //
-            // //position
-            // xc_fof <<delim<< yc_fof <<delim<< zc_fof <<delim<<        //3,4,5
-            // xc     <<delim<< yc     <<delim<< zc <<delim<<            //6,7,8
-            //
-            // //max radius
-            // r_max <<delim<<                                           //9
-            //
-            // //velocity
-            // vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
-            //
-            // //angular momentum
-            // J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
-            //
-            // //Energies
-            // EKin <<delim<< EPot <<delim<<                             //16,17
-            //
-            // //2D
-            // a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
-            // a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
-            // b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
-            //
-            // //2D (reduced)
-            // a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
-            // a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
-            // b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
-            //
-            // //3D
-            // a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
-            // a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
-            // b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
-            // c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
-            //
-            // //3D (reduced)
-            // a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
-            // a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
-            // b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
-            // c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
-            //
-            // endl;
-            // //-------------------------------------------------------
             save_output(outdata, ihalo, Npart, mass, \
                         xc_fof, yc_fof, zc_fof, r_max, \
                         xc, yc, zc, \
