@@ -22,8 +22,14 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     for (int i = 0; i < npart; i++){
 
-        rsq = sqrt((x[i]*x[i])*(c/a) + (y[i]*y[i])*((a*c)/(b*b)) + (z[i]*z[i])*(a/c));
 
+        if(a == 1. && b == 1. && c == 1.){
+            rsq = sqrt((x[i]*x[i]) + (y[i]*y[i]) + (z[i]*z[i]));
+        }
+        else{
+            rsq = pow(((x[i]*x[i])*((c*b)/a) + (y[i]*y[i])*((a*c)/b) + (z[i]*z[i])*((a*b)/c)),1./3.);
+        }
+            
         idx = (int)(rsq/ring_width);
 
         if (idx <= (nrings-1)){
