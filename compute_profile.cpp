@@ -11,41 +11,43 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin;
+    float rin = 0.;
+    float s = c/a;
+    float q = b/a;
 
     float V; //Volumen de la cascara
-    float rsq; 
-    int npart = x.size(), idx = -1;
+    float rsq_in; 
+    float rsq_out; 
 
-    float ring_width;
-    ring_width = float(max_distance) / float(nrings);
+    float step;
+    step = float(max_distance) / float(nrings);
 
-    for (int i = 0; i < npart; i++){
+    for (int i = 0; i < nrings; i++){       
 
+        float a_in = rin/pow(q*s,1./3.);
+        float b_in = a_in*q;
+        float c_in = a_in*s;
 
-        if(a == 1. && b == 1. && c == 1.){
-            rsq = sqrt((x[i]*x[i]) + (y[i]*y[i]) + (z[i]*z[i]));
+        float a_out = (rin+step)/pow(q*s,1./3.);
+        float b_out = a_out*q;
+        float c_out = a_out*s;
+
+        float npart = 0
+
+        for (int j = 0; i < npart; j++){
+
+            rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in) + (z[j]*z[j])/(c_in*c_in);
+            rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out) + (z[j]*z[j])/(c_out*c_out);
+
+            if(rsq_in <= 1. && rsq_out < 1.){                    
+                npart += 1;
+            }
         }
-        else{
-            rsq = pow(((x[i]*x[i])*((c*b)/a) + (y[i]*y[i])*((a*c)/b) + (z[i]*z[i])*((a*b)/c)),1./3.);
-        }
-            
-        idx = (int)(rsq/ring_width);
-
-        if (idx <= (nrings-1)){
-            ro[idx] += 1;
-        }
-
-
-	}
-
-    ring_width = ring_width/1000.; //Change units from kpc to Mpc
-
-    for (int i = 0; i < nrings; i++){
-
-        rin = ring_width * i;
-        V = (4./3.) * pi * (pow((rin + ring_width), 3) - pow(rin, 3)); //In units of Mpc3/h3
-        ro[i] = (mp*ro[i]) / V; //In units of (M_sun h2)/Mpc3
+         
+        V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
+        ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
+        
+        rin += step
 
     }
 }
@@ -57,34 +59,40 @@ void Sigma_r(const vector <float> x, const vector <float> y,
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin;
+    float rin = 0.;
+    float q = b/a;
 
     float A; //Volumen de la cascara
-    float Rsq; 
-    int npart = x.size(), idx = -1;
+    float rsq_in; 
+    float rsq_out; 
 
-    float ring_width;
-    ring_width = float(max_distance) / float(nrings);
+    float step;
+    step = float(max_distance) / float(nrings);
 
-    for (int i = 0; i < npart; i++){
+    for (int i = 0; i < nrings; i++){       
 
-        Rsq = sqrt((x[i]*x[i])*(b/a) + (y[i]*y[i])*(a/b));
+        float a_in = rin/sqrt(q);
+        float b_in = a_in*q;
 
-        idx = (int)(Rsq/ring_width);
+        float a_out = (rin+step)/sqrt(q);
+        float b_out = a_out*q;
 
-        if (idx <= (nrings-1)){
-            Sigma[idx] += 1;
+        float npart = 0
+
+        for (int j = 0; i < npart; j++){
+
+            rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in);
+            rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out);
+
+            if(rsq_in <= 1. && rsq_out < 1.){                    
+                npart += 1;
+            }
         }
+         
+        A = pi * (pow((rin + step)/1.e3, 2) - pow(rin/1.e3, 2)); //In units of Mpc3/h3
+        ro[i] = (mp*npart) / A; //In units of (M_sun h2)/Mpc3
 
-	}
-
-    ring_width = ring_width/1000.; //Change units from kpc to Mpc
-
-    for (int i = 0; i < nrings; i++){
-
-        rin = ring_width * i;
-        A = pi * (pow((rin + ring_width), 2) - pow(rin, 2)); //In units of Mpc2
-        Sigma[i] = (mp*Sigma[i]) / A; //In units of M_sun/(h*Mpc2)
+        rin += step
 
     }
 }

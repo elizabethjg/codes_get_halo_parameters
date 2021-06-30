@@ -74,21 +74,47 @@ for j in range(nhalos):
     # plt.plot(R[j,:],pro[47:,j],'C3',alpha=0.3)
 
 
-rpart = np.sqrt(x**2 + y**2 + z**2)/1.e3
+rpart = np.sqrt(x**2 + y**2 + z**2)
 rin = 0
-step = rmax/15.
+step = (pro[1])/20.
 
-rho = np.zeros(15)
-rp = np.zeros(15)
+r_E = np.zeros(20)
+S_E = np.zeros(20)
+rp = np.zeros(20)
 
 Ntot = 0
-for ring in range(15):
-    V    = (4./3.)*np.pi*((rin+step)**3 - rin**3)
-    mask = (rpart <= rin+step)*(rpart > rin)
-    rho[ring] = (mask.sum()*mp)/V
+for ring in range(20):
+    
+    abin_in = rin/(q*s)**(1./3.)
+    bbin_in = abin_in*q
+    cbin_in = abin_in*s
+
+    abin_out = (rin+step)/(q*s)**(1./3.)
+    bbin_out = abin_out*q
+    cbin_out = abin_out*s
+    
     rp[ring] = rin + 0.5*step
-    Ntot += mask.sum()
-    rin = rin+step
+    
+    # rpart_E = (abc*(xr**2/abin**2 + yr**2/bbin**2 + zr**2/cbin**2))**(1./3.)/1.e3 
+    rpart_E_in = (xr**2/abin_in**2 + yr**2/bbin_in**2 + zr**2/cbin_in**2)
+    rpart_E_out = (xr**2/abin_out**2 + yr**2/bbin_out**2 + zr**2/cbin_out**2)
+    
+    V    = (4./3.)*np.pi*(((rin+step)/1.e3)**3 - (rin/1.e3)**3)
+    mask = (rpart_E_in >= 1)*(rpart_E_out < 1)
+    r_E[ring] = (mask.sum()*mp)/V
+
+    abin_in = rin/np.sqrt(q2) 
+    bbin_in = bbin_in*q2
+
+    rpart_E_in = (xp**2/abin_in**2 + yp**2/bbin_in**2)
+    rpart_E_out = (xp**2/abin_out**2 + yp**2/bbin_out**2)
+    
+    A    = np.pi*(((rin+step)/1.e3)**2 - (rin/1.e3)**2)
+    mask = (rpart_E_in >= 1)*(rpart_E_out < 1)
+    S_E[ring] = (mask.sum()*mp)/A
+
+    rin += step
+    # plt.plot(xr[mask*(abs(yr)< 50)],zr[mask*(abs(yr)< 50)],'.',alpha=0.5)
 
 # x = np.array([])
 # y = np.array([])
