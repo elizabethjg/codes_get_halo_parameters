@@ -34,6 +34,10 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_out = a_out*q;
         float c_out = a_out*s;
 
+        cout << "a " << a_out
+        cout << "b " << b_out
+        cout << "c " << c_out
+
         float npart = 0;
 
         for (int j = 0; j < Npart; j++){
@@ -45,6 +49,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
                 npart += 1;
             }
         }
+        
+        cout << "npart" << npart
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
