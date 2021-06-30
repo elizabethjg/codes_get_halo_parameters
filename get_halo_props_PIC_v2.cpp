@@ -90,10 +90,10 @@ int main(int argc, char **argv){
     cout << ("Limit mass = %.1f", limitmass) << endl;
     cout << ("Total number of particles = %d", Nparttot) << endl;
     cout << ("---------------------------") << endl;
-    cout << ("WARNING") << endl;
-    cout << ("Computation will be performed for halos") << endl;
-    cout << ("with more than 10 particles") << endl;
-    cout << ("---------------------------") << endl;
+    //cout << ("WARNING") << endl;
+    //cout << ("Computation will be performed for halos") << endl;
+    //cout << ("with more than 10 particles") << endl;
+    //cout << ("---------------------------") << endl;
 
     // print headers
     print_header(outdata);
@@ -103,7 +103,6 @@ int main(int argc, char **argv){
 
     //--------------- begin loop over halos --------------------
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-    //for (int ihalo = 0; ihalo < 6000; ihalo++) {
 
         // Define variables that will save semi-axis vectors
         // and modulus
@@ -189,7 +188,7 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        if(Npart > 3000.){
+        if(Npart > 0.){
 
 
             // COMPUTE KENETIC AND POTENTIAL ENERGIES

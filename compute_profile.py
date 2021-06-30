@@ -29,6 +29,8 @@ for ring in range(20):
     bbin_out = abin_out*q
     cbin_out = abin_out*s
     
+    print(abin_out)
+    
     rp[ring] = rin + 0.5*step
     
     # rpart_E = (abc*(xr**2/abin**2 + yr**2/bbin**2 + zr**2/cbin**2))**(1./3.)/1.e3 
@@ -38,6 +40,8 @@ for ring in range(20):
     V    = (4./3.)*np.pi*(((rin+step)/1.e3)**3 - (rin/1.e3)**3)
     mask = (rpart_E_in >= 1)*(rpart_E_out < 1)
     r_E[ring] = (mask.sum()*mp)/V
+
+    print(mask.sum())
 
     abin_in = rin/np.sqrt(q2) 
     bbin_in = bbin_in*q2
@@ -50,5 +54,7 @@ for ring in range(20):
     S_E[ring] = (mask.sum()*mp)/A
 
     rin += step
+    
+    
 
 
