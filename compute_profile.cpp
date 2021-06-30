@@ -18,6 +18,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float V; //Volumen de la cascara
     float rsq_in; 
     float rsq_out; 
+    
+    int Npart = x.size();
 
     float step;
     step = float(max_distance) / float(nrings);
@@ -34,7 +36,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
         float npart = 0;
 
-        for (int j = 0; j < npart; j++){
+        for (int j = 0; j < Npart; j++){
 
             rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in) + (z[j]*z[j])/(c_in*c_in);
             rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out) + (z[j]*z[j])/(c_out*c_out);
@@ -61,6 +63,8 @@ void Sigma_r(const vector <float> x, const vector <float> y,
     double pi = 3.141592653589793;
     float rin = 0.;
     float q = b/a;
+    
+    int Npart = x.size();
 
     float A; //Volumen de la cascara
     float rsq_in; 
@@ -79,7 +83,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
 
         float npart = 0;
 
-        for (int j = 0; j < npart; j++){
+        for (int j = 0; j < Npart; j++){
 
             rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in);
             rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out);
