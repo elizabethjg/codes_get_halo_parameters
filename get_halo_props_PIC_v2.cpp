@@ -102,8 +102,7 @@ int main(int argc, char **argv){
     float avance = 0.02;
 
     //--------------- begin loop over halos --------------------
-    //for (int ihalo = 0; ihalo < nhalos; ihalo++) {
-    for (int ihalo = 0; ihalo < 6000; ihalo++) {
+    for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
         // Define variables that will save semi-axis vectors
         // and modulus
