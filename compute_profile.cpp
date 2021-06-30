@@ -32,7 +32,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_out = a_out*q;
         float c_out = a_out*s;
 
-        float npart = 0
+        float npart = 0;
 
         for (int j = 0; i < npart; j++){
 
@@ -47,7 +47,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
         
-        rin += step
+        rin += step;
 
     }
 }
@@ -77,7 +77,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
         float a_out = (rin+step)/sqrt(q);
         float b_out = a_out*q;
 
-        float npart = 0
+        float npart = 0;
 
         for (int j = 0; i < npart; j++){
 
@@ -90,9 +90,9 @@ void Sigma_r(const vector <float> x, const vector <float> y,
         }
          
         A = pi * (pow((rin + step)/1.e3, 2) - pow(rin/1.e3, 2)); //In units of Mpc3/h3
-        ro[i] = (mp*npart) / A; //In units of (M_sun h2)/Mpc3
+        Sigma[i] = (mp*npart) / A; //In units of (M_sun h2)/Mpc3
 
-        rin += step
+        rin += step;
 
     }
 }
