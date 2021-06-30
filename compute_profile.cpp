@@ -34,9 +34,9 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_out = a_out*q;
         float c_out = a_out*s;
 
-        cout << "a " << a_out << endl;
-        cout << "b " << b_out << endl;
-        cout << "c " << c_out << endl;
+        //cout << "a " << a_out << endl;
+        //cout << "b " << b_out << endl;
+        //cout << "c " << c_out << endl;
 
         float npart = 0;
 
@@ -45,12 +45,12 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
             rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2) + pow(z[j],2)/pow(c_in,2);
             rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2) + pow(z[j],2)/pow(c_out,2);
 
-            if(rsq_in <= 1. && rsq_out < 1.){                    
+            if(rsq_in >= 1. && rsq_out < 1.){                    
                 npart += 1;
             }
         }
         
-        cout << "npart" << npart << endl;
+        //cout << "npart" << npart << endl;
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
@@ -94,7 +94,7 @@ void Sigma_r(const vector <float> x, const vector <float> y,
             rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2);
             rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2);
 
-            if(rsq_in <= 1. && rsq_out < 1.){                    
+            if(rsq_in >= 1. && rsq_out < 1.){                    
                 npart += 1;
             }
         }
