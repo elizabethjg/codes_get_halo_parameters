@@ -34,25 +34,17 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_out = a_out*q;
         float c_out = a_out*s;
 
-        cout << "a " << a_out << endl;
-        cout << "b " << b_out << endl;
-        cout << "c " << b_out << endl;
-
         float npart = 0;
 
         for (int j = 0; j < Npart; j++){
 
             rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2) + pow(z[j],2)/pow(c_in,2);
             rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2) + pow(z[j],2)/pow(c_out,2);
-            
-            cout << "rsq_out " << rsq_out << endl;
 
             if(rsq_in <= 1. && rsq_out < 1.){                    
                 npart += 1;
             }
         }
-        
-        cout << "Npart" << npart << endl;
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
@@ -93,8 +85,8 @@ void Sigma_r(const vector <float> x, const vector <float> y,
 
         for (int j = 0; j < Npart; j++){
 
-            rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in);
-            rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out);
+            rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2);
+            rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2);
 
             if(rsq_in <= 1. && rsq_out < 1.){                    
                 npart += 1;
