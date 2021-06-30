@@ -24,7 +24,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float step;
     step = float(max_distance) / float(nrings);
 
-    for (int i = 0; i < 1; i++){       
+    for (int i = 0; i < nrings; i++){       
 
         float a_in = rin/pow(q*s,1./3.);
         float b_in = a_in*q;
