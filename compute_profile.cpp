@@ -34,6 +34,10 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_out = a_out*q;
         float c_out = a_out*s;
 
+        cout << 'a' << a_in << endl;
+        cout << 'b' << b_in << endl;
+        cout << 'c' << b_in << endl;
+
         float npart = 0;
 
         for (int j = 0; j < Npart; j++){
@@ -41,10 +45,14 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
             rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in) + (z[j]*z[j])/(c_in*c_in);
             rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out) + (z[j]*z[j])/(c_out*c_out);
 
+            cout << 'rsq_in' << rsq_in << endl;
+
             if(rsq_in <= 1. && rsq_out < 1.){                    
                 npart += 1;
             }
         }
+        
+        cout << 'Npart' << npart << endl;
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
