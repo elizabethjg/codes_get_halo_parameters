@@ -42,7 +42,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
             rsq_in  = (x[j]*x[j])/(a_in*a_in) + (y[j]*y[j])/(b_in*b_in) + (z[j]*z[j])/(c_in*c_in);
             rsq_out = (x[j]*x[j])/(a_out*a_out) + (y[j]*y[j])/(b_out*b_out) + (z[j]*z[j])/(c_out*c_out);
-
+            cout<<"# npart "<< rsq_in <<endl;
             if(rsq_in <= 1. && rsq_out < 1.){                    
                 npart += 1;
             }
