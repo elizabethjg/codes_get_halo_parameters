@@ -28,6 +28,10 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float b_in = a_in*q;
         float c_in = a_in*s;
 
+        cout<<"# a_in "<< a_in <<endl;
+        cout<<"# b_in "<< b_in <<endl;
+        cout<<"# c_in "<< c_in <<endl;
+
         float a_out = (rin+step)/pow(q*s,1./3.);
         float b_out = a_out*q;
         float c_out = a_out*s;
@@ -43,6 +47,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
                 npart += 1;
             }
         }
+
+        cout<<"# npart "<< npart <<endl;
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
