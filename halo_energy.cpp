@@ -53,7 +53,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
         Ekin_acc += Ekin_part;
 
     }
-    *Epot_halo += -1.*Epot_acc; // 0.5 factor accounts for the double for in the energy computing
+    *Epot_halo += -1.*Epot_acc; 
     *Ekin_halo += Ekin_acc;
 }
             //-----------------------------------------------------------------------------------------
