@@ -6,14 +6,13 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 const vector <float> vy, const vector <float> vz,
                 double *Epot_halo, double *Ekin_halo){
 
-
     double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double G = 6.67384; //1e-11 [m3 kg-1 s-2]
     double Msun = 1.989; //1.e30 [kg/M_sun]
     double h = 0.7;
     double Mpc = 3.08567758; //1e22 [m/Mpc]
-    double fEkin = ((0.5*Msun)/h)* 1.e6; //for energy unit conversion
-    double fEpot = ((Msun*Msun*G) / (h*Mpc)) * 1.e7;
+    double fEkin = ((0.5*Msun)/h); //for energy unit conversion
+    double fEpot = ((Msun*Msun*G) / (h*Mpc)) * 10.;
     double Ekin_part, Epot_part, Ekin_acc = 0., Epot_acc=0.;
 
     float xi, yi, zi;
@@ -28,7 +27,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
 
         xi=x[j]; yi=y[j]; zi=z[j];
 
-        // in units of (kg*m^2/s^2)*10^40
+        // in units of (kg*km^2/s^2)*10^40
         Ekin_part = fEkin*mp*(vx[j]*vx[j] + vy[j]*vy[j] + vz[j]*vz[j]);
         Epot_part = 0.;
 
@@ -41,9 +40,8 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 dyi = (yi - y[k]) / 1000.;
                 dzi = (zi - z[k]) / 1000.;
 
-
                 // in units of (kg*m^2/s^2)*10^40
-                Epot_part += fEpot*mp*mp/sqrt((dxi*dxi + dyi*dyi + dzi*dzi));
+                Epot_part += fEpot*mp*mp/sqrt(dxi*dxi + dyi*dyi + dzi*dzi);
 
             }
 
