@@ -196,10 +196,15 @@ int main(int argc, char **argv){
 
         if(Npart > 300.){
 
+            // COMPUTE HALO REDSHIFT
+            double z_halo = 0;
+            get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
+            double a_t = 1./(1.+ z_halo)
+
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
             double EKin = 0;
             double EPot = 0;
-            halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, &EPot, &EKin);
+            halo_energy(x_part*a_t, y_part*a_t, z_part*a_t, vx_part, vy_part, vz_part, &EPot, &EKin);
 
             // RECENTER THE HALO
             float r_max = 0;
@@ -209,9 +214,6 @@ int main(int argc, char **argv){
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
 
-            // COMPUTE HALO REDSHIFT
-            double z_halo = 0;
-            get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
 
             //PROJECT POSITION OF PARTICLES
             vector <float> x_part_proj, y_part_proj;
@@ -238,9 +240,9 @@ int main(int argc, char **argv){
 
             //sum cross-products J = r x p, where p = mv and m = 1 for each particle, i.e. Jtot=sum(part)
             for(int i = 0; i < Npart; i++){
-                J[0] = J[0] + (y_part[i] * vz_part[i] - z_part[i] * vy_part[i]);
-                J[1] = J[1] - (x_part[i] * vz_part[i] - z_part[i] * vx_part[i]);
-                J[2] = J[2] + (x_part[i] * vy_part[i] - y_part[i] * vx_part[i]);
+                J[0] = J[0] + (a_t * y_part[i] * vz_part[i] - a_t * z_part[i] * vy_part[i]);
+                J[1] = J[1] - (a_t * x_part[i] * vz_part[i] - a_t * z_part[i] * vx_part[i]);
+                J[2] = J[2] + (a_t * x_part[i] * vy_part[i] - a_t * y_part[i] * vx_part[i]);
             }
 
             //specific angular momentum
