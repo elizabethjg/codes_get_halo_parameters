@@ -199,12 +199,12 @@ int main(int argc, char **argv){
             // COMPUTE HALO REDSHIFT
             double z_halo = 0;
             get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
-            double a_t = 1./(1.+ z_halo)
+            double a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
             double EKin = 0;
             double EPot = 0;
-            halo_energy(x_part*a_t, y_part*a_t, z_part*a_t, vx_part, vy_part, vz_part, &EPot, &EKin);
+            halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, &EPot, &EKin);
 
             // RECENTER THE HALO
             float r_max = 0;
