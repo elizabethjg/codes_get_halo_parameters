@@ -38,7 +38,7 @@ double Dcom(const double Om_0,const double redshift){
 }
 
 //--------------------------------------------------------------------------
-void make_table(vector <double> z_vec, vector <double> Dc_vec){
+void make_table(vector <double> &z_vec, vector <double> &Dc_vec){
     
     double Om = 0.25;//MICE matter density
     
@@ -53,7 +53,9 @@ void make_table(vector <double> z_vec, vector <double> Dc_vec){
 
     for(int i=0; i<Ndz; i++){                
         double z = zmin + (i+0.5)*dz;
+        double Dout = Dcom(Om,z);
+        //cout << Dout <<"\t"<< z <<endl;
         z_vec.push_back(z);
-        Dc_vec.push_back(Dcom(Om,z));
+        Dc_vec.push_back(Dout);
     }
 }

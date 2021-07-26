@@ -5,6 +5,6 @@
 
 using namespace std;
 
-void make_table(vector <double> z_vec, vector <double> Dc_vec);
+void make_table(vector <double> &z_vec, vector <double> &Dc_vec);
 
 #endif
