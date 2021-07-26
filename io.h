@@ -11,7 +11,7 @@ void print_header(ofstream &outdata);
 void print_profile_header(ofstream &outdata_pro);
 
 void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
-                float xc_fof, float yc_fof, float zc_fof, float r_max, \
+                float xc_fof, float yc_fof, float zc_fof, double z_h, float r_max, \
                 float xc, float yc, float zc, \
                 float vxc, float vyc, float vzc, \
                 double *J, double EKin, double EPot, \

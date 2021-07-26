@@ -11,7 +11,7 @@ ifeq ("$(HOST)" ,"clemente") # clemente x86 family broadwell
 endif
 endif
 
-SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp transform_coordinates.cpp io.cpp
+SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp transform_coordinates.cpp io.cpp pos_to_z.cpp make_z_table.cpp
 OBJECTS := $(SOURCES:.cpp=.o)
 TARGET = get_halo_props_PIC_v2
 
