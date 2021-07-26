@@ -20,6 +20,7 @@ void print_header(ofstream &outdata){
     "xc_rc" <<delim<< "yc_rc" <<delim<< "zc_rc" <<delim<<
 
     //max radius
+    "z_halo" <<delim<<
     "r_max" <<delim<<
 
     //velocity
@@ -91,7 +92,7 @@ void print_profile_header(ofstream &outdata_pro){
 }
 
 void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
-                float xc_fof, float yc_fof, float zc_fof, float r_max, \
+                float xc_fof, float yc_fof, float zc_fof, double z_h, float r_max, \
                 float xc, float yc, float zc, \
                 float vxc, float vyc, float vzc, \
                 double *J, double EKin, double EPot, \
@@ -114,38 +115,39 @@ void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
     xc     <<delim<< yc     <<delim<< zc <<delim<<            //6,7,8
 
     //max radius
-    r_max <<delim<<                                           //9
+    z_h <<delim<<                                             //9
+    r_max <<delim<<                                           //10
 
     //velocity
-    vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //10,11,12
+    vxc <<delim<< vyc <<delim<< vzc <<delim<<                 //11,12,13
 
     //angular momentum
-    J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //13,14,15
+    J[0] <<delim<< J[1] <<delim<< J[2] <<delim<<              //14,15,16
 
     //Energies
-    EKin <<delim<< EPot <<delim<<                             //16,17
+    EKin <<delim<< EPot <<delim<<                             //17,18
 
     //2D
-    a2D_abs <<delim<< b2D_abs <<delim<<                       //18,19
-    a2D[0] <<delim<< a2D[1] <<delim<<                         //20,21
-    b2D[0] <<delim<< b2D[1] <<delim<<                         //22,23
+    a2D_abs <<delim<< b2D_abs <<delim<<                       //19,20
+    a2D[0] <<delim<< a2D[1] <<delim<<                         //21,22
+    b2D[0] <<delim<< b2D[1] <<delim<<                         //23,24
 
     //2D (reduced)
-    a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //24,25
-    a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //26,27
-    b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //28,29
+    a2Dr_abs <<delim<< b2Dr_abs <<delim<<                     //25,26
+    a2Dr[0] <<delim<< a2Dr[1] <<delim<<                       //27,28
+    b2Dr[0] <<delim<< b2Dr[1] <<delim<<                       //29,30
 
     //3D
-    a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //30,31,32
-    a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //33,34,35
-    b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //36,37,38
-    c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //39,40,41
+    a3D_abs <<delim<< b3D_abs <<delim<< c3D_abs <<delim<<     //31,32,33
+    a3D[0] <<delim<< a3D[1] <<delim<< a3D[2] <<delim<<        //34,35,36
+    b3D[0] <<delim<< b3D[1] <<delim<< b3D[2] <<delim<<        //37,38,39
+    c3D[0] <<delim<< c3D[1] <<delim<< c3D[2] <<delim<<        //40,41,42
 
     //3D (reduced)
-    a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //42,43,44
-    a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //45,46,47
-    b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //48,49,50
-    c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //51,52,53
+    a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //43,44,45
+    a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //46,47,48
+    b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //49,50,51
+    c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //52,53,54
 
     endl;
     //-------------------------------------------------------
