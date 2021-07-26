@@ -194,7 +194,7 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        if(Npart > 300.){
+        if(Npart > 0.){
 
             // COMPUTE HALO REDSHIFT
             double z_halo = 0;
