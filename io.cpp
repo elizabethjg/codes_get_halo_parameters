@@ -13,7 +13,7 @@ void print_header(ofstream &outdata){
 
     // For output params
     outdata <<
-    "Halo_number" <<delim<< "Npart" <<delim<< "lgMfof" <<delim<<
+    "column_halo_id" <<delim<< "Npart" <<delim<< "lgMfof" <<delim<<
 
     //position
     "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<<
@@ -66,7 +66,7 @@ void print_profile_header(ofstream &outdata_pro){
     // For output profile
 
     outdata_pro <<
-    "Halo number" <<delim<< "r_max" <<delim<<
+    "column_halo_id" <<delim<< "r_max" <<delim<<
     "r_0" <<delim<< "r_1" <<delim<< "r_2" <<delim<<
     "r_3" <<delim<< "r_4" <<delim<< "r_5" <<delim<<
     "r_6" <<delim<< "r_7" <<delim<< "r_8" <<delim<<

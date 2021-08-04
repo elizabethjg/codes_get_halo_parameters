@@ -278,8 +278,8 @@ int main(int argc, char **argv){
 
             int NRINGS = 10;
             vector <double> R = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-            // 3D profile
             
+            // 3D profile
             vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
             ro_r(x_part, y_part, z_part, NRINGS, r_max, R, ro, 1., 1., 1.);
             for (int k = 0; k < NRINGS; k++) {
