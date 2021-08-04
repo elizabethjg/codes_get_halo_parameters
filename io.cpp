@@ -86,7 +86,7 @@ void print_profile_header(ofstream &outdata_pro){
     "SigmaE_0" <<delim<< "SigmaE_1" <<delim<< "SigmaE_2" <<delim<<
     "SigmaE_3" <<delim<< "SigmaE_4" <<delim<< "SigmaE_5" <<delim<<
     "SigmaE_6" <<delim<< "SigmaE_7" <<delim<< "SigmaE_8" <<delim<<
-    "SigmaE_9" <<delim<< 
+    "SigmaE_9" <<
     endl;
 
 }
