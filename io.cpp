@@ -13,14 +13,14 @@ void print_header(ofstream &outdata){
 
     // For output params
     outdata <<
-    "column_halo_id" <<delim<< "Npart" <<delim<< "lgMfof" <<delim<<
+    "column_halo_id" <<delim<< "Npart" <<delim<< "lgM" <<delim<<
 
     //position
-    "xc_fof" <<delim<< "yc_fof" <<delim<< "zc_fof" <<delim<<
+    "xc" <<delim<< "yc" <<delim<< "zc" <<delim<<
     "xc_rc" <<delim<< "yc_rc" <<delim<< "zc_rc" <<delim<<
 
     //max radius
-    "z_halo" <<delim<<
+    "redshift" <<delim<<
     "r_max" <<delim<<
 
     //velocity
@@ -34,25 +34,25 @@ void print_header(ofstream &outdata){
 
     //2D
     "a2D"     <<delim<< "b2D"     <<delim<<
-    "a2D_x"   <<delim<< "a2D_y"   <<delim<<
-    "b2D_x"   <<delim<< "b2D_y"   <<delim<<
+    "a2Dx"   <<delim<< "a2Dy"   <<delim<<
+    "b2Dx"   <<delim<< "b2Dy"   <<delim<<
 
     //2D (reduced)
     "a2Dr"     <<delim<< "b2Dr"     <<delim<<
-    "a2Dr_x"   <<delim<< "a2Dr_y"   <<delim<<
-    "b2Dr_x"   <<delim<< "b2Dr_y"   <<delim<<
+    "a2Drx"   <<delim<< "a2Dry"   <<delim<<
+    "b2Drx"   <<delim<< "b2Dry"   <<delim<<
 
     //3D
     "a3D"     <<delim<< "b3D"     <<delim<< "c3D"     <<delim<<
-    "a3D_x"   <<delim<< "a3D_y"   <<delim<< "a3D_z"   <<delim<<
-    "b3D_x"   <<delim<< "b3D_y"   <<delim<< "b3D_z"   <<delim<<
-    "c3D_x"   <<delim<< "c3D_y"   <<delim<< "c3D_z"   <<delim<<
+    "a3Dx"   <<delim<< "a3Dy"   <<delim<< "a3Dz"   <<delim<<
+    "b3Dx"   <<delim<< "b3Dy"   <<delim<< "b3Dz"   <<delim<<
+    "c3Dx"   <<delim<< "c3Dy"   <<delim<< "c3Dz"   <<delim<<
 
     //3D (reduced)
     "a3Dr"     <<delim<< "b3Dr"     <<delim<< "c3Dr"     <<delim<<
-    "a3Dr_x"   <<delim<< "a3Dr_y"   <<delim<< "a3Dr_z"   <<delim<<
-    "b3Dr_x"   <<delim<< "b3Dr_y"   <<delim<< "b3Dr_z"   <<delim<<
-    "c3Dr_x"   <<delim<< "c3Dr_y"   <<delim<< "c3Dr_z"   <<
+    "a3Drx"   <<delim<< "a3Dry"   <<delim<< "a3Drz"   <<delim<<
+    "b3Drx"   <<delim<< "b3Dry"   <<delim<< "b3Drz"   <<delim<<
+    "c3Drx"   <<delim<< "c3Dry"   <<delim<< "c3Drz"   <<
     endl;
     //-------------------------------------------------------
 }
