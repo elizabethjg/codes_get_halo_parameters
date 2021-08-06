@@ -70,7 +70,7 @@ void print_profile_header(ofstream &outdata_pro){
     "r_0" <<delim<< "r_1" <<delim<< "r_2" <<delim<<
     "r_3" <<delim<< "r_4" <<delim<< "r_5" <<delim<<
     "r_6" <<delim<< "r_7" <<delim<< "r_8" <<delim<<
-    "rho_9" <<delim<< 
+    "r_9" <<delim<< 
     "rho_0" <<delim<< "rho_1" <<delim<< "rho_2" <<delim<<
     "rho_3" <<delim<< "rho_4" <<delim<< "rho_5" <<delim<<
     "rho_6" <<delim<< "rho_7" <<delim<< "rho_8" <<delim<<
