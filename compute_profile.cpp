@@ -5,8 +5,9 @@
 
 using namespace std;
 
-void ro_r(const vector <float> x, const vector <float> y, const vector <float> z,
-        const int nrings, const float max_distance, vector <double> &R, vector <double> &ro,
+void ro_r(const vector <float> x, const vector <float> y, const vector <float> z, \
+        const double a_t, const int nrings, const float max_distance, \
+        vector <double> &R, vector <double> &ro, \
         const float a, const float b, const float c){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
@@ -42,8 +43,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
         for (int j = 0; j < Npart; j++){
 
-            rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2) + pow(z[j],2)/pow(c_in,2);
-            rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2) + pow(z[j],2)/pow(c_out,2);
+            rsq_in  = pow(a_t,2) * (pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2) + pow(z[j],2)/pow(c_in,2));
+            rsq_out = pow(a_t,2) * (pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2) + pow(z[j],2)/pow(c_out,2));
 
             if(rsq_in >= 1. && rsq_out < 1.){                    
                 npart += 1;
@@ -62,7 +63,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 }
 
 
-void Sigma_r(const vector <float> x, const vector <float> y,
+void Sigma_r(const vector <float> x, const vector <float> y, const double a_t, 
         const int nrings, const float max_distance, vector <double> &R, 
         vector <double> &Sigma, const float a, const float b){
 
@@ -92,8 +93,8 @@ void Sigma_r(const vector <float> x, const vector <float> y,
 
         for (int j = 0; j < Npart; j++){
 
-            rsq_in  = pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2);
-            rsq_out = pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2);
+            rsq_in  = pow(a_t,2) * (pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2));
+            rsq_out = pow(a_t,2) * (pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2));
 
             if(rsq_in >= 1. && rsq_out < 1.){                    
                 npart += 1;

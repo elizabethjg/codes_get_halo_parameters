@@ -8,7 +8,7 @@ using namespace std;
 
 
 void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> y_part_proj, \
-                        float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
+                        const double a_t, float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
                         float *a2Dr_abs, float *b2Dr_abs, float *a2D_abs, float *b2D_abs){
 
     //----- gsl variables for eigenvalue computation ------
@@ -27,7 +27,7 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     //----- standard MI -----
 
     //initialize moment of inertia
-    ini_MI_2D(x_part_proj, y_part_proj, MI_2D, "standard");
+    ini_MI_2D(x_part_proj, y_part_proj, a_t, MI_2D, "standard");
 
     //fill gsl matrix
     M2D = gsl_matrix_view_array (MI_2D, 2, 2);
@@ -52,7 +52,7 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     //----- reduced MI -----
 
     //initialize moment of inertia 2DMi
-    ini_MI_2D(x_part_proj, y_part_proj, MI_2D, "reduced");
+    ini_MI_2D(x_part_proj, y_part_proj, a_t, MI_2D, "reduced");
 
     //fill gsl matrix
     M2D = gsl_matrix_view_array (MI_2D, 2, 2);
@@ -77,7 +77,8 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
 }
 
 void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_part, \
-                const vector <float> z_part,float *a3D, float *b3D, float *c3D, \
+                const vector <float> z_part, const double a_t, \
+                float *a3D, float *b3D, float *c3D, \
                 float *a3Dr, float *b3Dr, float *c3Dr, \
                 float *a3D_abs, float *b3D_abs, float *c3D_abs, \
                 float *a3Dr_abs, float *b3Dr_abs, float *c3Dr_abs){
@@ -97,7 +98,7 @@ void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_par
     //----- standard MI -----
 
     //initialize moment of inertia
-    ini_MI_3D(x_part, y_part, z_part, MI_3D, "standard");
+    ini_MI_3D(x_part, y_part, z_part, a_t, MI_3D, "standard");
 
     //get eigenvalues and eigenvectors of MI using gsl
     M3D = gsl_matrix_view_array (MI_3D, 3, 3);
@@ -127,7 +128,7 @@ void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_par
     //----- reduced MI -----
 
     //initialize moment of inertia
-    ini_MI_3D(x_part, y_part, z_part, MI_3D, "reduced");
+    ini_MI_3D(x_part, y_part, z_part, a_t, MI_3D, "reduced");
 
     //get eigenvalues and eigenvectors of MI using gsl
     M3D = gsl_matrix_view_array (MI_3D, 3, 3);
