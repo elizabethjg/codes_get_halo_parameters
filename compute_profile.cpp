@@ -12,7 +12,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin = 100.;
+    float rin = 50.;
     float s = c/a;
     float q = b/a;
 
