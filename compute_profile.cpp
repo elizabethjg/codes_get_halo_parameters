@@ -28,12 +28,8 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float RMAX = 0.7*a_t*float(max_distance);
     int i = 0;
 
-    cout << ("Limit mass = %.1f", step) << endl;
-    cout << ("Limit mass = %.1f", RMAX) << endl;
-
-
     //for (int i = 0; i < nrings; i++){ 
-    while((rin + step) < RMAX){      
+    while((rin + step) < RMAX && i < nrings){      
 
         float a_in = rin/pow(q*s,1./3.);
         float b_in = a_in*q;
@@ -89,7 +85,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     int i = 0;
 
     //for (int i = 0; i < nrings; i++){ 
-    while((rin + step) < RMAX){      
+    while((rin + step) < RMAX && i < nrings){      
 
         float a_in = rin/sqrt(q);
         float b_in = a_in*q;
