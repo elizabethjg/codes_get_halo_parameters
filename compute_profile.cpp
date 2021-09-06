@@ -23,9 +23,13 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     int Npart = x.size();
 
     float step;
-    step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
+    //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
+    step = (1000. - rin) / float(nrings);
+    float RMAX = 0.7*a_t*float(max_distance);
+    int i = 0;
 
-    for (int i = 0; i < nrings; i++){       
+    //for (int i = 0; i < nrings; i++){ 
+    while((rin + step) < RMAX){      
 
         float a_in = rin/pow(q*s,1./3.);
         float b_in = a_in*q;
@@ -53,6 +57,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         R[i]  = (rin + 0.5*step); //In units kpc/h
         
         rin += step;
+        i += 1;
 
     }
 }
@@ -64,7 +69,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin = 0.;
+    float rin = 20.;
     float q = b/a;
     
     int Npart = x.size();
@@ -74,9 +79,13 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     float rsq_out; 
 
     float step;
-    step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
+    //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
+    step = (1000. - rin) / float(nrings);
+    float RMAX = 0.7*a_t*float(max_distance);
+    int i = 0;
 
-    for (int i = 0; i < nrings; i++){       
+    //for (int i = 0; i < nrings; i++){ 
+    while((rin + step) < RMAX){      
 
         float a_in = rin/sqrt(q);
         float b_in = a_in*q;
@@ -101,6 +110,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
         R[i]  = (rin + 0.5*step); //In units kpc/h
 
         rin += step;
+        i += 1;
 
     }
 }
