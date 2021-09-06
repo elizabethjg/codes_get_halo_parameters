@@ -49,17 +49,17 @@ void ini_MI_3D(const vector <float> x_part, const vector <float> y_part,\
             rsq = pow(x_part[i],2) + pow(y_part[i],2) + pow(z_part[i],2);
         }
 
-        MI[0] += pow(at,2) * x_part[i] * x_part[i] / rsq;
-        MI[1] += pow(at,2) * x_part[i] * y_part[i] / rsq;
-        MI[2] += pow(at,2) * x_part[i] * z_part[i] / rsq;
-                 
-        MI[3] += pow(at,2) * y_part[i] * x_part[i] / rsq;
-        MI[4] += pow(at,2) * y_part[i] * y_part[i] / rsq;
-        MI[5] += pow(at,2) * y_part[i] * z_part[i] / rsq;
-                 
-        MI[6] += pow(at,2) * z_part[i] * x_part[i] / rsq;
-        MI[7] += pow(at,2) * z_part[i] * y_part[i] / rsq;
-        MI[8] += pow(at,2) * z_part[i] * z_part[i] / rsq;
+        MI[0] += pow(a_t,2) * x_part[i] * x_part[i] / rsq;
+        MI[1] += pow(a_t,2) * x_part[i] * y_part[i] / rsq;
+        MI[2] += pow(a_t,2) * x_part[i] * z_part[i] / rsq;
+                      
+        MI[3] += pow(a_t,2) * y_part[i] * x_part[i] / rsq;
+        MI[4] += pow(a_t,2) * y_part[i] * y_part[i] / rsq;
+        MI[5] += pow(a_t,2) * y_part[i] * z_part[i] / rsq;
+                      
+        MI[6] += pow(a_t,2) * z_part[i] * x_part[i] / rsq;
+        MI[7] += pow(a_t,2) * z_part[i] * y_part[i] / rsq;
+        MI[8] += pow(a_t,2) * z_part[i] * z_part[i] / rsq;
     }
 }
 //============================================================
