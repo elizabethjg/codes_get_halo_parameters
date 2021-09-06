@@ -28,6 +28,10 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float RMAX = 0.7*a_t*float(max_distance);
     int i = 0;
 
+    cout << ("Limit mass = %.1f", step) << endl;
+    cout << ("Limit mass = %.1f", RMAX) << endl;
+
+
     //for (int i = 0; i < nrings; i++){ 
     while((rin + step) < RMAX){      
 
