@@ -12,7 +12,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin = 0.;
+    float rin = 20.;
     float s = c/a;
     float q = b/a;
 
@@ -23,7 +23,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     int Npart = x.size();
 
     float step;
-    step = float(max_distance) / float(nrings);
+    step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
 
     for (int i = 0; i < nrings; i++){       
 
@@ -34,10 +34,6 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         float a_out = (rin+step)/pow(q*s,1./3.);
         float b_out = a_out*q;
         float c_out = a_out*s;
-
-        //cout << "a " << a_out << endl;
-        //cout << "b " << b_out << endl;
-        //cout << "c " << c_out << endl;
 
         float npart = 0;
 
@@ -51,7 +47,6 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
             }
         }
         
-        //cout << "npart" << npart << endl;
          
         V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
@@ -79,7 +74,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     float rsq_out; 
 
     float step;
-    step = float(max_distance) / float(nrings);
+    step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
 
     for (int i = 0; i < nrings; i++){       
 
