@@ -74,7 +74,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
     double pi = 3.141592653589793;
-    float rin = 25.;
+    float rin = 12.5;
     float q = b/a;
     
     int Npart = x.size();
