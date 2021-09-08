@@ -25,7 +25,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float step;
     //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
     step = (1000. - rin) / float(nrings);
-    float RMAX = 0.5*a_t*float(max_distance);
+    float RMAX = 0.7*a_t*float(max_distance);
     
     if(RMAX < 200.){
         RMAX = 200.;
@@ -86,7 +86,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     float step;
     //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
     step = (1000. - rin) / float(nrings);
-    float RMAX = 0.5*a_t*float(max_distance);
+    float RMAX = 0.7*a_t*float(max_distance);
 
     if(RMAX < 200.){
         RMAX = 200.;
