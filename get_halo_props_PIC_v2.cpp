@@ -277,10 +277,10 @@ int main(int argc, char **argv){
             ihalo << delim << r_max << delim;
 
             int NRINGS = 25;
-            vector <double> R = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> R = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             
             // 3D profile
-            vector <double> ro = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> ro = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             ro_r(x_part, y_part, z_part, a_t, NRINGS, r_max, R, ro, 1., 1., 1.);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
@@ -293,7 +293,7 @@ int main(int argc, char **argv){
             }
 
             // 3D elliptical profile
-            vector <double> ro_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> ro_E = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             ro_r(x_rot, y_rot, z_rot, a_t, NRINGS, r_max, R, ro_E, a3D_abs, b3D_abs, c3D_abs);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
@@ -301,7 +301,7 @@ int main(int argc, char **argv){
             }
 
             // 2D profile
-            vector <double> Sigma = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> Sigma = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             Sigma_r(x_part_proj, y_part_proj, a_t, NRINGS, r_max, R, Sigma,1.,1.);
             for (int k = 0; k < NRINGS; k++) {
                     outdata_pro <<
@@ -309,7 +309,7 @@ int main(int argc, char **argv){
             }
 
             // 2D elliptical profile
-            vector <double> Sigma_E = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+            vector <double> Sigma_E = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             Sigma_r(x2d_rot, y2d_rot, a_t, NRINGS, r_max, R, Sigma_E, a2D_abs, b2D_abs);
             for (int k = 0; k < NRINGS-1; k++) {
                     outdata_pro <<
