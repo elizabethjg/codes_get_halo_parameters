@@ -3,7 +3,7 @@ CFLAGS = -O3 -fopenmp -std=c++11
 LDFLAGS = -lgsl -lgslcblas -lm -lhdf5
 
 HOST    := $(shell hostname)
-ifeq ("$(HOST)" , "zen2")  # zen2 x86 family Rome
+ifeq (["$(HOST)" , "rome01"] || ["$(HOST)" , "rome02"]) # zen2 x86 family Rome
         CFLAGS += -march=znver2 # For alumnos node
 else
 ifeq ("$(HOST)" ,"clemente") # clemente x86 family broadwell
@@ -11,8 +11,9 @@ ifeq ("$(HOST)" ,"clemente") # clemente x86 family broadwell
 endif
 endif
 
-SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp transform_coordinates.cpp io.cpp pos_to_z.cpp make_z_table.cpp
-read_sidm_simu.cpp
+SOURCES := halo_energy.cpp recentering.cpp compute_profile.cpp get_halo_props_PIC_v2.cpp \
+moment_of_inertia.cpp calculate_shapes.cpp project_particles.cpp transform_coordinates.cpp \
+io.cpp pos_to_z.cpp make_z_table.cpp read_sidm_simu.cpp
 OBJECTS := $(SOURCES:.cpp=.o)
 TARGET = get_halo_props_PIC_v2
 
