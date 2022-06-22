@@ -220,9 +220,9 @@ int main(int argc, char **argv){
 
         for (int i = 0; i < Npart; i++) {
 
-            x_part[i] = (x_part[i] - xc_fof)/1000.;
-            y_part[i] = (y_part[i] - yc_fof)/1000.;
-            z_part[i] = (z_part[i] - zc_fof)/1000.;
+            x_part[i] = (x_part[i] - xc_fof)* 1.e-3;
+            y_part[i] = (y_part[i] - yc_fof)* 1.e-3;
+            z_part[i] = (z_part[i] - zc_fof)* 1.e-3;
 
         }
 
