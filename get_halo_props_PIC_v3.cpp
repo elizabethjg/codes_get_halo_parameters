@@ -133,7 +133,8 @@ int main(int argc, char **argv){
     print_header(outdata);
     print_profile_header(outdata_pro);
     
-    double mp = 2.927; //1.e10 particle mass [M_sun/h]
+    //double mp = 2.927; //1.e10 particle mass [M_sun/h]
+    double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
     unsigned int nhalos = 3;
 
     string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
