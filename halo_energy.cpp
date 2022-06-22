@@ -4,10 +4,9 @@
 void halo_energy(const vector <float> x, const vector <float> y,
                 const vector <float> z, const vector <float> vx,
                 const vector <float> vy, const vector <float> vz,
-                const double a_t, double *Epot_halo, double *Ekin_halo){
+                const double a_t, const double mp,
+                double *Epot_halo, double *Ekin_halo){
 
-
-    double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double G = 6.67384; //1e-11 [m3 kg-1 s-2]
     double Msun = 1.989; //1.e30 [kg/M_sun]
     double h = 0.7;

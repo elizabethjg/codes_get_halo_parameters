@@ -120,7 +120,7 @@ int main(int argc, char **argv){
 
     //open output file to save profiles
     ofstream outdata_pro;
-    string out_file_pro = "_pro.csv";
+    string out_file_pro = filename_output + "_pro.csv";
     outdata_pro.open(out_file_pro.c_str());
 
     //set format for output
@@ -129,7 +129,11 @@ int main(int argc, char **argv){
     outdata_pro.setf(ios::fixed);
     outdata_pro.precision(3);
 
-
+    // print headers
+    print_header(outdata);
+    print_profile_header(outdata_pro);
+    
+    double mp = 2.927; //1.e10 particle mass [M_sun/h]
     unsigned int nhalos = 3;
 
     string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
@@ -216,9 +220,9 @@ int main(int argc, char **argv){
 
         for (int i = 0; i < Npart; i++) {
 
-            x_part[i] = x_part[i] - xc_fof;
-            y_part[i] = y_part[i] - yc_fof;
-            z_part[i] = z_part[i] - zc_fof;
+            x_part[i] = (x_part[i] - xc_fof)/1000.;
+            y_part[i] = (y_part[i] - yc_fof)/1000.;
+            z_part[i] = (z_part[i] - zc_fof)/1000.;
 
         }
 
@@ -242,13 +246,13 @@ int main(int argc, char **argv){
 
             // COMPUTE HALO REDSHIFT
             double z_halo = 0;
-            get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
+            //get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
             double a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
             double EKin = 0;
             double EPot = 0;
-            halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, &EPot, &EKin);
+            halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, mp, &EPot, &EKin);
 
             // RECENTER THE HALO
             float r_max = 0;

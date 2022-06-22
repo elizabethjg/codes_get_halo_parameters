@@ -10,6 +10,7 @@ using namespace std;
  void halo_energy(const vector <float> x, const vector <float> y,
                  const vector <float> z, const vector <float> vx,
                  const vector <float> vy, const vector <float> vz,
-                 const double a_t, double *Epot_halo, double *Ekin_halo);
+                 const double a_t, const double mp,
+                 double *Epot_halo, double *Ekin_halo);
 
 #endif
