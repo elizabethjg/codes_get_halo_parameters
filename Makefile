@@ -11,7 +11,7 @@ else
 ifeq  ("$(HOST)" , "rome02")
     CC = clang++
 	CFLAGS += -mfma -mavx2
-	#CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
+	CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
 else
 ifeq ("$(HOST)" ,"clemente")  # clemente x86 family broadwell
     CFLAGS +=  -march=broadwell  # For clemente
