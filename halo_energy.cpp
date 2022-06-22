@@ -42,7 +42,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
 
 
                 // in units of (kg*m^2/s^2)*10^30
-                Epot_part += fEpot*mp*mp/(a_t * sqrt((dxi*dxi + dyi*dyi + dzi*dzi)+pow(50./1000.,2)));
+                Epot_part += fEpot*mp*mp/(a_t * sqrt((dxi*dxi + dyi*dyi + dzi*dzi)));
 
             }
 

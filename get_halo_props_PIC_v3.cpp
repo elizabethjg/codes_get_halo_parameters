@@ -135,7 +135,7 @@ int main(int argc, char **argv){
     
     //double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
-    unsigned int nhalos = 3;
+    unsigned int nhalos = 207;
 
     string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
 
@@ -221,9 +221,9 @@ int main(int argc, char **argv){
 
         for (int i = 0; i < Npart; i++) {
 
-            x_part[i] = (x_part[i] - xc_fof)* 1.e-3;
-            y_part[i] = (y_part[i] - yc_fof)* 1.e-3;
-            z_part[i] = (z_part[i] - zc_fof)* 1.e-3;
+            x_part[i] = (x_part[i] - xc_fof)* 1.e3;
+            y_part[i] = (y_part[i] - yc_fof)* 1.e3;
+            z_part[i] = (z_part[i] - zc_fof)* 1.e3;
 
         }
 
