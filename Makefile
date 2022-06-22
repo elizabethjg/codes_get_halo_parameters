@@ -1,13 +1,21 @@
 CC = g++
-CFLAGS = -O3 -fopenmp -std=c++20
+CFLAGS += -fopenmp -std=c++20
 LDFLAGS = -lgsl -lgslcblas -lm -lhdf5
 
 HOST    := $(shell hostname)
-ifeq (["$(HOST)" , "rome01"] || ["$(HOST)" , "rome02"])  # zen2 x86 family Rome
-        CFLAGS += -march=znver2 -mfma -mavx2  # For alumnos node
+ifeq ("$(HOST)" , "rome01")  # zen2 x86 family Rome
+    CC = clang++
+    CFLAGS += -mfma -mavx2
+	CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
+else
+ifeq  ("$(HOST)" , "rome02")
+    CC = clang++
+	CFLAGS += -mfma -mavx2
+	#CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
 else
 ifeq ("$(HOST)" ,"clemente")  # clemente x86 family broadwell
-        CFLAGS +=  -march=broadwell  # For clemente
+    CFLAGS +=  -march=broadwell  # For clemente
+endif
 endif
 endif
 
