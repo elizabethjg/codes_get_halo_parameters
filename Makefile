@@ -6,12 +6,10 @@ HOST    := $(shell hostname)
 ifeq ("$(HOST)" , "rome01")  # zen2 x86 family Rome
     CC = clang++
     CFLAGS += -mfma -mavx2
-	CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
 else
 ifeq  ("$(HOST)" , "rome02")
     CC = clang++
-	CFLAGS += -mfma -mavx2
-	CFLAGS += -mllvm -region-vectorize -flto -mllvm -enable-loop-fusion  # For alumnos node
+	CFLAGS += -mfma -mavx2 -funroll-loops
 else
 ifeq ("$(HOST)" ,"clemente")  # clemente x86 family broadwell
     CFLAGS +=  -march=broadwell  # For clemente

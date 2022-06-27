@@ -132,7 +132,7 @@ int main(int argc, char **argv){
     // print headers
     print_header(outdata);
     print_profile_header(outdata_pro);
-    
+
     //double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
     unsigned int nhalos = 207;
@@ -140,6 +140,9 @@ int main(int argc, char **argv){
     string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
 
     float avance = 0.02, mass = 0.;
+
+    float xc_fof=0., yc_fof=0., zc_fof=0., vxc=0., vyc=0., vzc=0.;
+    float lm = 0.;
 
     vector<double> z_vec, Dc_vec;
     make_table(z_vec, Dc_vec);
@@ -169,8 +172,6 @@ int main(int argc, char **argv){
         //--------------------- read data ---------------------
         //read halo properties
         int Npart = read_int_attr(path, "Npart");
-        unsigned int haloID=0;
-        float xc_fof=0, yc_fof=0, zc_fof=0, vxc=0, vyc=0, vzc=0;
 
         xc_fof = read_float_attr(path, "x0");
         yc_fof = read_float_attr(path, "y0");
@@ -184,7 +185,7 @@ int main(int argc, char **argv){
 
         // indata.read(buffer, 2*length);
 
-        float lm = log10(mass);
+        lm = log10(mass);
 
         float *x_part_arr = (float *) read_dataset(path, "X");
         vector<float> x_part(Npart);
