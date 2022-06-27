@@ -135,9 +135,10 @@ int main(int argc, char **argv){
 
     //double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
-    unsigned int nhalos = 207;
+    unsigned int nhalos = 2;
 
-    string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
+    //string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
+    string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/halo_";
 
     float avance = 0.02, mass = 0.;
 
