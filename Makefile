@@ -4,12 +4,12 @@ LDFLAGS = -lgsl -lgslcblas -lm -lhdf5
 
 HOST    := $(shell hostname)
 ifeq ("$(HOST)" , "rome01")  # zen2 x86 family Rome
-    # CC = clang++
-    CFLAGS += -mfma -mavx2
+    CC = clang++
+    CFLAGS += -mfma -mavx2 -funroll-loops
 else
 ifeq  ("$(HOST)" , "rome02")
-    # CC = clang++
-	CFLAGS += -mfma -mavx2 
+    CC = clang++
+	CFLAGS += -mfma -mavx2 -funroll-loops
 else
 ifeq ("$(HOST)" ,"clemente")  # clemente x86 family broadwell
     CFLAGS +=  -march=broadwell  # For clemente
