@@ -24,7 +24,7 @@
 // #include "pos_to_z.h"
 #include "read_sidm_simu.h"
 
-#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/SIDM/halo_"
+#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/halo_"
 
 #define NRINGS 25
 
