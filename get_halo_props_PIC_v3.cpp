@@ -28,7 +28,7 @@
 
 #define NRINGS 25
 
-#define NHALOS 2
+#define NHALOS 207
 
 using namespace std;
 
