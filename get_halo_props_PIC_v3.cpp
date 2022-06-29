@@ -175,8 +175,8 @@ int main(int argc, char **argv){
 
     double J[3] = {0., 0., 0.};
 
-    vector <double> R, ro, ro_E;
-    vector <double> Sigma, Sigma_E;
+    vector <double> R(25), ro(25), ro_E(25);
+    vector <double> Sigma(25), Sigma_E(25);
 
     vector<double> z_vec, Dc_vec;
     make_table(z_vec, Dc_vec);
@@ -266,7 +266,7 @@ int main(int argc, char **argv){
 
             // COMPUTE HALO REDSHIFT
             z_halo = 0;
-            //get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
+            // get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
             a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
@@ -335,7 +335,7 @@ int main(int argc, char **argv){
                                   x_part_proj, y_part_proj, x2d_rot, y2d_rot,
                                   a3D, b3D, c3D, a2D, b2D);
 
-            //save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
+            // save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
             //                 x_part_proj, y_part_proj, x2d_rot, y2d_rot);
 
 
