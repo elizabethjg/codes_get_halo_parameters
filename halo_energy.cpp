@@ -1,5 +1,6 @@
-#include "halo_energy.h"
 #include <cmath>
+
+#include "halo_energy.h"
 
 void halo_energy(const vector <float> x, const vector <float> y,
                 const vector <float> z, const vector <float> vx,
@@ -52,7 +53,7 @@ void halo_energy(const vector <float> x, const vector <float> y,
         Ekin_acc += Ekin_part;
 
     }
-    *Epot_halo += -1.*Epot_acc; 
+    *Epot_halo += -1.*Epot_acc;
     *Ekin_halo += Ekin_acc;
 }
             //-----------------------------------------------------------------------------------------

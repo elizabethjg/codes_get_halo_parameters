@@ -1,5 +1,6 @@
-#include "io.h"
 #include <cmath>
+
+#include "io.h"
 
 using namespace std;
 
@@ -70,47 +71,47 @@ void print_profile_header(ofstream &outdata_pro){
     "r_0" <<delim<< "r_1" <<delim<< "r_2" <<delim<<
     "r_3" <<delim<< "r_4" <<delim<< "r_5" <<delim<<
     "r_6" <<delim<< "r_7" <<delim<< "r_8" <<delim<<
-    "r_9" <<delim<< "r_10" <<delim<< "r_11" <<delim<< 
-    "r_12" <<delim<< "r_13" <<delim<< "r_14" <<delim<< 
-    "r_15" <<delim<< "r_16" <<delim<< "r_17" <<delim<< 
-    "r_18" <<delim<< "r_19" <<delim<< "r_20" <<delim<< 
-    "r_21" <<delim<< "r_22" <<delim<< "r_23" <<delim<< 
-    "r_24" <<delim<< 
+    "r_9" <<delim<< "r_10" <<delim<< "r_11" <<delim<<
+    "r_12" <<delim<< "r_13" <<delim<< "r_14" <<delim<<
+    "r_15" <<delim<< "r_16" <<delim<< "r_17" <<delim<<
+    "r_18" <<delim<< "r_19" <<delim<< "r_20" <<delim<<
+    "r_21" <<delim<< "r_22" <<delim<< "r_23" <<delim<<
+    "r_24" <<delim<<
     "rho_0" <<delim<< "rho_1" <<delim<< "rho_2" <<delim<<
     "rho_3" <<delim<< "rho_4" <<delim<< "rho_5" <<delim<<
     "rho_6" <<delim<< "rho_7" <<delim<< "rho_8" <<delim<<
-    "rho_9" <<delim<< "rho_10" <<delim<< "rho_11" <<delim<< 
-    "rho_12" <<delim<< "rho_13" <<delim<< "rho_14" <<delim<< 
-    "rho_15" <<delim<< "rho_16" <<delim<< "rho_17" <<delim<< 
-    "rho_18" <<delim<< "rho_19" <<delim<< "rho_20" <<delim<< 
-    "rho_21" <<delim<< "rho_22" <<delim<< "rho_23" <<delim<< 
-    "rho_24" <<delim<< 
+    "rho_9" <<delim<< "rho_10" <<delim<< "rho_11" <<delim<<
+    "rho_12" <<delim<< "rho_13" <<delim<< "rho_14" <<delim<<
+    "rho_15" <<delim<< "rho_16" <<delim<< "rho_17" <<delim<<
+    "rho_18" <<delim<< "rho_19" <<delim<< "rho_20" <<delim<<
+    "rho_21" <<delim<< "rho_22" <<delim<< "rho_23" <<delim<<
+    "rho_24" <<delim<<
     "rhoE_0" <<delim<< "rhoE_1" <<delim<< "rhoE_2" <<delim<<
     "rhoE_3" <<delim<< "rhoE_4" <<delim<< "rhoE_5" <<delim<<
     "rhoE_6" <<delim<< "rhoE_7" <<delim<< "rhoE_8" <<delim<<
-    "rhoE_9" <<delim<< "rhoE_10" <<delim<< "rhoE_11" <<delim<< 
-    "rhoE_12" <<delim<< "rhoE_13" <<delim<< "rhoE_14" <<delim<< 
-    "rhoE_15" <<delim<< "rhoE_16" <<delim<< "rhoE_17" <<delim<< 
-    "rhoE_18" <<delim<< "rhoE_19" <<delim<< "rhoE_20" <<delim<< 
-    "rhoE_21" <<delim<< "rhoE_22" <<delim<< "rhoE_23" <<delim<< 
-    "rhoE_24" <<delim<< 
+    "rhoE_9" <<delim<< "rhoE_10" <<delim<< "rhoE_11" <<delim<<
+    "rhoE_12" <<delim<< "rhoE_13" <<delim<< "rhoE_14" <<delim<<
+    "rhoE_15" <<delim<< "rhoE_16" <<delim<< "rhoE_17" <<delim<<
+    "rhoE_18" <<delim<< "rhoE_19" <<delim<< "rhoE_20" <<delim<<
+    "rhoE_21" <<delim<< "rhoE_22" <<delim<< "rhoE_23" <<delim<<
+    "rhoE_24" <<delim<<
     "Sigma_0" <<delim<< "Sigma_1" <<delim<< "Sigma_2" <<delim<<
     "Sigma_3" <<delim<< "Sigma_4" <<delim<< "Sigma_5" <<delim<<
     "Sigma_6" <<delim<< "Sigma_7" <<delim<< "Sigma_8" <<delim<<
-    "Sigma_9" <<delim<< "Sigma_10" <<delim<< "Sigma_11" <<delim<< 
-    "Sigma_12" <<delim<< "Sigma_13" <<delim<< "Sigma_14" <<delim<< 
-    "Sigma_15" <<delim<< "Sigma_16" <<delim<< "Sigma_17" <<delim<< 
-    "Sigma_18" <<delim<< "Sigma_19" <<delim<< "Sigma_20" <<delim<< 
-    "Sigma_21" <<delim<< "Sigma_22" <<delim<< "Sigma_23" <<delim<< 
-    "Sigma_24" <<delim<< 
+    "Sigma_9" <<delim<< "Sigma_10" <<delim<< "Sigma_11" <<delim<<
+    "Sigma_12" <<delim<< "Sigma_13" <<delim<< "Sigma_14" <<delim<<
+    "Sigma_15" <<delim<< "Sigma_16" <<delim<< "Sigma_17" <<delim<<
+    "Sigma_18" <<delim<< "Sigma_19" <<delim<< "Sigma_20" <<delim<<
+    "Sigma_21" <<delim<< "Sigma_22" <<delim<< "Sigma_23" <<delim<<
+    "Sigma_24" <<delim<<
     "SigmaE_0" <<delim<< "SigmaE_1" <<delim<< "SigmaE_2" <<delim<<
     "SigmaE_3" <<delim<< "SigmaE_4" <<delim<< "SigmaE_5" <<delim<<
     "SigmaE_6" <<delim<< "SigmaE_7" <<delim<< "SigmaE_8" <<delim<<
-    "SigmaE_9" <<delim<< "SigmaE_10" <<delim<< "SigmaE_11" <<delim<< 
-    "SigmaE_12" <<delim<< "SigmaE_13" <<delim<< "SigmaE_14" <<delim<< 
-    "SigmaE_15" <<delim<< "SigmaE_16" <<delim<< "SigmaE_17" <<delim<< 
-    "SigmaE_18" <<delim<< "SigmaE_19" <<delim<< "SigmaE_20" <<delim<< 
-    "SigmaE_21" <<delim<< "SigmaE_22" <<delim<< "SigmaE_23" <<delim<< 
+    "SigmaE_9" <<delim<< "SigmaE_10" <<delim<< "SigmaE_11" <<delim<<
+    "SigmaE_12" <<delim<< "SigmaE_13" <<delim<< "SigmaE_14" <<delim<<
+    "SigmaE_15" <<delim<< "SigmaE_16" <<delim<< "SigmaE_17" <<delim<<
+    "SigmaE_18" <<delim<< "SigmaE_19" <<delim<< "SigmaE_20" <<delim<<
+    "SigmaE_21" <<delim<< "SigmaE_22" <<delim<< "SigmaE_23" <<delim<<
     "SigmaE_24" <<
     endl;
 

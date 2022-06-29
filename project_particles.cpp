@@ -2,7 +2,7 @@
 #include <cmath>
 
 void project(const vector <float> x_part, const vector <float> y_part,
-             const vector <float> z_part, const float xc, 
+             const vector <float> z_part, const float xc,
              const float yc, const float zc,
              vector <float> &x_part_proj, vector <float> &y_part_proj){
 
@@ -10,22 +10,26 @@ void project(const vector <float> x_part, const vector <float> y_part,
             //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
             //get ra & dec of center
             double ra_center = 0;
-            if(yc > 0){ra_center = atan(xc/yc);}
+
+            if(yc > 0){
+                ra_center = atan(xc/yc);
+            }
+
             double dec_center = asin(zc/sqrt(xc*xc + yc*yc + zc*zc));
 
             //define normalized 3Dvectors which span tangential plain perpendicular to los vector pointing to halo
             //vector with constant latitude (no dependence on dec),
-            double e1x =   cos(ra_center);
-            double e1y =   -sin(ra_center);
+            double e1x = cos(ra_center);
+            double e1y = -sin(ra_center);
             //double e1z =   0;//not needed
 
             //vector with constant longitude (perpendiculat to los and e1)
             double e2x = - sin(dec_center) * sin(ra_center);
             double e2y = - sin(dec_center) * cos(ra_center);
-            double e2z =   cos(dec_center);
+            double e2z = cos(dec_center);
 
             //project halo particles on plain via scalar product
-            
+
             for(int i = 0; i < Npart; i++){
 
                 float xi = e1x*x_part[i] + e1y*y_part[i]; // + e1z*z_part[i]

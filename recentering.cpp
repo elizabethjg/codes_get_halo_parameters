@@ -1,6 +1,8 @@
+#include <cmath>
+
 #include "recentering.h"
 
-#include <cmath>
+using namespace std;
 
 void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
             vector <float> &x, vector <float> &y, vector <float> &z,
@@ -11,7 +13,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
     int ncentermin = 10; //min np for recentering
     int ncentertmp = np; //+1 for passing the first while loop below
     int nbin_rc = 10; //log(np);
-    int ncenter; // number of particles within each radius
+    int ncenter = -1; // number of particles within each radius
 
     float xc, yc, zc; // coordinates of the center of mass
     float r_samp; // Rescaled radius

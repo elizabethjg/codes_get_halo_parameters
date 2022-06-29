@@ -1,9 +1,9 @@
-#include "save_coordinates.h"
-
 #include <cmath>
 #include <iostream>
-#include <string> 
+#include <string>
 #include <fstream>
+
+#include "save_coordinates.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ void save_coordinates(const int ihalo,
         const vector <float> x2d_rot, const vector <float> y2d_rot){
 
     int np = x.size();
-    std::string id = std::to_string(ihalo);
+    string id = to_string(ihalo);
 
     string delim = "    ";
 
@@ -32,8 +32,8 @@ void save_coordinates(const int ihalo,
         outdata_coords <<
         x[k] <<delim<<  y[k] <<delim<<  z[k] <<delim<<
         x_rot[k] <<delim<<  y_rot[k] <<delim<<  z_rot[k] <<delim<<
-        x2d[k] <<delim<<  y2d[k] <<delim<<  
-        x2d_rot[k] <<delim<<  y2d_rot[k] <<  
+        x2d[k] <<delim<<  y2d[k] <<delim<<
+        x2d_rot[k] <<delim<<  y2d_rot[k] <<
         endl;
     }
 
