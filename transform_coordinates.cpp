@@ -13,11 +13,10 @@ void transform_coordinates(const vector <float> x, const vector <float> y, const
 
     int np = x.size();
 
+    float xi = 0., yi = 0., zi = 0.;
+    float x2di = 0., y2di = 0.;
 
     for (int k = 0; k < np; k++) {
-
-        float xi, yi, zi;
-        float x2di, y2di;
 
         x2di = (a2D[0]*x2d[k])+(a2D[1]*y2d[k]);
         y2di = (b2D[0]*x2d[k])+(b2D[1]*y2d[k]);

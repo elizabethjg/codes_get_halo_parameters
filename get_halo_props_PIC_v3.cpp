@@ -28,6 +28,8 @@
 
 #define NRINGS 25
 
+#define NHALOS 207
+
 using namespace std;
 
 
@@ -144,9 +146,7 @@ int main(int argc, char **argv){
 
     //double mp = 2.927; //1.e10 particle mass [M_sun/h]
     double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
-    unsigned int nhalos = 2;
 
-    string path_prefix = PATH_PREFIX;
     string path;
 
     float avance = 0.02, mass = 0.;
@@ -168,12 +168,12 @@ int main(int argc, char **argv){
     make_table(z_vec, Dc_vec);
 
     //--------------- begin loop over halos --------------------
-    for (int ihalo = 0; ihalo < nhalos; ihalo++) {
+    for (int ihalo = 0; ihalo < NHALOS; ihalo++) {
 
-        path = path_prefix + to_string(ihalo) + ".hdf5";
+        path = PATH_PREFIX + to_string(ihalo) + ".hdf5";
         cout << path << endl;
 
-        if((float(ihalo)/float(nhalos)) > avance){
+        if((float(ihalo)/float(NHALOS)) > avance){
 
             avance = avance + 0.02;
 
