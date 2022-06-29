@@ -24,11 +24,11 @@
 // #include "pos_to_z.h"
 #include "read_sidm_simu.h"
 
-#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_"
+#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/SIDM/halo_"
 
 #define NRINGS 25
 
-#define NHALOS 207
+#define NHALOS 2
 
 using namespace std;
 
