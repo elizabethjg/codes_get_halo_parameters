@@ -164,6 +164,20 @@ int main(int argc, char **argv){
     float a3Dr_abs, b3Dr_abs, c3Dr_abs;
     float a3D_abs, b3D_abs, c3D_abs;
 
+    double z_halo = 0., a_t = 0.;
+    double EKin = 0.;
+    double EPot = 0.;
+
+    float r_max = 0;
+    float xc = 0;
+    float yc = 0;
+    float zc = 0;
+
+    double J[3] = {0., 0., 0.};
+
+    vector <double> R, ro, ro_E;
+    vector <double> Sigma, Sigma_E;
+
     vector<double> z_vec, Dc_vec;
     make_table(z_vec, Dc_vec);
 
@@ -251,20 +265,20 @@ int main(int argc, char **argv){
         if(Npart > 0){
 
             // COMPUTE HALO REDSHIFT
-            double z_halo = 0;
+            z_halo = 0;
             //get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
-            double a_t = 1./(1.+ z_halo);
+            a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
-            double EKin = 0;
-            double EPot = 0;
+            EKin = 0.;
+            EPot = 0.;
             halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, mp, &EPot, &EKin);
 
             // RECENTER THE HALO
-            float r_max = 0;
-            float xc = 0;
-            float yc = 0;
-            float zc = 0;
+            r_max = 0.;
+            xc = 0.;
+            yc = 0.;
+            zc = 0.;
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
 
@@ -285,8 +299,9 @@ int main(int argc, char **argv){
                             &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
 
             //---------------------- angular momentum -------------------------------
-            //array for angular momentum vector
-            double J[3] = {0., 0., 0.};
+
+            // fill J array with zeros
+            memset(J, 0, 3 * sizeof(double));
 
             //sum cross-products J = r x p, where p = mv and m = 1 for each particle, i.e. Jtot=sum(part)
             for(int i = 0; i < Npart; i++){
@@ -296,9 +311,10 @@ int main(int argc, char **argv){
             }
 
             //specific angular momentum
-            for(int i = 0; i < 3; i++){
-                J[i] /= double(Npart);
-            }
+            J[0] /= double(Npart);
+            J[1] /= double(Npart);
+            J[2] /= double(Npart);
+
             //-----------------------------------------------------------------------
             save_output(outdata, ihalo, Npart, mass, \
                         xc_fof, yc_fof, zc_fof, z_halo, r_max, \
@@ -327,10 +343,7 @@ int main(int argc, char **argv){
 
             outdata_pro << ihalo << delim << r_max << delim;
 
-            vector <double> R = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
-
             // 3D profile
-            vector <double> ro = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             ro_r(x_part, y_part, z_part, a_t, NRINGS, r_max, R, ro, 1., 1., 1.);
 
             for (int k = 0; k < NRINGS; k++) {
@@ -342,7 +355,6 @@ int main(int argc, char **argv){
             }
 
             // 3D elliptical profile
-            vector <double> ro_E = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             ro_r(x_rot, y_rot, z_rot, a_t, NRINGS, r_max, R, ro_E, a3D_abs, b3D_abs, c3D_abs);
 
             for (int k = 0; k < NRINGS; k++) {
@@ -350,7 +362,6 @@ int main(int argc, char **argv){
             }
 
             // 2D profile
-            vector <double> Sigma = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             Sigma_r(x_part_proj, y_part_proj, a_t, NRINGS, r_max, R, Sigma, 1., 1.);
 
             for (int k = 0; k < NRINGS; k++) {
@@ -358,7 +369,6 @@ int main(int argc, char **argv){
             }
 
             // 2D elliptical profile
-            vector <double> Sigma_E = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
             Sigma_r(x2d_rot, y2d_rot, a_t, NRINGS, r_max, R, Sigma_E, a2D_abs, b2D_abs);
 
             for (int k = 0; k < NRINGS-1; k++) {
