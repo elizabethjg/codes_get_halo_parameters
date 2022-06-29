@@ -9,7 +9,7 @@
 #include <string>
 #include <cstring>  // memcpy
 #include <cmath>
-#include <gsl/gsl_eigen.h>
+// #include <gsl/gsl_eigen.h>
 #include <chrono>
 
 #include "halo_energy.h"
@@ -17,12 +17,16 @@
 #include "compute_profile.h"
 #include "calculate_shapes.h"
 #include "project_particles.h"
-//#include "save_coordinates.h"
+// #include "save_coordinates.h"
 #include "transform_coordinates.h"
 #include "io.h"
 #include "make_z_table.h"
-#include "pos_to_z.h"
+// #include "pos_to_z.h"
 #include "read_sidm_simu.h"
+
+#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_"
+
+#define NRINGS 25
 
 using namespace std;
 
@@ -108,6 +112,11 @@ int main(int argc, char **argv){
     make_table(z_vec, Dc_vec);
 */
 
+    if (argc <= 1){
+        cout << "check the arguments" << endl;
+        exit(1);
+    }
+
     string filename_output = argv[1];
 
     //delimiter for output
@@ -137,13 +146,23 @@ int main(int argc, char **argv){
     double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
     unsigned int nhalos = 2;
 
-    string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_";
-    //string path_preffix = "/mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/halo_";
+    string path_prefix = PATH_PREFIX;
+    string path;
 
     float avance = 0.02, mass = 0.;
 
     float xc_fof=0., yc_fof=0., zc_fof=0., vxc=0., vyc=0., vzc=0.;
     float lm = 0.;
+
+    // Define variables that will save semi-axis vectors
+    // and modulus
+    float a2D[2], b2D[2], a2Dr[2], b2Dr[2];
+    float a2Dr_abs, b2Dr_abs, a2D_abs, b2D_abs;
+
+    float a3D[3], b3D[3], c3D[3];
+    float a3Dr[3], b3Dr[3], c3Dr[3];
+    float a3Dr_abs, b3Dr_abs, c3Dr_abs;
+    float a3D_abs, b3D_abs, c3D_abs;
 
     vector<double> z_vec, Dc_vec;
     make_table(z_vec, Dc_vec);
@@ -151,21 +170,11 @@ int main(int argc, char **argv){
     //--------------- begin loop over halos --------------------
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
-        string path = path_preffix + to_string(ihalo) + ".hdf5";
+        path = path_prefix + to_string(ihalo) + ".hdf5";
         cout << path << endl;
-        // Define variables that will save semi-axis vectors
-        // and modulus
-        float a2D[2], b2D[2], a2Dr[2], b2Dr[2];
-        float a2Dr_abs, b2Dr_abs, a2D_abs, b2D_abs;
 
-        float a3D[3], b3D[3], c3D[3];
-        float a3Dr[3], b3Dr[3], c3Dr[3];
-        float a3Dr_abs, b3Dr_abs, c3Dr_abs;
-        float a3D_abs, b3D_abs, c3D_abs;
+        if((float(ihalo)/float(nhalos)) > avance){
 
-        if((float(ihalo)/float(nhalos))  > avance){
-
-            cout << ("=");
             avance = avance + 0.02;
 
         }
@@ -218,9 +227,6 @@ int main(int argc, char **argv){
         memcpy(&vz_part[0], &vz_part_arr[0], Npart * sizeof(float));
         free(vz_part_arr);
 
-        //read particle coordinates
-        // vector <float> x_part, y_part, z_part;
-
         for (int i = 0; i < Npart; i++) {
 
             x_part[i] = (x_part[i] - xc_fof)* 1.e3;
@@ -229,10 +235,7 @@ int main(int argc, char **argv){
 
         }
 
-        // indata.read(buffer, 2*length);
-
         //read particle velocities
-        // vector <float>  vx_part, vy_part, vz_part;
         for (int i = 0; i < Npart; i++) {
 
             vx_part[i] = vx_part[i] - vxc;
@@ -264,7 +267,6 @@ int main(int argc, char **argv){
             float zc = 0;
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
-
 
             //PROJECT POSITION OF PARTICLES
             vector <float> x_part_proj, y_part_proj;
@@ -325,7 +327,6 @@ int main(int argc, char **argv){
 
             outdata_pro << ihalo << delim << r_max << delim;
 
-            int NRINGS = 25;
             vector <double> R = {-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.};
 
             // 3D profile
