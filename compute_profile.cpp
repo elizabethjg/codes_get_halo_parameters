@@ -11,7 +11,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         const float a, const float b, const float c){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
-    double pi = 3.141592653589793;
+    // double pi = 3.141592653589793;
     float rin = 10.;
     float s = c/a;
     float q = b/a;
@@ -57,7 +57,7 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         }
 
 
-        V = (4./3.) * pi * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
+        V = (4./3.) * M_PI * (pow((rin + step)/1.e3, 3) - pow(rin/1.e3, 3)); //In units of Mpc3/h3
         ro[i] = (mp*npart) / V; //In units of (M_sun h2)/Mpc3
         R[i]  = (rin + 0.5*step); //In units kpc/h
 
@@ -73,7 +73,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
         vector <double> &Sigma, const float a, const float b){
 
     double mp = 2.927e10; //1 particle mass [M_sun/h]
-    double pi = 3.141592653589793;
+    // double pi = 3.141592653589793;
     float rin = 10.;
     float q = b/a;
 
@@ -115,7 +115,7 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
             }
         }
 
-        A = pi * (pow((rin + step)/1.e3, 2) - pow(rin/1.e3, 2)); //In units of Mpc3/h3
+        A = M_PI * (pow((rin + step)/1.e3, 2) - pow(rin/1.e3, 2)); //In units of Mpc3/h3
         Sigma[i] = (mp*npart) / A; //In units of (M_sun h2)/Mpc3
         R[i]  = (rin + 0.5*step); //In units kpc/h
 
