@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=halo_par
+#SBATCH --job-name=hpar_z5
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=28
 #SBATCH --time=3-00:00:00
