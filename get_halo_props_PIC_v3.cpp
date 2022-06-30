@@ -21,14 +21,12 @@
 #include "transform_coordinates.h"
 #include "io.h"
 #include "make_z_table.h"
-// #include "pos_to_z.h"
+#include "pos_to_z.h"
 #include "read_sidm_simu.h"
 
 #define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_"
 
 #define NRINGS 25
-
-#define NHALOS 2
 
 using namespace std;
 
@@ -114,12 +112,27 @@ int main(int argc, char **argv){
     make_table(z_vec, Dc_vec);
 */
 
+    string filename_output;
+    string path_prefix;
+    int nhalos = 0;
+    double z_halo = 0.;
+
     if (argc <= 1){
         cout << "check the arguments" << endl;
         exit(1);
     }
+    else if (argc == 5){
+        path_prefix = argv[1];
+        nhalos = atoi(argv[2]);
+        z_halo = stod(argv[3]);
+        filename_output = argv[4];
 
-    string filename_output = argv[1];
+        cout << "### Used parameters ###" << endl;
+        cout << "PATH_PREFIX :" << path_prefix << endl;
+        cout << "NHALOS: " << nhalos << endl;
+        cout << "ZHALOS: " << z_halo << endl;
+        cout << "FILE OUTPUT: " << filename_output << endl;
+    }
 
     //delimiter for output
     string delim = ",";
@@ -164,7 +177,7 @@ int main(int argc, char **argv){
     float a3Dr_abs, b3Dr_abs, c3Dr_abs;
     float a3D_abs, b3D_abs, c3D_abs;
 
-    double z_halo = 0., a_t = 0.;
+    double a_t = 0.;
     double EKin = 0.;
     double EPot = 0.;
 
@@ -182,12 +195,12 @@ int main(int argc, char **argv){
     make_table(z_vec, Dc_vec);
 
     //--------------- begin loop over halos --------------------
-    for (int ihalo = 0; ihalo < NHALOS; ihalo++) {
+    for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
         path = PATH_PREFIX + to_string(ihalo) + ".hdf5";
         cout << path << endl;
 
-        if((float(ihalo)/float(NHALOS)) > avance){
+        if((float(ihalo)/float(nhalos)) > avance){
 
             avance = avance + 0.02;
 
@@ -266,7 +279,7 @@ int main(int argc, char **argv){
 
             // COMPUTE HALO REDSHIFT
             z_halo = 0;
-            // get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
+            get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
             a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
