@@ -14,7 +14,7 @@ export MKL_NUM_THREADS=$SLURM_CPUS_PER_TASK
 . /etc/profile
 source $HOME/.bashrc
 
-module load aocc gsl hdf5 openmpi
+module load gcc gsl hdf5 openmpi
 
 OMP_NUM_THREADS=28 srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
 OMP_NUM_THREADS=28 srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
