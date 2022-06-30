@@ -22,9 +22,9 @@ do
     if [ $i -eq 1 ];
     then
         ##srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap43/ 143 0.51 halo_props_cdm_z51
-        srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap39/ 75 0.96 halo_props_cdm_z96
+        srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96
     else
         ##srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/Snap43/ 143 0.51 halo_props_cdm_z51
-        srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/Snap39/ 75 0.96 halo_props_cdm_z96
+        srun ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96
     fi
 done
