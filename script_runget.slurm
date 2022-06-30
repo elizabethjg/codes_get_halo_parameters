@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=hpar_z1
+#SBATCH --job-name=hpar_z5
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=56
 #SBATCH --time=3-00:00:00
@@ -16,8 +16,8 @@ source $HOME/.bashrc
 
 module load gcc gsl hdf5 openmpi
 
-OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96 &
-OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96 &
-##OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
-##OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
+##OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96 &
+##OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM1/Snap39/ 75 0.96 ../SIDM/halo_props/halo_props_cdm_z96 &
+OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/CDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
+OMP_NUM_THREADS=28 srun --ntasks=1 --cpus-per-task=28 ./get_halo_props_PIC_v3 /mnt/simulations/SIDM_simus/Lentes/V2/SIDM/Snap43/ 143 0.51 ../SIDM/halo_props/halo_props_cdm_z51 &
 wait
