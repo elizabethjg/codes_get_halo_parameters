@@ -24,8 +24,6 @@
 #include "pos_to_z.h"
 #include "read_sidm_simu.h"
 
-#define PATH_PREFIX "/mnt/simulations/SIDM_simus/Lentes/V2/CDM/halo_"
-
 #define NRINGS 25
 
 using namespace std;
@@ -197,7 +195,7 @@ int main(int argc, char **argv){
     //--------------- begin loop over halos --------------------
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
-        path = PATH_PREFIX + to_string(ihalo) + ".hdf5";
+        path = path_prefix + to_string(ihalo) + ".hdf5";
         cout << path << endl;
 
         if((float(ihalo)/float(nhalos)) > avance){
