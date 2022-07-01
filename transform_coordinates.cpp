@@ -1,5 +1,3 @@
-#include <cmath>
-
 #include "transform_coordinates.h"
 
 using namespace std;
@@ -15,6 +13,13 @@ void transform_coordinates(const vector <float> x, const vector <float> y, const
 
     float xi = 0., yi = 0., zi = 0.;
     float x2di = 0., y2di = 0.;
+
+    x2d_rot.resize(np);
+    y2d_rot.resize(np);
+
+    x_rot.resize(np);
+    y_rot.resize(np);
+    z_rot.resize(np);
 
     for (int k = 0; k < np; k++) {
 
