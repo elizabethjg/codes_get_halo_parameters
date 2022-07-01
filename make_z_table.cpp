@@ -26,8 +26,8 @@ double Dcom(const double Om_0,const double redshift){
 
             z_lo = zmin + (k)*dz;
             z_hi = zmin + (k+1)*dz;
-            E_lo = sqrt(Om_0*pow(1+z_lo,3) + OL);
-            E_hi = sqrt(Om_0*pow(1+z_hi,3) + OL);
+            E_lo = sqrt(Om_0 * pow(1 + z_lo, 3) + OL);
+            E_hi = sqrt(Om_0 * pow(1 + z_hi, 3) + OL);
 
             integral = integral + 0.5*(1./E_lo + 1./E_hi);
     }
@@ -54,7 +54,7 @@ void make_table(vector <double> &z_vec, vector <double> &Dc_vec){
     Dc_vec.resize(Ndz);
 
     for(int i=0; i<Ndz; i++){
-        z = zmin + (i+0.5)*dz;
+        z = zmin + (i + 0.5)*dz;
         Dout = Dcom(Om,z);
         //cout << Dout <<"\t"<< z <<endl;
         z_vec.push_back(z);
