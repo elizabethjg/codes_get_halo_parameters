@@ -50,6 +50,9 @@ void make_table(vector <double> &z_vec, vector <double> &Dc_vec){
 
     double z, Dout;
 
+    z_vec.resize(Ndz);
+    Dc_vec.resize(Ndz);
+
     for(int i=0; i<Ndz; i++){
         z = zmin + (i+0.5)*dz;
         Dout = Dcom(Om,z);
