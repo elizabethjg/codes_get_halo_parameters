@@ -10,18 +10,18 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
 
     int np = x.size();
     int j = 0;
-    int ncentermin = 10; //min np for recentering
-    int ncentertmp = np; //+1 for passing the first while loop below
-    int nbin_rc = 10; //log(np);
-    int ncenter = -1; // number of particles within each radius
+    int ncentermin = 10;  // min np for recentering
+    int ncentertmp = np;  // +1 for passing the first while loop below
+    int nbin_rc = 10;  // log(np);
+    int ncenter = -1;  // number of particles within each radius
 
-    float xc, yc, zc; // coordinates of the center of mass
-    float r_samp; // Rescaled radius
-    float ri; // Compute the max distance from the fof centre
+    float xc, yc, zc;  // coordinates of the center of mass
+    float r_samp;  // Rescaled radius
+    float ri;  // Compute the max distance from the fof centre
 
-    for (int k = 0; k < np; k++) {//loop over particles in halo
+    for (int k = 0; k < np; k++) {  // loop over particles in halo
 
-        ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
+        ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]);  // distance to halo center
 
         if(ri > *r_max){
             *r_max = ri;
@@ -41,7 +41,9 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
         r_samp = *r_max * (1. - float(j)/float(nbin_rc));
 
         ncenter = 0;
-        xc = 0; yc = 0; zc = 0;
+        xc = 0;
+        yc = 0;
+        zc = 0;
 
         for (int k = 0; k < np; k++) {  // loop over particles in halo
 
@@ -53,7 +55,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
                 yc = yc + y[k];
                 zc = zc + z[k];
 
-                ncenter = ncenter + 1;
+                ncenter++;
 
             }
         }

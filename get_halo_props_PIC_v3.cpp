@@ -158,7 +158,7 @@ int main(int argc, char **argv){
     print_profile_header(outdata_pro);
 
     //double mp = 2.927; //1.e10 particle mass [M_sun/h]
-    double mp = 0.013398587; //1.e10 particle mass [M_sun/h]
+    double mp = 0.013398587;  // 1.e10 particle mass [M_sun/h]
 
     string path;
 
@@ -191,6 +191,8 @@ int main(int argc, char **argv){
     vector <double> R(25), ro(25), ro_E(25);
     vector <double> Sigma(25), Sigma_E(25);
 
+    int Npart = -1;
+
     vector<double> z_vec, Dc_vec;
     make_table(z_vec, Dc_vec);
 
@@ -208,7 +210,7 @@ int main(int argc, char **argv){
 
         //--------------------- read data ---------------------
         //read halo properties
-        int Npart = read_int_attr(path, "Npart");
+        Npart = read_int_attr(path, "Npart");
 
         xc_fof = read_float_attr(path, "x0");
         yc_fof = read_float_attr(path, "y0");

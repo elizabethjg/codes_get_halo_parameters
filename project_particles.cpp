@@ -17,13 +17,13 @@ void project(const vector <float> x_part, const vector <float> y_part,
 
     double dec_center = asin(zc/sqrt(xc*xc + yc*yc + zc*zc));
 
-    //define normalized 3Dvectors which span tangential plain perpendicular to los vector pointing to halo
-    //vector with constant latitude (no dependence on dec),
+    // define normalized 3Dvectors which span tangential plain perpendicular to los vector pointing to halo
+    // vector with constant latitude (no dependence on dec),
     double e1x = cos(ra_center);
     double e1y = -sin(ra_center);
-    //double e1z =   0;//not needed
+    // double e1z =   0;//not needed
 
-    //vector with constant longitude (perpendiculat to los and e1)
+    // vector with constant longitude (perpendiculat to los and e1)
     double e2x = - sin(dec_center) * sin(ra_center);
     double e2y = - sin(dec_center) * cos(ra_center);
     double e2z = cos(dec_center);

@@ -8,11 +8,11 @@ void halo_energy(const vector <float> x, const vector <float> y,
                 const double a_t, const double mp,
                 double *Epot_halo, double *Ekin_halo){
 
-    double G = 6.67384; //1e-11 [m3 kg-1 s-2]
-    double Msun = 1.989; //1.e30 [kg/M_sun]
+    double G = 6.67384; // 1e-11 [m3 kg-1 s-2]
+    double Msun = 1.989; // 1.e30 [kg/M_sun]
     double h = 0.7;
-    double Mpc = 3.08567758; //1e22 [m/Mpc]
-    double fEkin = ((0.5*Msun)/h)* 1.e-4; //for energy unit conversion
+    double Mpc = 3.08567758; // 1e22 [m/Mpc]
+    double fEkin = ((0.5*Msun)/h)* 1.e-4; // for energy unit conversion
     double fEpot = ((Msun*Msun*G) / (h*Mpc)) * 1.e-3;
     double Ekin_part, Epot_part, Ekin_acc = 0., Epot_acc=0.;
 
@@ -56,4 +56,4 @@ void halo_energy(const vector <float> x, const vector <float> y,
     *Epot_halo += -1.*Epot_acc;
     *Ekin_halo += Ekin_acc;
 }
-            //-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
