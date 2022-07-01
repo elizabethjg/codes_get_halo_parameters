@@ -43,9 +43,9 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
         ncenter = 0;
         xc = 0; yc = 0; zc = 0;
 
-        for (int k = 0; k < np; k++) {//loop over particles in halo
+        for (int k = 0; k < np; k++) {  // loop over particles in halo
 
-            ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]); // distance to halo center
+            ri = sqrt(x[k]*x[k] + y[k]*y[k]+ z[k]*z[k]);  // distance to halo center
 
             if(ri < r_samp){
 
@@ -60,7 +60,7 @@ void recenter(const float xc_fof, const float yc_fof, const float zc_fof,
 
         ncentertmp = ncenter;
 
-        xc = xc / double(ncenter);//center of all particles that lie within rbin
+        xc = xc / double(ncenter);  // center of all particles that lie within rbin
         yc = yc / double(ncenter);
         zc = zc / double(ncenter);
 

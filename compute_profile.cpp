@@ -20,7 +20,12 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
     float rsq_in;
     float rsq_out;
 
+    float a_in, b_in, c_in;
+    float a_out, b_out, c_out;
+    float npart;
+
     int Npart = x.size();
+    int i = 0;
 
     float step;
     //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
@@ -31,25 +36,23 @@ void ro_r(const vector <float> x, const vector <float> y, const vector <float> z
         RMAX = 220.;
     }
 
-    int i = 0;
-
     //for (int i = 0; i < nrings; i++){
     while((rin + step) < RMAX && i < nrings){
 
-        float a_in = rin/pow(q*s,1./3.);
-        float b_in = a_in*q;
-        float c_in = a_in*s;
+        a_in = rin/pow(q*s,1./3.);
+        b_in = a_in*q;
+        c_in = a_in*s;
 
-        float a_out = (rin+step)/pow(q*s,1./3.);
-        float b_out = a_out*q;
-        float c_out = a_out*s;
+        a_out = (rin+step)/pow(q*s,1./3.);
+        b_out = a_out*q;
+        c_out = a_out*s;
 
-        float npart = 0;
+        npart = 0;
 
         for (int j = 0; j < Npart; j++){
 
-            rsq_in  = pow(a_t,2) * (pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2) + pow(z[j],2)/pow(c_in,2));
-            rsq_out = pow(a_t,2) * (pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2) + pow(z[j],2)/pow(c_out,2));
+            rsq_in  = pow(a_t, 2) * (pow(x[j], 2)/pow(a_in, 2) + pow(y[j], 2)/pow(b_in, 2) + pow(z[j], 2)/pow(c_in, 2));
+            rsq_out = pow(a_t, 2) * (pow(x[j], 2)/pow(a_out, 2) + pow(y[j], 2)/pow(b_out, 2) + pow(z[j], 2)/pow(c_out, 2));
 
             if(rsq_in >= 1. && rsq_out < 1.){
                 npart += 1;
@@ -83,6 +86,11 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     float rsq_in;
     float rsq_out;
 
+    float a_in, b_in;
+    float a_out, b_out;
+
+    float npart;
+
     float step;
     //step = (0.7*a_t*float(max_distance) - rin) / float(nrings);
     step = (1000. - rin) / float(nrings);
@@ -97,18 +105,18 @@ void Sigma_r(const vector <float> x, const vector <float> y, const double a_t,
     //for (int i = 0; i < nrings; i++){
     while((rin + step) < RMAX && i < nrings){
 
-        float a_in = rin/sqrt(q);
-        float b_in = a_in*q;
+        a_in = rin/sqrt(q);
+        b_in = a_in*q;
 
-        float a_out = (rin+step)/sqrt(q);
-        float b_out = a_out*q;
+        a_out = (rin+step)/sqrt(q);
+        b_out = a_out*q;
 
-        float npart = 0;
+        npart = 0;
 
         for (int j = 0; j < Npart; j++){
 
-            rsq_in  = pow(a_t,2) * (pow(x[j],2)/pow(a_in,2) + pow(y[j],2)/pow(b_in,2));
-            rsq_out = pow(a_t,2) * (pow(x[j],2)/pow(a_out,2) + pow(y[j],2)/pow(b_out,2));
+            rsq_in  = pow(a_t, 2) * (pow(x[j], 2)/pow(a_in, 2) + pow(y[j], 2)/pow(b_in, 2));
+            rsq_out = pow(a_t, 2) * (pow(x[j], 2)/pow(a_out, 2) + pow(y[j], 2)/pow(b_out, 2));
 
             if(rsq_in >= 1. && rsq_out < 1.){
                 npart += 1;
