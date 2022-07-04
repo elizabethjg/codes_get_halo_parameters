@@ -212,9 +212,9 @@ int main(int argc, char **argv){
         //read halo properties
         Npart = read_int_attr(path, "Npart");
 
-        xc_fof = read_float_attr(path, "x0");
-        yc_fof = read_float_attr(path, "y0");
-        zc_fof = read_float_attr(path, "z0");
+        xc_fof = read_float_attr(path, "x0")* 1.e3;
+        yc_fof = read_float_attr(path, "y0")* 1.e3;
+        zc_fof = read_float_attr(path, "z0")* 1.e3;
 
         vxc = read_float_attr(path, "Vx_halo");
         vyc = read_float_attr(path, "Vy_halo");
@@ -258,9 +258,9 @@ int main(int argc, char **argv){
 
         for (int i = 0; i < Npart; i++) {
 
-            x_part[i] = (x_part[i] - xc_fof)* 1.e3;
-            y_part[i] = (y_part[i] - yc_fof)* 1.e3;
-            z_part[i] = (z_part[i] - zc_fof)* 1.e3;
+            x_part[i] = (x_part[i]* 1.e3 - xc_fof);
+            y_part[i] = (y_part[i]* 1.e3 - yc_fof);
+            z_part[i] = (z_part[i]* 1.e3 - zc_fof);
 
         }
 
