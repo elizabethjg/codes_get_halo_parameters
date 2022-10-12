@@ -67,6 +67,7 @@ float *read_dataset(string path, string dset_name){
         H5Sclose(dspace_id);
 
         result = (float *) malloc(nobjects * sizeof(H5T_NATIVE_FLOAT));
+        cout << "entro" << endl;
         cout << result << endl;
 
         H5Dread(dataset_id, H5T_NATIVE_FLOAT, H5S_ALL, H5S_ALL, H5P_DEFAULT, result);
