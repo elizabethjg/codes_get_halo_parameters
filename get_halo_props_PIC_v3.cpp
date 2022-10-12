@@ -280,14 +280,16 @@ int main(int argc, char **argv){
         if(Npart > 0){
 
             // COMPUTE HALO REDSHIFT
-            z_halo = 0;
-            get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
+            // z_halo = 0;
+            // get_z(xc_fof, yc_fof, zc_fof, z_vec, Dc_vec, &z_halo);
             a_t = 1./(1.+ z_halo);
 
             // COMPUTE KINETIC AND POTENTIAL ENERGIES
             EKin = 0.;
             EPot = 0.;
             halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, mp, &EPot, &EKin);
+            cout << "EKin :" << EKin << endl;
+            cout << "EPot :" << EPot << endl;
 
             // RECENTER THE HALO
             r_max = 0.;
@@ -296,6 +298,9 @@ int main(int argc, char **argv){
             zc = 0.;
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
+            cout << "xc :" << xc << endl;
+            cout << "yc :" << yc << endl;
+            cout << "zc :" << zc << endl;
 
             //PROJECT POSITION OF PARTICLES
             vector <float> x_part_proj, y_part_proj;
