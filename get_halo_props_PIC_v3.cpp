@@ -202,16 +202,10 @@ int main(int argc, char **argv){
         path = path_prefix + "halo_" + to_string(ihalo) + ".hdf5";
         cout << path << endl;
 
-        if((float(ihalo)/float(nhalos)) > avance){
-
-            avance = avance + 0.02;
-
-        }
-
         //--------------------- read data ---------------------
         //read halo properties
         Npart = read_int_attr(path, "Npart");
-
+        cout << Npart << endl;
         xc_fof = read_float_attr(path, "x0")* 1.e3;
         yc_fof = read_float_attr(path, "y0")* 1.e3;
         zc_fof = read_float_attr(path, "z0")* 1.e3;
@@ -261,7 +255,6 @@ int main(int argc, char **argv){
             x_part[i] = (x_part[i]* 1.e3 - xc_fof);
             y_part[i] = (y_part[i]* 1.e3 - yc_fof);
             z_part[i] = (z_part[i]* 1.e3 - zc_fof);
-            cout << "x_part[i] :" << x_part[i] << endl;
 
         }
 
