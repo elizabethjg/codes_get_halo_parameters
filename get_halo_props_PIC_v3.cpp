@@ -261,6 +261,7 @@ int main(int argc, char **argv){
             x_part[i] = (x_part[i]* 1.e3 - xc_fof);
             y_part[i] = (y_part[i]* 1.e3 - yc_fof);
             z_part[i] = (z_part[i]* 1.e3 - zc_fof);
+            cout << "x_part[i] :" << x_part[i] << endl;
 
         }
 
