@@ -60,7 +60,7 @@ float *read_dataset(string path, string dset_name){
     dataset_id = H5Dopen(file_id, dset_name.c_str(), H5P_DEFAULT);
     dataset_type = H5Dget_type(dataset_id);
     
-    cout << dataset_type << endl;    
+    cout << "dtype" << dataset_type << endl;    
     
     if (H5Tequal(H5T_NATIVE_FLOAT, dataset_type)){
 
