@@ -219,7 +219,6 @@ int main(int argc, char **argv){
         lm = log10(mass);
     
         float *x_part_arr = (float *) read_dataset(path, "X");
-        cout << x_part_arr << endl;
         vector<float> x_part(Npart);
         memcpy(&x_part[0], &x_part_arr[0], Npart * sizeof(float));
         free(x_part_arr);

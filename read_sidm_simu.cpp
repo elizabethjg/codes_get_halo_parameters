@@ -60,7 +60,8 @@ float *read_dataset(string path, string dset_name){
     dataset_id = H5Dopen(file_id, dset_name.c_str(), H5P_DEFAULT);
     dataset_type = H5Dget_type(dataset_id);
     
-    cout << "dtype" << dataset_type << endl;    
+    cout << "dtype: " << dataset_type << endl;    
+    cout << "H5T_NATIVE_FLOAT: " << H5T_NATIVE_FLOAT << endl;    
     
     if (H5Tequal(H5T_NATIVE_FLOAT, dataset_type)){
 
@@ -69,8 +70,6 @@ float *read_dataset(string path, string dset_name){
         H5Sclose(dspace_id);
 
         result = (float *) malloc(nobjects * sizeof(H5T_NATIVE_FLOAT));
-        cout << "entro" << endl;
-        cout << result << endl;
 
         H5Dread(dataset_id, H5T_NATIVE_FLOAT, H5S_ALL, H5S_ALL, H5P_DEFAULT, result);
 
