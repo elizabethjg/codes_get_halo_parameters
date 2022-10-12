@@ -205,7 +205,7 @@ int main(int argc, char **argv){
         //--------------------- read data ---------------------
         //read halo properties
         Npart = read_int_attr(path, "Npart");
-        cout << Npart << endl;
+        
         xc_fof = read_float_attr(path, "x0")* 1.e3;
         yc_fof = read_float_attr(path, "y0")* 1.e3;
         zc_fof = read_float_attr(path, "z0")* 1.e3;
@@ -215,15 +215,16 @@ int main(int argc, char **argv){
         vzc = read_float_attr(path, "Vz_halo");
 
         mass = read_float_attr(path, "Mvir");
-
+        cout << mass << endl;
         // indata.read(buffer, 2*length);
 
         lm = log10(mass);
-
+        cout << lm << endl;
         float *x_part_arr = (float *) read_dataset(path, "X");
         vector<float> x_part(Npart);
         memcpy(&x_part[0], &x_part_arr[0], Npart * sizeof(float));
         free(x_part_arr);
+        cout << x_part[0] << endl;
 
         float *y_part_arr = (float *) read_dataset(path, "Y");
         vector<float> y_part(Npart);
