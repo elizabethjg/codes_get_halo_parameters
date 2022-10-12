@@ -200,11 +200,13 @@ int main(int argc, char **argv){
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
         path = path_prefix + "halo_" + to_string(ihalo) + ".hdf5";
+        cout << path << endl;
+
 
         //--------------------- read data ---------------------
         //read halo properties
         Npart = read_int_attr(path, "Npart");
-        
+
         xc_fof = read_float_attr(path, "x0")* 1.e3;
         yc_fof = read_float_attr(path, "y0")* 1.e3;
         zc_fof = read_float_attr(path, "z0")* 1.e3;
@@ -214,10 +216,11 @@ int main(int argc, char **argv){
         vzc = read_float_attr(path, "Vz_halo");
 
         mass = read_float_attr(path, "Mvir");
+
         // indata.read(buffer, 2*length);
 
         lm = log10(mass);
-    
+
         float *x_part_arr = (float *) read_dataset(path, "X");
         vector<float> x_part(Npart);
         memcpy(&x_part[0], &x_part_arr[0], Npart * sizeof(float));
@@ -280,8 +283,6 @@ int main(int argc, char **argv){
             EKin = 0.;
             EPot = 0.;
             halo_energy(x_part, y_part, z_part, vx_part, vy_part, vz_part, a_t, mp, &EPot, &EKin);
-            cout << "EKin :" << EKin << endl;
-            cout << "EPot :" << EPot << endl;
 
             // RECENTER THE HALO
             r_max = 0.;
@@ -290,9 +291,9 @@ int main(int argc, char **argv){
             zc = 0.;
 
             recenter(xc_fof, yc_fof, zc_fof, x_part, y_part, z_part, &xc, &yc, &zc, &r_max);
-            cout << "xc :" << xc << endl;
-            cout << "yc :" << yc << endl;
-            cout << "zc :" << zc << endl;
+            xc = xc_fof;
+            yc = yc_fof;
+            zc = zc_fof;
 
             //PROJECT POSITION OF PARTICLES
             vector <float> x_part_proj, y_part_proj;
