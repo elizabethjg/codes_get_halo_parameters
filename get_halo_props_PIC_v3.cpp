@@ -200,7 +200,6 @@ int main(int argc, char **argv){
     for (int ihalo = 0; ihalo < nhalos; ihalo++) {
 
         path = path_prefix + "halo_" + to_string(ihalo) + ".hdf5";
-        cout << path << endl;
 
         //--------------------- read data ---------------------
         //read halo properties
@@ -219,12 +218,12 @@ int main(int argc, char **argv){
         // indata.read(buffer, 2*length);
 
         lm = log10(mass);
-        cout << lm << endl;
+    
         float *x_part_arr = (float *) read_dataset(path, "X");
+        cout << x_part_arr << endl;
         vector<float> x_part(Npart);
         memcpy(&x_part[0], &x_part_arr[0], Npart * sizeof(float));
         free(x_part_arr);
-        cout << x_part[0] << endl;
 
         float *y_part_arr = (float *) read_dataset(path, "Y");
         vector<float> y_part(Npart);
