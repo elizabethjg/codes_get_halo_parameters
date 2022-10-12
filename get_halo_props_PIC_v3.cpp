@@ -214,7 +214,6 @@ int main(int argc, char **argv){
         vzc = read_float_attr(path, "Vz_halo");
 
         mass = read_float_attr(path, "Mvir");
-        cout << mass << endl;
         // indata.read(buffer, 2*length);
 
         lm = log10(mass);
