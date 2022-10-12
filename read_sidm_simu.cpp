@@ -56,11 +56,12 @@ float *read_dataset(string path, string dset_name){
     float *result = NULL;
 
     file_id = H5Fopen(path.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
-
+    cout << file_id << endl;
     dataset_id = H5Dopen(file_id, dset_name.c_str(), H5P_DEFAULT);
-
+    cout << dataset_id << endl;
     dataset_type = H5Dget_type(dataset_id);
-
+    cout << dataset_type << endl;
+    
     if (H5Tequal(H5T_NATIVE_FLOAT, dataset_type)){
 
         dspace_id = H5Dget_space(dataset_id);
