@@ -157,3 +157,122 @@ void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_par
     //------------------------------------------------------------------------
 
 }
+
+/*
+// bound = 1 - dismiss
+// SHAPE_ITERATIONS = 10
+// FORCE_RES - preguntar Agus (buscar)
+// r -> radio del halo
+// Despreciar K < U
+
+void calc_shape(struct halo *h, int64_t total_p, int64_t bound) {
+  int64_t i,j,k,l,iter=SHAPE_ITERATIONS, analyze_p=0, a,b,c;
+  float b_to_a, c_to_a, min_r = FORCE_RES*FORCE_RES;
+  double mass_t[3][3], orth[3][3], eig[3]={0},  r=0, dr, dr2, weight=0;
+  h->b_to_a = h->c_to_a = 0;
+  memset(h->A, 0, sizeof(float)*3);
+
+  if (!(h->r>0)) return;
+  
+  min_r *= 1e6 / (h->r*h->r); // fuerza escalada por el radio (epsilon/radio)**2
+  
+  
+  // CUENTA EL NUMERO DE PARTICULAS QUE VA A USAR (despreciar)
+  for (j=0; j<total_p; j++) {
+    if (bound && (po[j].pe < po[j].ke)) continue;
+    analyze_p++; 
+  }
+  
+  if (analyze_p < 3 || !(h->r>0)) return;
+  if (analyze_p < iter) iter = analyze_p;
+  /////////////
+
+
+  //INICIALIZA
+  for (i=0; i<3; i++) {
+    memset(orth[i], 0, sizeof(double)*3);
+    orth[i][i] = 1;
+    eig[i] = (h->r*h->r)*1e-6;
+  }
+
+  // EMPIEZA A ITERAR  
+  for (i=0; i<iter; i++) {
+    
+    // inicializa mass_t (momento de inercia) 
+    for (k=0; k<3; k++) memset(mass_t[k], 0, sizeof(double)*3);
+    weight=0;
+    
+    // recorre las particulas
+    for (j=0; j<total_p; j++) {
+      if (bound && (po[j].pe < po[j].ke)) continue;
+      r=0;
+      for (k=0; k<3; k++) 
+      {        
+        for (dr=0, l=0; l<3; l++) 
+        {
+            dr += orth[k][l]*(po[j].pos[l]-h->pos[l]);
+        }
+        r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
+      }
+      
+      if (r < min_r) r = min_r;
+      
+      if (!(r>0 && r<=1)) continue;
+      
+      double tw = (WEIGHTED_SHAPES) ? 1.0/r : 1.0; // chequea standard o pesado
+      weight +=tw;
+      
+      // CONSTRUYE EL TENSOR      
+      for (k=0; k<3; k++) {
+        dr = po[j].pos[k]-h->pos[k];
+        mass_t[k][k] += dr*dr*tw;
+    
+        for (l=0; l<k; l++) {
+            dr2 = po[j].pos[l]-h->pos[l];
+            mass_t[k][l] += dr2*dr*tw;
+            mass_t[l][k] = mass_t[k][l];
+        }
+      }
+    }
+
+    if (!weight) return; // chequeo (dismiss)
+    
+    for (k=0; k<3; k++) for (l=0; l<3; l++) mass_t[k][l] /= (double)weight;
+    
+    // CALCULA AUTOVALORES Y AUTOVECTORES
+    
+    jacobi_decompose(mass_t, eig, orth);
+    
+    // ordena los autovalores
+    a = 0; b = 1; c = 2;
+    if (eig[1]>eig[0]) { b=0; a=1; }
+    if (eig[2]>eig[b]) { c=b; b=2; }
+    if (eig[b]>eig[a]) { int64_t t=a; a=b; b=t; }
+    
+    if (!eig[a] || !eig[b] || !eig[c]) return; // chequeo
+    
+    b_to_a = sqrt(eig[b]/eig[a]);
+    c_to_a = sqrt(eig[c]/eig[a]);
+    
+    // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
+    
+    if ((fabs(b_to_a-h->b_to_a) < 0.01*h->b_to_a) &&
+	(fabs(c_to_a-h->c_to_a) < 0.01*h->c_to_a)) return;
+    
+    // Pisa los viejos
+    
+    h->b_to_a = (b_to_a > 0) ? b_to_a : 0;
+    h->c_to_a = (c_to_a > 0) ? c_to_a : 0;
+    
+    // Redefine el radio del halo = sqrt(a)
+    
+    r = sqrt(eig[a]);
+    
+    // Guarda un autovector
+    for (k=0; k<3; k++) {
+      h->A[k] = 1e3*r*orth[a][k];
+      eig[k] *= (h->r*h->r*1e-6)/(r*r);
+    }
+  }
+}
+*/
