@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> y_part_proj, \
                         const double a_t, float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
                         float *a2Dr_abs, float *b2Dr_abs, float *a2D_abs, float *b2D_abs){
@@ -158,121 +157,258 @@ void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_par
 
 }
 
-/*
-// bound = 1 - dismiss
-// SHAPE_ITERATIONS = 10
-// FORCE_RES - preguntar Agus (buscar)
-// r -> radio del halo
-// Despreciar K < U
+#define FORCE_RES       3.0 
+#define SHAPE_ITERATION 10
 
-void calc_shape(struct halo *h, int64_t total_p, int64_t bound) {
-  int64_t i,j,k,l,iter=SHAPE_ITERATIONS, analyze_p=0, a,b,c;
-  float b_to_a, c_to_a, min_r = FORCE_RES*FORCE_RES;
-  double mass_t[3][3], orth[3][3], eig[3]={0},  r=0, dr, dr2, weight=0;
-  h->b_to_a = h->c_to_a = 0;
-  memset(h->A, 0, sizeof(float)*3);
+//Algorithm from the Wikipedia entry on Jacobi decomposition
+static void jacobi_decompose(const int NUM_PARAMS, vector<vector<double> > cov_matrix, double *eigenvalues, vector<vector<double> > orth_matrix) {
+  int i,j,k,l;
+  int max_col[NUM_PARAMS];
+  int changed[NUM_PARAMS]; //To keep track of eigenvalues changing
+  int n = NUM_PARAMS;
+  int max_row;
+  int state = 0;
+  double max, c, s, t, u, a;
+  int count = 0;
 
-  if (!(h->r>0)) return;
-  
-  min_r *= 1e6 / (h->r*h->r); // fuerza escalada por el radio (epsilon/radio)**2
-  
-  
-  // CUENTA EL NUMERO DE PARTICULAS QUE VA A USAR (despreciar)
-  for (j=0; j<total_p; j++) {
-    if (bound && (po[j].pe < po[j].ke)) continue;
-    analyze_p++; 
-  }
-  
-  if (analyze_p < 3 || !(h->r>0)) return;
-  if (analyze_p < iter) iter = analyze_p;
-  /////////////
-
-
-  //INICIALIZA
-  for (i=0; i<3; i++) {
-    memset(orth[i], 0, sizeof(double)*3);
-    orth[i][i] = 1;
-    eig[i] = (h->r*h->r)*1e-6;
-  }
-
-  // EMPIEZA A ITERAR  
-  for (i=0; i<iter; i++) {
-    
-    // inicializa mass_t (momento de inercia) 
-    for (k=0; k<3; k++) memset(mass_t[k], 0, sizeof(double)*3);
-    weight=0;
-    
-    // recorre las particulas
-    for (j=0; j<total_p; j++) {
-      if (bound && (po[j].pe < po[j].ke)) continue;
-      r=0;
-      for (k=0; k<3; k++) 
-      {        
-        for (dr=0, l=0; l<3; l++) 
-        {
-            dr += orth[k][l]*(po[j].pos[l]-h->pos[l]);
-        }
-        r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
-      }
-      
-      if (r < min_r) r = min_r;
-      
-      if (!(r>0 && r<=1)) continue;
-      
-      double tw = (WEIGHTED_SHAPES) ? 1.0/r : 1.0; // chequea standard o pesado
-      weight +=tw;
-      
-      // CONSTRUYE EL TENSOR      
-      for (k=0; k<3; k++) {
-        dr = po[j].pos[k]-h->pos[k];
-        mass_t[k][k] += dr*dr*tw;
-    
-        for (l=0; l<k; l++) {
-            dr2 = po[j].pos[l]-h->pos[l];
-            mass_t[k][l] += dr2*dr*tw;
-            mass_t[l][k] = mass_t[k][l];
-        }
+  //Set up the maximum value cache
+  for (i=0; i<n; i++) {
+    max=0;
+    max_col[i] = i+1;
+    for (j=i+1; j<n; j++) {
+      if (fabs(cov_matrix[i][j])>max) {
+        max_col[i] = j;
+      	max = fabs(cov_matrix[i][j]);
       }
     }
+  }
 
-    if (!weight) return; // chequeo (dismiss)
+  //Set up the orthogonal matrix as the identity:
+  for (i=0; i<n; i++)
+    for (j=0; j<n; j++)
+      orth_matrix[i][j] = (i==j) ? 1 : 0;
+
+  //Copy the diagonal values to the eigenvalue array:
+  for (i=0; i<n; i++) {
+    eigenvalues[i] = cov_matrix[i][i];
+    changed[i] = 1;
+    for (j=0; j<n; j++)
+      if (j!=i && cov_matrix[i][j]) break;
+    if (j==n) {
+      state--;
+      changed[i] = 0;
+    }
+  }
+
+  //Sweep time: iterate until the eigenvalues stop changing.
+  state += n;
+  while (state) {
+    count++;
+    //Find the largest nonzero element in the matrix:
+    max = fabs(cov_matrix[0][max_col[0]]);
+    max_row = 0;
+    for (i=1; i<n-1; i++) {
+      if (fabs(cov_matrix[i][max_col[i]])>max) {
+	max = fabs(cov_matrix[i][max_col[i]]);
+	max_row = i;
+      }
+    }
+    k = max_row; l = max_col[k];
+    max = cov_matrix[k][l];
+    if (max==0) break;
+
+    //Calculate the Jacobi rotation matrix
+    //Tan 2phi = 2S_kl / (S_kk - S_ll)
+    a = (eigenvalues[l] - eigenvalues[k]) * 0.5;
+    t = fabsl(a) + sqrtl(max*max + a*a);
+    s = sqrtl(max*max + t*t);
+    c = t/s;
+    s = max/s;
+    t = max*max / t;
+    if (a<0) {
+      s = -s; t = -t;
+    }
+
+    //Update eigenvalues
+#define UPDATE(x,y)							\
+    a = eigenvalues[x];							\
+    eigenvalues[x] += y;						\
+    if (changed[x] && (fabs(y) < 1e-6*fabs(eigenvalues[x]))) { /*Eigenvalue didn't change*/ \
+      changed[x]=0;							\
+      state--;								\
+    } else if (!changed[x] && (fabs(y) > 1e-6*fabs(eigenvalues[x]))) { /*Egval did change*/ \
+      changed[x] = 1;							\
+      state++;								\
+    }
+      
+    UPDATE(k, -t);
+    UPDATE(l, t);
+
+    //Update covariance matrix:
+    cov_matrix[k][l] = 0;
+
+#define ROTATE(m,w,x,y,z,r)  /*Perform a Jacobi rotation*/	\
+      t = m[w][x]; u = m[y][z];					\
+      m[w][x] = t*c - s*u;					\
+      m[y][z] = s*t + c*u;				        \
+      if (r) {							\
+	if (fabs(m[w][x])>fabs(m[w][max_col[w]]))		\
+	  max_col[w] = x;					\
+	if (y < NUM_PARAMS && fabs(m[y][z])>fabs(m[y][max_col[y]])) \
+	  max_col[y] = z;					\
+      }
     
-    for (k=0; k<3; k++) for (l=0; l<3; l++) mass_t[k][l] /= (double)weight;
+
+    for (i=0; i<k; i++) { ROTATE(cov_matrix,i,k,i,l,1); }
+    for (i=k+1; i<l; i++) { ROTATE(cov_matrix,k,i,i,l,1); }
+    for (i=l+1; i<n; i++) { ROTATE(cov_matrix,k,i,l,i,1); }
+    for (i=0; i<n; i++) { ROTATE(orth_matrix,k,i,l,i,0); }
     
-    // CALCULA AUTOVALORES Y AUTOVECTORES
-    
-    jacobi_decompose(mass_t, eig, orth);
-    
-    // ordena los autovalores
-    a = 0; b = 1; c = 2;
-    if (eig[1]>eig[0]) { b=0; a=1; }
-    if (eig[2]>eig[b]) { c=b; b=2; }
-    if (eig[b]>eig[a]) { int64_t t=a; a=b; b=t; }
-    
-    if (!eig[a] || !eig[b] || !eig[c]) return; // chequeo
-    
-    b_to_a = sqrt(eig[b]/eig[a]);
-    c_to_a = sqrt(eig[c]/eig[a]);
-    
-    // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
-    
-    if ((fabs(b_to_a-h->b_to_a) < 0.01*h->b_to_a) &&
-	(fabs(c_to_a-h->c_to_a) < 0.01*h->c_to_a)) return;
-    
-    // Pisa los viejos
-    
-    h->b_to_a = (b_to_a > 0) ? b_to_a : 0;
-    h->c_to_a = (c_to_a > 0) ? c_to_a : 0;
-    
-    // Redefine el radio del halo = sqrt(a)
-    
-    r = sqrt(eig[a]);
-    
-    // Guarda un autovector
-    for (k=0; k<3; k++) {
-      h->A[k] = 1e3*r*orth[a][k];
-      eig[k] *= (h->r*h->r*1e-6)/(r*r);
+#undef ROTATE
+#undef UPDATE
+  }
+
+  // Restore the matrix to its original form:
+  for (k=0; k<n-1; k++) {
+    for (l=k+1; l<n; l++) {
+      cov_matrix[k][l] = cov_matrix[l][k];
     }
   }
 }
-*/
+
+void calculate_3d_shapes_rockstart(\
+                const vector <float> x_part, const vector <float> y_part, const vector <float> z_part, \
+                const double a_t, float *a3D, float *b3D, float *c3D, \
+                float *a3Dr, float *b3Dr, float *c3Dr, \
+                float *a3D_abs, float *b3D_abs, float *c3D_abs, \
+                float *a3Dr_abs, float *b3Dr_abs, float *c3Dr_abs)
+{
+  int Npart = x_part.size();
+  int iter = Npart < SHAPE_ITERATION ? Npart : SHAPE_ITERATION;
+  int WEIGHTED_SHAPES; 
+  int i,j,k,a,b,c;
+  float b_to_a, c_to_a, prev_b_to_a, prev_c_to_a;
+  double Halo_R, r, weight, dr;
+  vector<vector<double>> mass_t(3, vector<double>(3)); 
+  vector<vector<double>> orth(3, vector<double>(3)); 
+  double eig[3]={0};
+  //double mass_t[3][3], orth[3][3];
+
+  Halo_R = 0;
+  for (j=0; j<Npart; j++) 
+  {
+    r = sqrt(pow(x_part[j],2) + pow(y_part[j],2) + pow(z_part[j],2));
+    Halo_R = r > Halo_R ? r : Halo_R;
+  }
+
+  for(WEIGHTED_SHAPES=0; WEIGHTED_SHAPES<=1; WEIGHTED_SHAPES++)
+  {
+
+    //INICIALIZA
+    float min_r = (FORCE_RES*FORCE_RES)*1e6 / (Halo_R*Halo_R);   
+    b_to_a      = c_to_a = 0;
+    prev_b_to_a = prev_c_to_a = 0;
+    for (i=0; i<3; i++) 
+    {
+      for(j=0; j<3; j++) 
+        orth[i][j] = 0;
+      orth[i][i] = 1;
+      eig[i] = (Halo_R*Halo_R)*1e-6;
+    }
+
+    // EMPIEZA A ITERAR  
+    for (i=0; i<iter; i++) 
+    {    
+      // inicializa mass_t (momento de inercia) 
+      weight=0;
+      for (k=0; k<3; k++) 
+        for(j=0; j<3; j++) 
+          mass_t[k][j] = 0;
+  
+      // recorre las particulas
+      for (j=0; j<Npart; j++) 
+      {
+        r = 0;
+        for (k=0; k<3; k++) 
+        {
+          dr = (orth[k][0] * a_t * x_part[j]) + (orth[k][1] * a_t * y_part[j]) + (orth[k][2] * a_t * z_part[j]);
+          r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
+        }      
+        if (r < min_r) r = min_r;
+        
+        if (!(r>0 && r<=1)) continue;
+        
+        double tw = (WEIGHTED_SHAPES) ? 1.0/r : 1.0; // chequea standard o pesado
+
+        mass_t[0][0] += pow(a_t,2) * x_part[j] * x_part[j] * tw;
+        mass_t[0][1] += pow(a_t,2) * x_part[j] * y_part[j] * tw;
+        mass_t[0][2] += pow(a_t,2) * x_part[j] * z_part[j] * tw;
+
+        mass_t[1][0] += pow(a_t,2) * y_part[j] * x_part[j] * tw;
+        mass_t[1][1] += pow(a_t,2) * y_part[j] * y_part[j] * tw;
+        mass_t[1][2] += pow(a_t,2) * y_part[j] * z_part[j] * tw;
+
+        mass_t[2][0] += pow(a_t,2) * z_part[j] * x_part[j] * tw;
+        mass_t[2][1] += pow(a_t,2) * z_part[j] * y_part[j] * tw;
+        mass_t[2][2] += pow(a_t,2) * z_part[j] * z_part[j] * tw;
+        
+        weight +=tw;
+      } // Cierro el numero de particulas
+
+      for(k=0; k<3; k++) 
+        for(j=0; j<3; j++) 
+          mass_t[k][j] /= (double)weight;
+      
+      // CALCULA AUTOVALORES Y AUTOVECTORES
+      jacobi_decompose(3, mass_t, eig, orth);
+      
+      // ordena los autovalores
+      a = 0; b = 1; c = 2;
+      if (eig[1]>eig[0]) { b=0; a=1; }
+      if (eig[2]>eig[b]) { c=b; b=2; }
+      if (eig[b]>eig[a]) { int64_t t=a; a=b; b=t; }
+      
+      // Chequeo si algun autovalor es nulo
+      if(!eig[a] || !eig[b] || !eig[c]) break;
+      
+      b_to_a = sqrt(eig[b]/eig[a]);
+      c_to_a = sqrt(eig[c]/eig[a]);
+      
+      // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
+      if ((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a) && (fabs(c_to_a-prev_c_to_a) < 0.01*prev_c_to_a)) break;
+      
+      // Pisa los viejos
+      prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
+      prev_c_to_a = (c_to_a > 0) ? c_to_a : 0;
+      
+      r = sqrt(eig[a]);
+      
+      // Guarda un autovector
+      for (k=0; k<3; k++) 
+      {
+        if(WEIGHTED_SHAPES)
+        {
+          a3Dr[k] = orth[a][k];
+          b3Dr[k] = orth[b][k];
+          c3Dr[k] = orth[c][k];
+        }else{
+          a3D[k]  = orth[a][k];
+          b3D[k]  = orth[b][k];
+          c3D[k]  = orth[c][k];
+        }
+        eig[k] *= (Halo_R*Halo_R*1e-6)/(r*r);
+      }
+
+      if(WEIGHTED_SHAPES)
+      {
+        *a3D_abs  = sqrt(eig[a]);
+        *b3D_abs  = sqrt(eig[b]);
+        *c3D_abs  = sqrt(eig[c]);
+      }else{
+        *a3Dr_abs = sqrt(eig[a]);
+        *b3Dr_abs = sqrt(eig[b]);
+        *c3Dr_abs = sqrt(eig[c]);
+      }
+    } // Cierra la iteracion
+  }
+}
