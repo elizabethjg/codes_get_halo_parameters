@@ -16,4 +16,11 @@ void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_par
                 float *a3D_abs, float *b3D_abs, float *c3D_abs, \
                 float *a3Dr_abs, float *b3Dr_abs, float *c3Dr_abs);
 
+void calculate_3d_shapes_rockstart(\
+                const vector <float> x_part, const vector <float> y_part, const vector <float> z_part, \
+                const double a_t, float *a3D, float *b3D, float *c3D, \
+                float *a3Dr, float *b3Dr, float *c3Dr, \
+                float *a3D_abs, float *b3D_abs, float *c3D_abs, \
+                float *a3Dr_abs, float *b3Dr_abs, float *c3Dr_abs);
+  
 #endif
