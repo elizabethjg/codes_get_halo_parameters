@@ -301,11 +301,11 @@ int main(int argc, char **argv){
 
             // COMPUTE SEMI-AXIS USING INTERTIAL TENSOR
 
-            calculate_2d_shapes(x_part_proj, y_part_proj, a_t, \
+            calculate_2d_shapes_rockstar(x_part_proj, y_part_proj, a_t, \
                                     a2D, b2D, a2Dr, b2Dr, \
                                     &a2Dr_abs, &b2Dr_abs, &a2D_abs, &b2D_abs);
 
-            calculate_3d_shapes(x_part, y_part, z_part,\
+            calculate_3d_shapes_rockstar(x_part, y_part, z_part,\
                             a_t, a3D, b3D, c3D, \
                             a3Dr, b3Dr, c3Dr, \
                             &a3D_abs, &b3D_abs, &c3D_abs, \

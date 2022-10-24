@@ -276,7 +276,7 @@ static void jacobi_decompose(const int NUM_PARAMS, vector<vector<double> > cov_m
   }
 }
 
-void calculate_3d_shapes_rockstart(\
+void calculate_3d_shapes_rockstar(\
                 const vector <float> x_part, const vector <float> y_part, const vector <float> z_part, \
                 const double a_t, float *a3D, float *b3D, float *c3D, \
                 float *a3Dr, float *b3Dr, float *c3Dr, \
@@ -408,6 +408,126 @@ void calculate_3d_shapes_rockstart(\
         *a3Dr_abs = sqrt(eig[a]);
         *b3Dr_abs = sqrt(eig[b]);
         *c3Dr_abs = sqrt(eig[c]);
+      }
+    } // Cierra la iteracion
+  }
+}
+
+void calculate_2d_shapes_rockstar(const vector <float> x_part_proj, const vector <float> y_part_proj, \
+                        const double a_t, float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
+                        float *a2Dr_abs, float *b2Dr_abs, float *a2D_abs, float *b2D_abs)
+{
+  int Npart = x_part_proj.size();
+  int iter = Npart < SHAPE_ITERATION ? Npart : SHAPE_ITERATION;
+  int WEIGHTED_SHAPES; 
+  int i,j,k,a,b;
+  float b_to_a, prev_b_to_a;
+  double Halo_R, r, weight, dr;
+  vector<vector<double>> mass_t(2, vector<double>(2)); 
+  vector<vector<double>> orth(2, vector<double>(2)); 
+  double eig[2]={0};
+  //double mass_t[2][2], orth[2][2];
+
+  Halo_R = 0;
+  for (j=0; j<Npart; j++) 
+  {
+    r = sqrt(pow(x_part_proj[j],2) + pow(y_part_proj[j],2));
+    Halo_R = r > Halo_R ? r : Halo_R;
+  }
+
+  for(WEIGHTED_SHAPES=0; WEIGHTED_SHAPES<=1; WEIGHTED_SHAPES++)
+  {
+
+    //INICIALIZA
+    float min_r = (FORCE_RES*FORCE_RES)*1e6 / (Halo_R*Halo_R);   
+    b_to_a      = 0;
+    prev_b_to_a = 0;
+    for (i=0; i<2; i++) 
+    {
+      for(j=0; j<2; j++) 
+        orth[i][j] = 0;
+      orth[i][i] = 1;
+      eig[i] = (Halo_R*Halo_R)*1e-6;
+    }
+
+    // EMPIEZA A ITERAR  
+    for (i=0; i<iter; i++) 
+    {    
+      // inicializa mass_t (momento de inercia) 
+      weight=0;
+      for (k=0; k<2; k++) 
+        for(j=0; j<2; j++) 
+          mass_t[k][j] = 0;
+  
+      // recorre las particulas
+      for (j=0; j<Npart; j++) 
+      {
+        r = 0;
+        for (k=0; k<2; k++) 
+        {
+          dr = (orth[k][0] * a_t * x_part_proj[j]) + (orth[k][1] * a_t * y_part_proj[j]);
+          r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
+        }      
+        if (r < min_r) r = min_r;
+        
+        if (!(r>0 && r<=1)) continue;
+        
+        double tw = (WEIGHTED_SHAPES) ? 1.0/r : 1.0; // chequea standard o pesado
+
+        mass_t[0][0] += pow(a_t,2) * x_part_proj[j] * x_part_proj[j] * tw;
+        mass_t[0][1] += pow(a_t,2) * x_part_proj[j] * y_part_proj[j] * tw;
+
+        mass_t[1][0] += pow(a_t,2) * y_part_proj[j] * x_part_proj[j] * tw;
+        mass_t[1][1] += pow(a_t,2) * y_part_proj[j] * y_part_proj[j] * tw;
+        
+        weight +=tw;
+      } // Cierro el numero de particulas
+
+      for(k=0; k<2; k++) 
+        for(j=0; j<2; j++) 
+          mass_t[k][j] /= (double)weight;
+      
+      // CALCULA AUTOVALORES Y AUTOVECTORES
+      jacobi_decompose(2, mass_t, eig, orth);
+      
+      // ordena los autovalores
+      a = 0; b = 1;
+      if (eig[b]>eig[a]) { int64_t t=a; a=b; b=t; }
+      
+      // Chequeo si algun autovalor es nulo
+      if(!eig[a] || !eig[b]) break;
+      
+      b_to_a = sqrt(eig[b]/eig[a]);
+      
+      // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
+      if ((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a)) break;
+      
+      // Pisa los viejos
+      prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
+      
+      r = sqrt(eig[a]);
+      
+      // Guarda un autovector
+      for (k=0; k<2; k++) 
+      {
+        if(WEIGHTED_SHAPES)
+        {
+          a2Dr[k] = orth[a][k];
+          b2Dr[k] = orth[b][k];
+        }else{
+          a2D[k]  = orth[a][k];
+          b2D[k]  = orth[b][k];
+        }
+        eig[k] *= (Halo_R*Halo_R*1e-6)/(r*r);
+      }
+
+      if(WEIGHTED_SHAPES)
+      {
+        *a2D_abs  = sqrt(eig[a]);
+        *b2D_abs  = sqrt(eig[b]);
+      }else{
+        *a2Dr_abs = sqrt(eig[a]);
+        *b2Dr_abs = sqrt(eig[b]);
       }
     } // Cierra la iteracion
   }
