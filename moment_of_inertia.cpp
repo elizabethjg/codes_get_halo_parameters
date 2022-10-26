@@ -17,7 +17,7 @@ void ini_MI_2D(const vector <float> x_part, const vector <float> y_part,\
         double rsq=1.;
 
         if(type=="reduced"){
-            rsq = pow(x_part[i], 2) + pow(y_part[i],2);
+            rsq = (pow(a_t, 2)) * (pow(x_part[i], 2) + pow(y_part[i],2));
         }
 
         MI[0] += (pow(a_t, 2) * x_part[i] * x_part[i] / rsq);
@@ -45,7 +45,7 @@ void ini_MI_3D(const vector <float> x_part, const vector <float> y_part,\
         double rsq=1.;
 
         if(type=="reduced"){
-            rsq = pow(x_part[i],2) + pow(y_part[i],2) + pow(z_part[i],2);
+            rsq = (pow(a_t, 2)) * (pow(x_part[i],2) + pow(y_part[i],2) + pow(z_part[i],2));
         }
 
         MI[0] += pow(a_t,2) * x_part[i] * x_part[i] / rsq;
