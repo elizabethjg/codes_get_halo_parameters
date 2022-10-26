@@ -408,7 +408,7 @@ void calculate_3d_shapes_iterative(\
       }else{ //----- standard MI -----
 
         //initialize moment of inertia
-        ini_MI_3D(tmp_x_part, tmp_y_part, tmp_z_part, a_t, MI_3D, "standard");
+        ini_MI_3D_iterative(tmp_x_part, tmp_y_part, tmp_z_part, tmp_rell, a_t, MI_3D);
 
         //get eigenvalues and eigenvectors of MI using gsl
         M3D = gsl_matrix_view_array (MI_3D, 3, 3);
