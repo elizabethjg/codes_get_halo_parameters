@@ -6,6 +6,10 @@
 using namespace std;
 
 #define SHAPE_ITERATION 10
+#ifdef ROCKSTAR_SHAPE
+  #define NUM_PARAMS_2D 2
+  #define NUM_PARAMS_3D 3
+#endif
 
 void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> y_part_proj, \
                         const double a_t, float *a2D, float *b2D, float *a2Dr, float *b2Dr, \

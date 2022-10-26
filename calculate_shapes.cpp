@@ -320,7 +320,7 @@ void calculate_3d_shapes_iterative(\
   float b_to_a, prev_b_to_a;
   float c_to_a, prev_c_to_a;
   float rscale;
-  double eig[2], orth[2][2];
+  double eig[3], orth[3][3];
 
   for(WEIGHTED_SHAPES=0; WEIGHTED_SHAPES<=1; WEIGHTED_SHAPES++)
   {
@@ -328,9 +328,9 @@ void calculate_3d_shapes_iterative(\
     rscale      = Halo_R;
     b_to_a      = c_to_a = 0;
     prev_b_to_a = prev_c_to_a = 0;
-    for (i=0; i<2; i++) 
+    for (i=0; i<3; i++) 
     {
-      for(j=0; j<2; j++) 
+      for(j=0; j<3; j++) 
         orth[i][j] = 0;
       orth[i][i] = 1;
       eig[i] = 1;
@@ -477,10 +477,6 @@ void calculate_3d_shapes_iterative(\
 }
 
 #else
-
-#define FORCE_RES     3.0 
-#define NUM_PARAMS_2D 2
-#define NUM_PARAMS_3D 3
 
 static void jacobi_decompose_2D(double cov_matrix[][NUM_PARAMS_2D], double *eigenvalues, double orth_matrix[][NUM_PARAMS_2D]) 
 {
@@ -732,7 +728,6 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
   for(WEIGHTED_SHAPES=0; WEIGHTED_SHAPES<=1; WEIGHTED_SHAPES++)
   {
     //INICIALIZA
-    float min_r = (FORCE_RES*FORCE_RES) / (Halo_R*Halo_R);   
     b_to_a      = 0;
     prev_b_to_a = 0;
     for (i=0; i<2; i++) 
@@ -761,7 +756,6 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
           dr = (orth[k][0] * a_t * x_part_proj[j]) + (orth[k][1] * a_t * y_part_proj[j]);
           r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
         }      
-        if (r < min_r) r = min_r;
         
         if (!(r>0 && r<=1)) continue;
         
@@ -845,7 +839,6 @@ void calculate_3d_shapes_iterative(\
   for(WEIGHTED_SHAPES=0; WEIGHTED_SHAPES<=1; WEIGHTED_SHAPES++)
   {
     //INICIALIZA
-    float min_r = (FORCE_RES*FORCE_RES) / (Halo_R*Halo_R);   
     b_to_a      = c_to_a = 0;
     prev_b_to_a = prev_c_to_a = 0;
     for (i=0; i<3; i++) 
@@ -874,7 +867,6 @@ void calculate_3d_shapes_iterative(\
           dr = (orth[k][0] * a_t * x_part[j]) + (orth[k][1] * a_t * y_part[j]) + (orth[k][2] * a_t * z_part[j]);
           r += dr*dr/eig[k]; // (x-x0)**2/rhalo**2
         }      
-        if (r < min_r) r = min_r;
         
         if (!(r>0 && r<=1)) continue;
         

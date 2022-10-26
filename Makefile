@@ -1,3 +1,6 @@
+OPTIONS=
+#OPTIONS += -DROCKSTAR_SHAPE
+
 CC = g++
 CFLAGS += -fopenmp -std=c++20
 LDFLAGS = -lgsl -lgslcblas -lm -lhdf5
@@ -26,10 +29,10 @@ TARGET = get_halo_props_PIC_v3
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(TARGET).cpp $(CFLAGS) $^ $(LDFLAGS) -o $@
+	$(CC) $(TARGET).cpp $(CFLAGS) $(OPTIONS) $^ $(LDFLAGS) -o $@
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(OPTIONS) $< -o $@
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
