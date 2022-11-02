@@ -217,11 +217,11 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
         }
       }
 
+      if(tmp_rell_proj.size() == 0)
+        break;
+ 
       if(WEIGHTED_SHAPES)  //----- reduced MI -----
       {
-
-        //----- reduced MI -----
-
         //initialize moment of inertia 2DMi
         ini_MI_2D_iterative(tmp_x_part_proj, tmp_y_part_proj, tmp_rell_proj, a_t, MI_2D);
 
@@ -234,6 +234,10 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
         //sort eigenvalues and eigenvectors of MI in descending order
         gsl_eigen_symmv_sort (eval2D, evec2D, GSL_EIGEN_SORT_ABS_DESC);
 
+        if(fabs(gsl_vector_get(eval2D, (0))) == 0 ||
+           fabs(gsl_vector_get(eval2D, (1))) == 0)
+          break;
+
         //get normalized eigenvectors from gsl
         a2Dr[0] = gsl_matrix_get(evec2D, (0), (0));
         a2Dr[1] = gsl_matrix_get(evec2D, (1), (0));
@@ -245,6 +249,8 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
         *a2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
         *b2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
         //------------------------------------------------------------------------
+
+        b_to_a = (*b2Dr_abs)/(*a2Dr_abs);
 
       }else{ //----- standard MI -----
 
@@ -260,6 +266,10 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
         //sort eigenvalues and eigenvectors of MI in descending order
         gsl_eigen_symmv_sort (eval2D, evec2D, GSL_EIGEN_SORT_ABS_DESC);
 
+        if(fabs(gsl_vector_get(eval2D, (0))) == 0 ||
+           fabs(gsl_vector_get(eval2D, (1))) == 0)
+          break;
+
         //get normalized eigenvectors from gsl
         a2D[0] = gsl_matrix_get(evec2D, (0), (0));
         a2D[1] = gsl_matrix_get(evec2D, (1), (0));
@@ -271,20 +281,18 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
         *a2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
         *b2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
 
+        b_to_a = (*b2D_abs)/(*a2D_abs);
+
       }
 
       tmp_x_part_proj.clear();
       tmp_y_part_proj.clear();
       tmp_rell_proj.clear();
 
-      b_to_a = sqrt(fabs(gsl_vector_get(eval2D, (1)))/fabs(gsl_vector_get(eval2D, (0))));
- 
       if((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a)) break;
 
-      // Pisa los viejos
       prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
 
-      rscale = sqrt(fabs(gsl_vector_get(eval2D, (0))));
       eig[0] = 1; // Estan al cuadrado
       eig[1] = fabs(gsl_vector_get(eval2D, (1))) / fabs(gsl_vector_get(eval2D, (0)));
 
@@ -373,9 +381,11 @@ void calculate_3d_shapes_iterative(\
         }
       }
 
+      if(tmp_rell.size() == 0)
+        break;
+ 
       if(WEIGHTED_SHAPES)  //----- reduced MI -----
       {
-
         //initialize moment of inertia
         ini_MI_3D_iterative(tmp_x_part, tmp_y_part, tmp_z_part, tmp_rell, a_t, MI_3D);
 
@@ -385,6 +395,11 @@ void calculate_3d_shapes_iterative(\
 
         //sort eigenvalues and eigenvectors of MI in descending order
         gsl_eigen_symmv_sort (eval3D, evec3D, GSL_EIGEN_SORT_ABS_DESC);
+
+        if(fabs(gsl_vector_get(eval3D, (0))) == 0 ||
+           fabs(gsl_vector_get(eval3D, (1))) == 0 ||
+           fabs(gsl_vector_get(eval3D, (2))) == 0 )
+          break;
 
         //get normalized eigenvectors from gsl
         a3Dr[0] = gsl_matrix_get(evec3D, (0), (0));
@@ -403,7 +418,9 @@ void calculate_3d_shapes_iterative(\
         *a3Dr_abs = sqrt(fabs(gsl_vector_get(eval3D, (0))));
         *b3Dr_abs = sqrt(fabs(gsl_vector_get(eval3D, (1))));
         *c3Dr_abs = sqrt(fabs(gsl_vector_get(eval3D, (2))));
-        //------------------------------------------------------------------------
+
+        b_to_a = (*b3Dr_abs)/(*a3Dr_abs);
+        c_to_a = (*c3Dr_abs)/(*a3Dr_abs);
 
       }else{ //----- standard MI -----
 
@@ -416,6 +433,11 @@ void calculate_3d_shapes_iterative(\
 
         //sort eigenvalues and eigenvectors of MI in descending order
         gsl_eigen_symmv_sort (eval3D, evec3D, GSL_EIGEN_SORT_ABS_DESC);
+
+        if(fabs(gsl_vector_get(eval3D, (0))) == 0 ||
+           fabs(gsl_vector_get(eval3D, (1))) == 0 ||
+           fabs(gsl_vector_get(eval3D, (2))) == 0 )
+          break;
 
         //get normalized eigenvectors from gsl
         a3D[0] = gsl_matrix_get(evec3D, (0), (0));
@@ -435,6 +457,8 @@ void calculate_3d_shapes_iterative(\
         *b3D_abs = sqrt(fabs(gsl_vector_get(eval3D, (1))));
         *c3D_abs = sqrt(fabs(gsl_vector_get(eval3D, (2))));
 
+        b_to_a = (*b3D_abs)/(*a3D_abs);
+        c_to_a = (*c3D_abs)/(*a3D_abs);
       }
 
       tmp_x_part.clear();
@@ -442,16 +466,11 @@ void calculate_3d_shapes_iterative(\
       tmp_z_part.clear();
       tmp_rell.clear();
 
-      b_to_a = sqrt(fabs(gsl_vector_get(eval3D, (1)))/fabs(gsl_vector_get(eval3D, (0))));
-      c_to_a = sqrt(fabs(gsl_vector_get(eval3D, (2)))/fabs(gsl_vector_get(eval3D, (0))));
- 
       if((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a) && (fabs(c_to_a-prev_c_to_a) < 0.01*prev_c_to_a)) break;
 
-      // Pisa los viejos
       prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
       prev_c_to_a = (c_to_a > 0) ? c_to_a : 0;
 
-      rscale = sqrt(fabs(gsl_vector_get(eval3D, (0))));
       eig[0] = 1; // Estan al cuadrado
       eig[1] = fabs(gsl_vector_get(eval3D, (1))) / fabs(gsl_vector_get(eval3D, (0)));
       eig[2] = fabs(gsl_vector_get(eval3D, (2))) / fabs(gsl_vector_get(eval3D, (0)));
@@ -789,7 +808,6 @@ void calculate_2d_shapes_iterative(const vector <float> x_part_proj, const vecto
       // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
       if ((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a)) break;
       
-      // Pisa los viejos
       prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
       
       r = sqrt(eig[a]);
@@ -909,7 +927,6 @@ void calculate_3d_shapes_iterative(\
       // TERMINA LA ITERACION SI a/b = 0.01 a/b_prev y los mismo para c/a
       if ((fabs(b_to_a-prev_b_to_a) < 0.01*prev_b_to_a) && (fabs(c_to_a-prev_c_to_a) < 0.01*prev_c_to_a)) break;
       
-      // Pisa los viejos
       prev_b_to_a = (b_to_a > 0) ? b_to_a : 0;
       prev_c_to_a = (c_to_a > 0) ? c_to_a : 0;
       
