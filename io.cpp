@@ -54,6 +54,28 @@ void print_header(ofstream &outdata){
     "a3Drx"   <<delim<< "a3Dry"   <<delim<< "a3Drz"   <<delim<<
     "b3Drx"   <<delim<< "b3Dry"   <<delim<< "b3Drz"   <<delim<<
     "c3Drx"   <<delim<< "c3Dry"   <<delim<< "c3Drz"   <<
+
+    //2D
+    "a2D_it"     <<delim<< "b2D_it"     <<delim<<
+    "a2Dx_it"   <<delim<< "a2Dy_it"   <<delim<<
+    "b2Dx_it"   <<delim<< "b2Dy_it"   <<delim<<
+
+    //2D (reduced)
+    "a2Dr_it"     <<delim<< "b2Dr_it"     <<delim<<
+    "a2Drx_it"   <<delim<< "a2Dry_it"   <<delim<<
+    "b2Drx_it"   <<delim<< "b2Dry_it"   <<delim<<
+
+    //3D
+    "a3D_it"     <<delim<< "b3D_it"     <<delim<< "c3D_it"     <<delim<<
+    "a3Dx_it"   <<delim<< "a3Dy_it"   <<delim<< "a3Dz_it"   <<delim<<
+    "b3Dx_it"   <<delim<< "b3Dy_it"   <<delim<< "b3Dz_it"   <<delim<<
+    "c3Dx_it"   <<delim<< "c3Dy_it"   <<delim<< "c3Dz_it"   <<delim<<
+
+    //3D (reduced)
+    "a3Dr_it"     <<delim<< "b3Dr_it"     <<delim<< "c3Dr_it"     <<delim<<
+    "a3Drx_it"   <<delim<< "a3Dry_it"   <<delim<< "a3Drz_it"   <<delim<<
+    "b3Drx_it"   <<delim<< "b3Dry_it"   <<delim<< "b3Drz_it"   <<delim<<
+    "c3Drx_it"   <<delim<< "c3Dry_it"   <<delim<< "c3Drz_it"   <<
     endl;
     //-------------------------------------------------------
 }
@@ -126,7 +148,12 @@ void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
                 float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
                 float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
                 float a3D_abs, float b3D_abs, float c3D_abs, \
-                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr
+                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr, \
+                float a2D_abs_it, float b2D_abs_it, float a2Dr_abs_it, float b2Dr_abs_it, \
+                float *a2D_it, float *b2D_it, float *a2Dr_it, float *b2Dr_it, \
+                float a3Dr_abs_it, float b3Dr_abs_it, float c3Dr_abs_it, \
+                float a3D_abs_it, float b3D_abs_it, float c3D_abs_it, \
+                float *a3D_it, float *b3D_it, float *c3D_it, float *a3Dr_it, float *b3Dr_it, float *c3Dr_it
                 ){
 
     //delimiter for output
@@ -174,6 +201,28 @@ void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
     a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //46,47,48
     b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //49,50,51
     c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //52,53,54
+
+    //2D
+    a2D_abs_it <<delim<< b2D_abs_it <<delim<<                       //19,20
+    a2D_it[0] <<delim<< a2D_it[1] <<delim<<                         //21,22
+    b2D_it[0] <<delim<< b2D_it[1] <<delim<<                         //23,24
+
+    //2D (reduced)
+    a2Dr_abs_it <<delim<< b2Dr_abs_it <<delim<<                     //25,26
+    a2Dr_it[0] <<delim<< a2Dr_it[1] <<delim<<                       //27,28
+    b2Dr_it[0] <<delim<< b2Dr_it[1] <<delim<<                       //29,30
+
+    //3D
+    a3D_abs_it <<delim<< b3D_abs_it <<delim<< c3D_abs_it <<delim<<     //31,32,33
+    a3D_it[0] <<delim<< a3D_it[1] <<delim<< a3D_it[2] <<delim<<        //34,35,36
+    b3D_it[0] <<delim<< b3D_it[1] <<delim<< b3D_it[2] <<delim<<        //37,38,39
+    c3D_it[0] <<delim<< c3D_it[1] <<delim<< c3D_it[2] <<delim<<        //40,41,42
+
+    //3D (reduced)
+    a3Dr_abs_it <<delim<< b3Dr_abs_it <<delim<< c3Dr_abs_it <<delim<<  //43,44,45
+    a3Dr_it[0] <<delim<< a3Dr_it[1] <<delim<< a3Dr_it[2] <<delim<<     //46,47,48
+    b3Dr_it[0] <<delim<< b3Dr_it[1] <<delim<< b3Dr_it[2] <<delim<<     //49,50,51
+    c3Dr_it[0] <<delim<< c3Dr_it[1] <<delim<< c3Dr_it[2] <<            //52,53,54
 
     endl;
     //-------------------------------------------------------

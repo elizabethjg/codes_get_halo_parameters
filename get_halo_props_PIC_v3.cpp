@@ -171,11 +171,17 @@ int main(int argc, char **argv){
     // and modulus
     float a2D[2], b2D[2], a2Dr[2], b2Dr[2];
     float a2Dr_abs, b2Dr_abs, a2D_abs, b2D_abs;
+    float a2D_it[2], b2D_it[2], a2Dr_it[2], b2Dr_it[2];
+    float a2Dr_abs_it, b2Dr_abs_it, a2D_abs_it, b2D_abs_it;
 
     float a3D[3], b3D[3], c3D[3];
     float a3Dr[3], b3Dr[3], c3Dr[3];
     float a3Dr_abs, b3Dr_abs, c3Dr_abs;
     float a3D_abs, b3D_abs, c3D_abs;
+    float a3D_it[3], b3D_it[3], c3D_it[3];
+    float a3Dr_it[3], b3Dr_it[3], c3Dr_it[3];
+    float a3Dr_abs_it, b3Dr_abs_it, c3Dr_abs_it;
+    float a3D_abs_it, b3D_abs_it, c3D_abs_it;
 
     double a_t = 0.;
     double EKin = 0.;
@@ -300,16 +306,27 @@ int main(int argc, char **argv){
             project(x_part, y_part, z_part, xc, yc, zc, x_part_proj, y_part_proj);
 
 
-            // COMPUTE SEMI-AXIS USING INTERTIAL TENSOR
-            calculate_2d_shapes_iterative(x_part_proj, y_part_proj, a_t, \
+            // COMPUTE SEMI-AXIS USING INERTIAL TENSOR
+            calculate_2d_shapes(x_part_proj, y_part_proj, a_t, \
                                     a2D, b2D, a2Dr, b2Dr, \
-                                    &a2Dr_abs, &b2Dr_abs, &a2D_abs, &b2D_abs, r_max);
+                                    &a2Dr_abs, &b2Dr_abs, &a2D_abs, &b2D_abs);
 
-            calculate_3d_shapes_iterative(x_part, y_part, z_part,\
+            calculate_3d_shapes(x_part, y_part, z_part,\
                             a_t, a3D, b3D, c3D, \
                             a3Dr, b3Dr, c3Dr, \
                             &a3D_abs, &b3D_abs, &c3D_abs, \
-                            &a3Dr_abs, &b3Dr_abs, &c3Dr_abs, r_max);
+                            &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
+
+            // COMPUTE SEMI-AXIS USING INERTIAL TENSOR ITERATIVELY
+            calculate_2d_shapes_iterative(x_part_proj, y_part_proj, a_t, \
+                                    a2D_it, b2D_it, a2Dr_it, b2Dr_it, \
+                                    &a2Dr_abs_it, &b2Dr_abs_it, &a2D_abs_it, &b2D_abs_it, r_max);
+
+            calculate_3d_shapes_iterative(x_part, y_part, z_part,\
+                            a_t, a3D_it, b3D_it, c3D_it, \
+                            a3Dr_it, b3Dr_it, c3Dr_it, \
+                            &a3D_abs_it, &b3D_abs_it, &c3D_abs_it, \
+                            &a3Dr_abs_it, &b3Dr_abs_it, &c3Dr_abs_it, r_max);
 
             //---------------------- angular momentum -------------------------------
 
@@ -338,7 +355,12 @@ int main(int argc, char **argv){
                         a2D, b2D, a2Dr,  b2Dr, \
                         a3Dr_abs, b3Dr_abs, c3Dr_abs, \
                         a3D_abs, b3D_abs, c3D_abs, \
-                        a3D, b3D, c3D, a3Dr, b3Dr, c3Dr);
+                        a3D, b3D, c3D, a3Dr, b3Dr, c3Dr, \
+                        a2D_abs_it, b2D_abs_it, a2Dr_abs_it, b2Dr_abs_it, \
+                        a2D_it, b2D_it, a2Dr_it,  b2Dr_it, \
+                        a3Dr_abs_it, b3Dr_abs_it, c3Dr_abs_it, \
+                        a3D_abs_it, b3D_abs_it, c3D_abs_it, \
+                        a3D_it, b3D_it, c3D_it, a3Dr_it, b3Dr_it, c3Dr_it);
 
             // TRANSFORM COORDINATES
             vector <float> x_rot, y_rot, z_rot;
