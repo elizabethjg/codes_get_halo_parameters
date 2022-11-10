@@ -19,7 +19,12 @@ void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
                 float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
                 float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
                 float a3D_abs, float b3D_abs, float c3D_abs, \
-                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr
+                float *a3D, float *b3D, float *c3D, float *a3Dr, float *b3Dr, float *c3Dr, \
+                float a2D_abs_it, float b2D_abs_it, float a2Dr_abs_it, float b2Dr_abs_it, \
+                float *a2D_it, float *b2D_it, float *a2Dr_it, float *b2Dr_it, \
+                float a3Dr_abs_it, float b3Dr_abs_it, float c3Dr_abs_it, \
+                float a3D_abs_it, float b3D_abs_it, float c3D_abs_it, \
+                float *a3D_it, float *b3D_it, float *c3D_it, float *a3Dr_it, float *b3Dr_it, float *c3Dr_it
                 );
 
 void save_profile(ofstream &outdata_pro, vector <float> ro, int ihalo, float r_max);
