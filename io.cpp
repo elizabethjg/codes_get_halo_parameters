@@ -53,7 +53,7 @@ void print_header(ofstream &outdata){
     "a3Dr"     <<delim<< "b3Dr"     <<delim<< "c3Dr"     <<delim<<
     "a3Drx"   <<delim<< "a3Dry"   <<delim<< "a3Drz"   <<delim<<
     "b3Drx"   <<delim<< "b3Dry"   <<delim<< "b3Drz"   <<delim<<
-    "c3Drx"   <<delim<< "c3Dry"   <<delim<< "c3Drz"   <<
+    "c3Drx"   <<delim<< "c3Dry"   <<delim<< "c3Drz"   <<delim<<
 
     //2D
     "a2D_it"     <<delim<< "b2D_it"     <<delim<<
@@ -200,7 +200,7 @@ void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
     a3Dr_abs <<delim<< b3Dr_abs <<delim<< c3Dr_abs <<delim<<  //43,44,45
     a3Dr[0] <<delim<< a3Dr[1] <<delim<< a3Dr[2] <<delim<<     //46,47,48
     b3Dr[0] <<delim<< b3Dr[1] <<delim<< b3Dr[2] <<delim<<     //49,50,51
-    c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<            //52,53,54
+    c3Dr[0] <<delim<< c3Dr[1] <<delim<< c3Dr[2] <<delim<<     //52,53,54
 
     //2D
     a2D_abs_it <<delim<< b2D_abs_it <<delim<<                       //19,20
