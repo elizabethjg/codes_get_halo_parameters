@@ -16,7 +16,7 @@
 #include "compute_profile.h"
 #include "calculate_shapes.h"
 #include "project_particles.h"
-//#include "save_coordinates.h"
+#include "save_coordinates.h"
 #include "transform_coordinates.h"
 #include "io.h"
 #include "make_z_table.h"
@@ -194,7 +194,7 @@ int main(int argc, char **argv){
         //-----------------------------------------------------
 
 
-        if(Npart > 0.){
+        if(Npart > 1000.){
 
             // COMPUTE HALO REDSHIFT
             double z_halo = 0;
@@ -267,8 +267,8 @@ int main(int argc, char **argv){
                                   x_part_proj, y_part_proj, x2d_rot, y2d_rot,
                                   a3D, b3D, c3D, a2D, b2D);
 
-            //save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
-            //                 x_part_proj, y_part_proj, x2d_rot, y2d_rot);
+            save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
+                             x_part_proj, y_part_proj, x2d_rot, y2d_rot);
 
 
             // COMPUTE DENSITY PROFILE
