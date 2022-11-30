@@ -6,15 +6,18 @@
 
 using namespace std;
 
-void print_header(ofstream &outdata);
+void print_header(ofstream &outdata, int Np);
 
-void print_profile_header(ofstream &outdata_pro);
+void print_profile_header(ofstream &outdata_pro, int Np);
 
 void save_output(ofstream &outdata, int ihalo, int Npart, float mass, \
                 float xc_fof, float yc_fof, float zc_fof, double z_h, float r_max, \
                 float xc, float yc, float zc, \
                 float vxc, float vyc, float vzc, \
-                double *J, double EKin, double EPot, \
+                double *J, double EKin, double EPot
+                );
+
+void save_output_iteration(ofstream &outdata, \
                 float a2D_abs, float b2D_abs, float a2Dr_abs, float b2Dr_abs, \
                 float *a2D, float *b2D, float *a2Dr, float *b2Dr, \
                 float a3Dr_abs, float b3Dr_abs, float c3Dr_abs, \
