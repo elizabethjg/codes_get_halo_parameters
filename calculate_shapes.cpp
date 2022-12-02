@@ -46,9 +46,14 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     b2D[0] = gsl_matrix_get(evec2D, (0), (1));
     b2D[1] = gsl_matrix_get(evec2D, (1), (1));
 
+    *a2D_abs = 0;
+    *b2D_abs = 0;
+
     //get eigenvalues from gsl
     *a2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
     *b2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
+    
+    fprintf(stdout,"%f %f\n", *a2D_abs, *b2D_abs);
 
     //----- reduced MI -----
 
@@ -75,6 +80,10 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     *a2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
     *b2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
     //------------------------------------------------------------------------
+    
+    fprintf(stdout,"%f %f\n", *a2Dr_abs, *b2Dr_abs);
+
+    
 }
 
 void calculate_3d_shapes(const vector <float> x_part, const vector <float> y_part, \
