@@ -278,7 +278,6 @@ int main(int argc, char **argv){
         // indata.read(buffer, 2*length);
         //-----------------------------------------------------
 
-
         if(Npart > 0){
 
             // COMPUTE HALO REDSHIFT
@@ -320,15 +319,60 @@ int main(int argc, char **argv){
             J[1] /= double(Npart);
             J[2] /= double(Npart);
 
+            calculate_3d_shapes(x_part, y_part, z_part,\
+                            a_t, a3D, b3D, c3D, \
+                            a3Dr, b3Dr, c3Dr, \
+                            &a3D_abs, &b3D_abs, &c3D_abs, \
+                            &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
+
+            calculate_3d_shapes_iterative(x_part, y_part, z_part,\
+                            a_t, a3D_it, b3D_it, c3D_it, \
+                            a3Dr_it, b3Dr_it, c3Dr_it, \
+                            &a3D_abs_it, &b3D_abs_it, &c3D_abs_it, \
+                            &a3Dr_abs_it, &b3Dr_abs_it, &c3Dr_abs_it, r_max);
+
             //-----------------------------------------------------------------------
             save_output(outdata, ihalo, Npart, mass, \
                         xc_fof, yc_fof, zc_fof, z_halo, r_max, \
                         xc, yc, zc, \
                         vxc, vyc, vzc, \
-                        J, EKin, EPot);
+                        J, EKin, EPot, \
+                        a3Dr_abs, b3Dr_abs, c3Dr_abs, \
+                        a3D_abs, b3D_abs, c3D_abs, \
+                        a3D, b3D, c3D, a3Dr, b3Dr, c3Dr, \
+                        a3Dr_abs_it, b3Dr_abs_it, c3Dr_abs_it, \
+                        a3D_abs_it, b3D_abs_it, c3D_abs_it, \
+                        a3D_it, b3D_it, c3D_it, a3Dr_it, b3Dr_it, c3Dr_it);
+
 
             // COMPUTE DENSITY PROFILE
             outdata_pro << ihalo << delim << r_max << delim;
+
+            vector <float> x_rot, y_rot, z_rot;
+
+            transform_coordinates_3D(x_part, y_part,z_part, x_rot, y_rot, z_rot, a3D, b3D, c3D);
+
+            // save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
+            //                 x_part_proj, y_part_proj, x2d_rot, y2d_rot);
+
+            // 3D profile
+            ro_r(x_part, y_part, z_part, a_t, NRINGS, r_max, R, ro, 1., 1., 1.);
+
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro << R[k] << delim;
+            }
+
+            for (int k = 0; k < NRINGS; k++) {
+                    outdata_pro << ro[k] << delim;
+            }
+
+            // 3D elliptical profile
+            ro_r(x_rot, y_rot, z_rot, a_t, NRINGS, r_max, R, ro_E, a3D_abs, b3D_abs, c3D_abs);
+
+            for (int k = 0; k < NRINGS-1; k++) {
+                    outdata_pro << ro_E[k] << delim;
+            }
+            outdata_pro << ro_E[NRINGS-1];
 
             for(int iproj=0; iproj<NPROJ; iproj++)
             {
@@ -342,68 +386,29 @@ int main(int argc, char **argv){
                                       a2D, b2D, a2Dr, b2Dr, \
                                       &a2Dr_abs, &b2Dr_abs, &a2D_abs, &b2D_abs);
 
-              calculate_3d_shapes(x_part, y_part, z_part,\
-                              a_t, a3D, b3D, c3D, \
-                              a3Dr, b3Dr, c3Dr, \
-                              &a3D_abs, &b3D_abs, &c3D_abs, \
-                              &a3Dr_abs, &b3Dr_abs, &c3Dr_abs);
-
               // COMPUTE SEMI-AXIS USING INERTIAL TENSOR ITERATIVELY
               calculate_2d_shapes_iterative(x_part_proj, y_part_proj, a_t, \
                                       a2D_it, b2D_it, a2Dr_it, b2Dr_it, \
                                       &a2Dr_abs_it, &b2Dr_abs_it, &a2D_abs_it, &b2D_abs_it, r_max);
 
-              calculate_3d_shapes_iterative(x_part, y_part, z_part,\
-                              a_t, a3D_it, b3D_it, c3D_it, \
-                              a3Dr_it, b3Dr_it, c3Dr_it, \
-                              &a3D_abs_it, &b3D_abs_it, &c3D_abs_it, \
-                              &a3Dr_abs_it, &b3Dr_abs_it, &c3Dr_abs_it, r_max);
-
-
               save_output_iteration(outdata,
                           a2D_abs, b2D_abs, a2Dr_abs, b2Dr_abs, \
-                          a2D, b2D, a2Dr,  b2Dr, \
-                          a3Dr_abs, b3Dr_abs, c3Dr_abs, \
-                          a3D_abs, b3D_abs, c3D_abs, \
-                          a3D, b3D, c3D, a3Dr, b3Dr, c3Dr, \
+                          a2D, b2D, a2Dr, b2Dr, \
                           a2D_abs_it, b2D_abs_it, a2Dr_abs_it, b2Dr_abs_it, \
-                          a2D_it, b2D_it, a2Dr_it,  b2Dr_it, \
-                          a3Dr_abs_it, b3Dr_abs_it, c3Dr_abs_it, \
-                          a3D_abs_it, b3D_abs_it, c3D_abs_it, \
-                          a3D_it, b3D_it, c3D_it, a3Dr_it, b3Dr_it, c3Dr_it);
+                          a2D_it, b2D_it, a2Dr_it,  b2Dr_it);
 
               // TRANSFORM COORDINATES
-              vector <float> x_rot, y_rot, z_rot;
               vector <float> x2d_rot, y2d_rot;
 
-              transform_coordinates(x_part,y_part,z_part, x_rot, y_rot, z_rot,
-                                    x_part_proj, y_part_proj, x2d_rot, y2d_rot,
-                                    a3D, b3D, c3D, a2D, b2D);
+              transform_coordinates_2D(x_part_proj, y_part_proj, x2d_rot, y2d_rot, a2D, b2D);
 
               // save_coordinates(ihalo, x_part, y_part, z_part, x_rot, y_rot, z_rot,
               //                 x_part_proj, y_part_proj, x2d_rot, y2d_rot);
 
-              // 3D profile
-              ro_r(x_part, y_part, z_part, a_t, NRINGS, r_max, R, ro, 1., 1., 1.);
-
-              for (int k = 0; k < NRINGS; k++) {
-                      outdata_pro << R[k] << delim;
-              }
-
-              for (int k = 0; k < NRINGS; k++) {
-                      outdata_pro << ro[k] << delim;
-              }
-
-              // 3D elliptical profile
-              ro_r(x_rot, y_rot, z_rot, a_t, NRINGS, r_max, R, ro_E, a3D_abs, b3D_abs, c3D_abs);
-
-              for (int k = 0; k < NRINGS; k++) {
-                      outdata_pro << ro_E[k] << delim;
-              }
-
               // 2D profile
               Sigma_r(x_part_proj, y_part_proj, a_t, NRINGS, r_max, R, Sigma, 1., 1.);
 
+              outdata_pro << delim;
               for (int k = 0; k < NRINGS; k++) {
                       outdata_pro << Sigma[k] << delim;
               }
@@ -421,17 +426,24 @@ int main(int argc, char **argv){
               zc = yc;
               yc = xc;
               xc = c_swap;
+    
+              for(int k = 0; k < 10; k++)
+                fprintf(stdout,"%d %f %f %f - %f %f\n",iproj,x_part[k],y_part[k],z_part[k],x_part_proj[k],y_part_proj[k]);
 
               vector <float> tmp_swap = z_part;
               z_part.swap(y_part);
               y_part.swap(x_part);
               x_part.swap(tmp_swap);
               tmp_swap.clear();
+
+              for(int k = 0; k <10; k++)
+                fprintf(stdout,"%f %f %f - %f %f\n",x_part[k],y_part[k],z_part[k], a2D_abs, b2D_abs);
+
             }
 
             outdata << endl;
             outdata_pro << endl;
-
+            exit(0);
         }
 
     }//--------------- end loop over halos --------------------

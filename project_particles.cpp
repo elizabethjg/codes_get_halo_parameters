@@ -9,11 +9,11 @@ void project(const vector <float> x_part, const vector <float> y_part,
     int Npart = x_part.size();
     //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
     //get ra & dec of center
-    double ra_center = 0;
+    double ra_center = atan2(xc, yc);
 
-    if(yc > 0){
-        ra_center = atan(xc/yc);
-    }
+    //if(yc > 0){
+        //ra_center = atan(xc/yc);
+    //}
 
     double dec_center = asin(zc/sqrt(xc*xc + yc*yc + zc*zc));
 

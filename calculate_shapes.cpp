@@ -22,6 +22,9 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     //--------------------------- 2D shapes ----------------------------------
     double MI_2D[2*2];
 
+    for(int k = 0; k < 10; k++)
+      fprintf(stdout,"inside %f %f\n",x_part_proj[k],y_part_proj[k]);
+
     //----- standard MI -----
 
     //initialize moment of inertia
