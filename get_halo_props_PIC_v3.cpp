@@ -422,28 +422,17 @@ int main(int argc, char **argv){
 
               outdata_pro << Sigma_E[NRINGS-1];
 
-              float c_swap = zc;
-              zc = yc;
-              yc = xc;
-              xc = c_swap;
-    
-              for(int k = 0; k < 10; k++)
-                fprintf(stdout,"%d %f %f %f - %f %f\n",iproj,x_part[k],y_part[k],z_part[k],x_part_proj[k],y_part_proj[k]);
-
               vector <float> tmp_swap = z_part;
               z_part.swap(y_part);
               y_part.swap(x_part);
               x_part.swap(tmp_swap);
               tmp_swap.clear();
 
-              for(int k = 0; k <10; k++)
-                fprintf(stdout,"%f %f %f - %f %f\n",x_part[k],y_part[k],z_part[k], a2D_abs, b2D_abs);
-
             }
 
             outdata << endl;
             outdata_pro << endl;
-            exit(0);
+            //exit(0);
         }
 
     }//--------------- end loop over halos --------------------

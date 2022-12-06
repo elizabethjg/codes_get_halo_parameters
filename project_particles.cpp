@@ -7,13 +7,14 @@ void project(const vector <float> x_part, const vector <float> y_part,
              vector <float> &x_part_proj, vector <float> &y_part_proj){
 
     int Npart = x_part.size();
+
     //----------- project particles on tangential plain (perpendicular to observers line of sight) -----------
     //get ra & dec of center
-    double ra_center = atan2(xc, yc);
+    double ra_center = 0;
 
-    //if(yc > 0){
-        //ra_center = atan(xc/yc);
-    //}
+    if(yc > 0){
+      ra_center = atan(xc/yc);
+    }
 
     double dec_center = asin(zc/sqrt(xc*xc + yc*yc + zc*zc));
 
@@ -24,8 +25,8 @@ void project(const vector <float> x_part, const vector <float> y_part,
     // double e1z =   0;//not needed
 
     // vector with constant longitude (perpendiculat to los and e1)
-    double e2x = - sin(dec_center) * sin(ra_center);
-    double e2y = - sin(dec_center) * cos(ra_center);
+    double e2x = -sin(dec_center) * sin(ra_center);
+    double e2y = -sin(dec_center) * cos(ra_center);
     double e2z = cos(dec_center);
 
     float xi, yi;
@@ -41,4 +42,4 @@ void project(const vector <float> x_part, const vector <float> y_part,
         y_part_proj.push_back(yi);
     }
   }
-    //-------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------

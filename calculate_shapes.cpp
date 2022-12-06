@@ -22,9 +22,6 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     //--------------------------- 2D shapes ----------------------------------
     double MI_2D[2*2];
 
-    for(int k = 0; k < 10; k++)
-      fprintf(stdout,"inside %f %f\n",x_part_proj[k],y_part_proj[k]);
-
     //----- standard MI -----
 
     //initialize moment of inertia
@@ -46,15 +43,10 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     b2D[0] = gsl_matrix_get(evec2D, (0), (1));
     b2D[1] = gsl_matrix_get(evec2D, (1), (1));
 
-    *a2D_abs = 0;
-    *b2D_abs = 0;
-
     //get eigenvalues from gsl
     *a2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
     *b2D_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
     
-    fprintf(stdout,"%f %f\n", *a2D_abs, *b2D_abs);
-
     //----- reduced MI -----
 
     //initialize moment of inertia 2DMi
@@ -80,9 +72,6 @@ void calculate_2d_shapes(const vector <float> x_part_proj, const vector <float> 
     *a2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (0))));
     *b2Dr_abs = sqrt(fabs(gsl_vector_get(eval2D, (1))));
     //------------------------------------------------------------------------
-    
-    fprintf(stdout,"%f %f\n", *a2Dr_abs, *b2Dr_abs);
-
     
 }
 
