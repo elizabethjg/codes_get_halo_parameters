@@ -432,7 +432,6 @@ int main(int argc, char **argv){
 
             outdata << endl;
             outdata_pro << endl;
-            //exit(0);
         }
 
     }//--------------- end loop over halos --------------------
